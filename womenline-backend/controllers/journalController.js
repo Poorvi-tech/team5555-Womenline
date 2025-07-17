@@ -1,26 +1,22 @@
-// import formatter
-const { successResponse } = require('../utils/responseHandler');
-
-exports.getJournals = (req, res) => {
-  const dummyData = [
-    { id: 1, title: "My First Journal", content: "This is a test." },
-    { id: 2, title: "Second Entry", content: "Still testing!" }
-  ];
-
-  // using formatter:
-  return res.json(successResponse("Fetched journals", dummyData));
-  // not using formatter:
-  // return res.json({ success: true, message: "Fetched journals", data: dummyData });
+exports.getJournals = async (req, res) => {
+  // actual DB fetch can be added here later
+  return res.json({ success: true, message: "Journals fetched", data: [] });
 };
 
-exports.createJournal = (req, res) => {
-  const { title, content } = req.body;
+exports.createJournal = async (req, res) => {
+  const { mood, note, periodDay } = req.body;
+  const userId = req.user.id;
 
-  if (!title || !content) {
-    return res.status(400).json({ success: false, message: "Title and content required" });
+  if (!mood || !note || !userId) {
+    return res.status(400).json({ success: false, message: "Mood, note, and userId are required" });
   }
 
-  const newJournal = { id: Date.now(), title, content };
+  const newJournal = {
+    userId,
+    mood,
+    note,
+    periodDay
+  };
 
-  return res.status(201).json(successResponse("Journal created", newJournal));
+  return res.status(201).json({ success: true, message: "Journal created", data: newJournal });
 };
