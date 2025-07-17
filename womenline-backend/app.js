@@ -3,6 +3,16 @@ const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./config/db'); // MongoDB connection file
 
+const fs = require('fs');
+const path = require('path');
+
+// Ensure 'uploads' folder exists
+const uploadPath = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath);
+}
+
+
 const app = express();
 
 // ✅ Allowed CORS origins
