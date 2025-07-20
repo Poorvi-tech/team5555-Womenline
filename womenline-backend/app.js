@@ -18,7 +18,7 @@ const app = express();
 // ✅ Allowed CORS origins
 const allowedOrigins = [
   'http://localhost:3000', // local frontend
-  'https://yourfrontend.com' // live deployed frontend (replace this)
+  'https://yourfrontend.com' // live deployed frontend 
 ];
 
 // ✅ Secure CORS setup
@@ -44,8 +44,13 @@ connectDB();
 const authRoutes = require('./routes/authRoutes');
 const journalRoutes = require('./routes/journalRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const rewardRoutes = require("./routes/rewardRoutes");
+const maCoinRoutes = require("./routes/maCoinRoutes");
+const pdfRoutes = require('./routes/pdfRoutes');
 
-
+app.use('/api/pdf', pdfRoutes);
+app.use("/api", maCoinRoutes);
+app.use("/api/rewards", rewardRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/journals', journalRoutes);
