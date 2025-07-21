@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 // Register a new user
 exports.registerUser = async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password,role,greenCredits } = req.body;
 
     try {
         // Validation
@@ -17,17 +17,23 @@ exports.registerUser = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
         }
-
         // Create new user
         const newUser = new User({
             username,
             email,
-            password
+            password,
+            role,
+            greenCredits
         });
 
         await newUser.save();
+        const token = jwt.sign(
+            { id: newUser._id, role: newUser.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
 
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({ message: 'User registered successfully' ,token:token});
     } catch (error) {
         console.error('Register error:', error);
         res.status(500).json({ message: 'Server error' });
@@ -37,7 +43,6 @@ exports.registerUser = async (req, res) => {
 // Login user
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
-
     try {
         if (!email || !password) {
             return res.status(400).json({ message: 'Email and password are required' });
