@@ -17,7 +17,7 @@ const app = express();
 
 // ✅ Allowed CORS origins
 const allowedOrigins = [
-  'http://localhost:3000', // local frontend
+  'http://localhost:8000', // local frontend
   'https://yourfrontend.com' // live deployed frontend 
 ];
 
@@ -31,7 +31,8 @@ app.use(cors({
     }
   },
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials:true
 }));
 
 // ✅ Body parser
