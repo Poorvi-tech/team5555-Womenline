@@ -5,7 +5,7 @@ const rewardSchema = new mongoose.Schema({
   description: { type: String },
   cost: { type: Number, required: true },
   imageURL: { type: String },
-  category: { type: String, default: "General" },
+ 
   userId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
