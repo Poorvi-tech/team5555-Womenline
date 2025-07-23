@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const { PeriodLog, Rewards, Journal } = require('./models');
 const connectDB = require('./config/db'); // MongoDB connection file
 
 const fs = require('fs');
