@@ -1,26 +1,16 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+// models/Journal.js
+const mongoose = require('mongoose');
 
-const journalSchema = new Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true
-  },
-  mood: {
-    type: String,
-    enum: ['happy', 'sad', 'angry', 'anxious', 'calm', 'tired', 'excited', 'stressed'],
-    required: true
-  },
-  note: {
-    type: String,
-    required: true
-  },
-  periodDay: {
-    type: String,
-    enum: ['pre-period', 'period-day', 'post-period', 'ovulation', 'none'],
-    default: 'none'
-  }
+const JournalSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User' // Assuming you have a User model
+    },
+    entries: [{
+        type: String,
+        required: true
+    }]
 }, { timestamps: true });
 
-module.exports = mongoose.model("Journal", journalSchema);
+module.exports = mongoose.model('Journal', JournalSchema);
