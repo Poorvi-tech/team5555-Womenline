@@ -1,12 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const { logPeriod, getPeriodLogs } = require('../controllers/periodController');
-const authMiddleware = require('../middleware/authMiddleware');
+const { protect, rolecheck } = require('../middleware/authMiddleware');
 
-//  Now this matches POST /api/period-log
-router.post('/period-log', authMiddleware, logPeriod);
+router.post(
+  '/period-log',
+  protect,
+  rolecheck(['mother', 'caregiver', 'admin','user']),
+  logPeriod
+);
 
-//  This matches GET /api/period-log/:userId
-router.get('/period-log/:userId', authMiddleware, getPeriodLogs);
+router.get(
+  '/period-log/:userId',
+  protect,
+  rolecheck(['mother', 'caregiver', 'admin','user']),
+  getPeriodLogs
+);
 
 module.exports = router;

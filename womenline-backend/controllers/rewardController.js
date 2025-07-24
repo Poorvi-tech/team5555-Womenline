@@ -1,13 +1,18 @@
 const MaCoin = require("../models/MaCoins");
 const User = require("../models/User");
 const calculateCredits = require("../utils/creditCalculator");
+const Reward = require("../models/Reward");
+const { successResponse, errorResponse } = require("../utils/responseHandler");
 
 exports.earnCredits = async (req, res) => {
   try {
     const { userId, activityType, source } = req.body;
 
+    // ✅ Corrected validation message
     if (!userId || !activityType || !source) {
-      return res.status(400).json({ success: false, message: "userId, activityType, and source are required" });
+      return res
+        .status(400)
+        .json(errorResponse("userId, activityType, and source are required"));
     }
 
     const coinsEarned = calculateCredits(activityType);
@@ -28,20 +33,14 @@ exports.earnCredits = async (req, res) => {
 
     await maCoinEntry.save();
 
-    return res.status(200).json({
-      success: true,
-      message: "Credits earned successfully",
-      data: {
-        coinsEarned
-      }
-    });
+    return res.status(200).json(successResponse("Credits earned successfully", {
+      coinsEarned
+    }));
   } catch (error) {
     console.error("Earn Credits Error:", error);
-    return res.status(500).json({ success: false, message: "Server error", error });
+    return res.status(500).json(errorResponse("Server error", error));
   }
 };
-const Reward = require("../models/Reward");
-const { successResponse, errorResponse } = require("../utils/responseHandler");
 
 exports.getRewards = async (req, res) => {
   try {
@@ -51,6 +50,7 @@ exports.getRewards = async (req, res) => {
     return res.status(500).json(errorResponse("Error fetching rewards", error));
   }
 };
+
 // redeem rewards
 exports.redeemReward = async (req, res) => {
   try {
