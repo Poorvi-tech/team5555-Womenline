@@ -7,28 +7,28 @@ const PeriodLogSchema = new mongoose.Schema({
         required: true,
         ref: 'User' // Assuming you have a User model
     },
-    startDate: {
+    startDate: {    // 1
         type: Date,
         required: true
     },
-    endDate: {
+    endDate: {     // 2
         type: Date,
         required: true
     },
-    symptoms: {
+    symptoms: {    // 3
         type: [String],
         default: []
     },
-    mood: {
+    mood: {        // 4
         type: String,
         enum: ['Happy', 'Sad', 'Anxious', 'Angry', 'Neutral'], // Example moods
         required: true
     },
-    notes: {
+    notes: {        // 5
         type: String,
         default: ''
     },
-    cycleLength: {
+    cycleLength: {    // 6
         type: Number,
         required: true
     }

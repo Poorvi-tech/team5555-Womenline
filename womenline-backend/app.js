@@ -49,6 +49,7 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const rewardRoutes = require("./routes/rewardRoutes");
 const maCoinRoutes = require("./routes/maCoinRoutes");
 const pdfRoutes = require('./routes/pdfRoutes');
+const periodRoutes = require('./routes/periodRoutes');
 
 app.use('/api/pdf', pdfRoutes);
 app.use("/api", maCoinRoutes);
@@ -56,6 +57,7 @@ app.use("/api/rewards", rewardRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/journals', journalRoutes);
+app.use('/api', periodRoutes); // Period Tracker routes
 
 // ✅ Test route
 app.get('/', (req, res) => {
