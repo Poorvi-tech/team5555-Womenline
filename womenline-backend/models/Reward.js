@@ -7,19 +7,19 @@ const rewardSchema = new mongoose.Schema({
   imageURL: { type: String },
  
   userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User' // Assuming you have a User model
-    },
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'User',
+  required: false // 🔁 was true
+},
     category: {
         type: String,
         enum: ['Health', 'Mental', 'Supplements'], // Optional categories
         default: null
     },
     points: {
-        type: Number,
-        required: true
-    },
+  type: Number,
+  required: false // 🔁 was true
+},
     redemptionHistory: [{
         userId: {
             type: mongoose.Schema.Types.ObjectId,
