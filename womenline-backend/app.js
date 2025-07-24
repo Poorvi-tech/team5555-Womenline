@@ -58,6 +58,8 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/journals', journalRoutes);
 app.use('/api', periodRoutes); // Period Tracker routes
+app.use("/api", require("./routes/rewardRoutes"));
+
 
 // ✅ Test route
 app.get('/', (req, res) => {

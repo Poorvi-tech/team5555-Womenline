@@ -10,6 +10,7 @@ router.post("/earn-credits", rewardController.earnCredits);
 router.get("/", rewardController.getRewards);
 // post reedem reward
 router.post("/redeem", authMiddleware.protect,authMiddleware.rolecheck(['mother', 'caregiver', 'admin','user']),redeemReward);
+router.get("/user-credits", authMiddleware.protect, rewardController.getUserCredits);
 
 
 module.exports = router;
