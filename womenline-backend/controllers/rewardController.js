@@ -79,3 +79,19 @@ exports.redeemReward = async (req, res) => {
     return res.status(500).json(errorResponse("Failed to redeem reward", error));
   }
 };
+exports.getUserCredits = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await User.findById(userId).select('greenCredits');
+    if (!user) {
+      return res.status(404).json(errorResponse("User not found"));
+    }
+
+    return res.status(200).json(successResponse("User credits fetched", {
+      greenCredits: user.greenCredits
+    }));
+  } catch (error) {
+    return res.status(500).json(errorResponse("Failed to fetch user credits", error));
+  }
+};
