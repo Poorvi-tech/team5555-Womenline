@@ -50,7 +50,9 @@ const rewardRoutes = require("./routes/rewardRoutes");
 const maCoinRoutes = require("./routes/maCoinRoutes");
 const pdfRoutes = require('./routes/pdfRoutes');
 const periodRoutes = require('./routes/periodRoutes');
+const whatsappRoutes = require('./routes/whatsappRoutes');
 
+app.use('/api/whatsapp', whatsappRoutes);
 app.use('/api/pdf', pdfRoutes);
 app.use("/api", maCoinRoutes);
 app.use("/api/rewards", rewardRoutes);
