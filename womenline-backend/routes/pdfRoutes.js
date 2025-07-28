@@ -3,6 +3,8 @@ const router = express.Router();
 const generateSamplePDF = require('../utils/pdfGenerator');
 const Journal = require('../models/Journal');
 const path = require('path');
+const logEvent = require('../utils/logger'); // ✅ Add this line
+
 
 // ✅ 1. SAMPLE DEMO PDF ROUTE
 router.get('/sample', (req, res) => {
@@ -18,6 +20,7 @@ router.get('/sample', (req, res) => {
   generateSamplePDF(dummyData, outputPath);
 
   setTimeout(() => {
+    logEvent("✅ SAMPLE_PDF_READY", "Sample PDF sent successfully");
     res.download(outputPath);
   }, 1000);
 });
@@ -50,6 +53,7 @@ router.get('/export-summary', async (req, res) => {
     generateSamplePDF(dummyData, outputPath);
 
     setTimeout(() => {
+      logEvent("✅ EXPORT_PDF_READY", `User: ${userId} | Entries: ${formattedEntries.length}`);
       res.download(outputPath);
     }, 1000);
   } catch (error) {

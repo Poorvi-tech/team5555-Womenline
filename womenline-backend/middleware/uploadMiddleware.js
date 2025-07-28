@@ -4,6 +4,7 @@ const path = require("path");
 const allowedExtensions = [".jpg", ".png", ".pdf"];
 const allowedMimeTypes = ["image/jpeg", "image/png", "application/pdf"];
 
+// Storage setup
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -14,11 +15,10 @@ const storage = multer.diskStorage({
   }
 });
 
+// File filter
 const fileFilter = function (req, file, cb) {
   const ext = path.extname(file.originalname).toLowerCase();
   const mime = file.mimetype;
-
-  // 🚫 Check for double extension (e.g., "file.jpg.exe")
   const hasDoubleExtension = file.originalname.split('.').length > 2;
 
   if (
@@ -33,11 +33,12 @@ const fileFilter = function (req, file, cb) {
   }
 };
 
+// Export multer instance
 const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
+  storage,
+  fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB limit
+    fileSize: 5 * 1024 * 1024 // 5MB
   }
 });
 

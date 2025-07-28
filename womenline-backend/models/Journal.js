@@ -21,7 +21,11 @@ const JournalSchema = new mongoose.Schema({
   },
   periodDay: {
     type: String
-  }
+  },
+  voiceNote: {
+  type: String, // store file URL or path
+  default: ''
+}
 }, { timestamps: true });
 
 module.exports = mongoose.model('Journal', JournalSchema);

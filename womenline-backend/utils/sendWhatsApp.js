@@ -22,4 +22,6 @@ async function sendWhatsAppMessage(toNumber, message) {
   }
 }
 
-module.exports = sendWhatsAppMessage;
+module.exports = {
+  sendWhatsAppMessage, // 👈 exporting as part of object
+};

@@ -3,6 +3,7 @@ const User = require("../models/User");
 const calculateCredits = require("../utils/creditCalculator");
 const Reward = require("../models/Reward");
 const { successResponse, errorResponse } = require("../utils/responseHandler");
+const logEvent = require("../utils/logger"); // ✅ add this line
 
 exports.earnCredits = async (req, res) => {
   try {
@@ -32,6 +33,9 @@ exports.earnCredits = async (req, res) => {
     });
 
     await maCoinEntry.save();
+
+    // ✅ Log success
+logEvent("EARN_CREDITS", `+${coinsEarned} credits for ${activityType} via ${source}`, userId);
 
     return res.status(200).json(successResponse("Credits earned successfully", {
       coinsEarned
@@ -87,10 +91,12 @@ exports.getUserCredits = async (req, res) => {
     if (!user) {
       return res.status(404).json(errorResponse("User not found"));
     }
+logEvent("FETCH_CREDITS", `User credits fetched`, userId);
 
     return res.status(200).json(successResponse("User credits fetched", {
       greenCredits: user.greenCredits
     }));
+    
   } catch (error) {
     return res.status(500).json(errorResponse("Failed to fetch user credits", error));
   }

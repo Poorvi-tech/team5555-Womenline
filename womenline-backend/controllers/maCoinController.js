@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const MaCoin = require("../models/MaCoins");
 const { successResponse, errorResponse } = require("../utils/responseHandler");
+const logEvent = require("../utils/logger");
 
 exports.earnCredits = async (req, res) => {
   try {
@@ -26,6 +27,7 @@ exports.earnCredits = async (req, res) => {
     });
 
     await newLog.save();
+logEvent("EARN_CREDITS", `User earned ${coins} credits from ${source}`, userId);
 
     return res.status(200).json(successResponse("Credits earned", { greenCredits: user.greenCredits }));
   } catch (error) {
