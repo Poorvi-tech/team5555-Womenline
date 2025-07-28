@@ -1,0 +1,53 @@
+[2025-07-28T10:02:50.448Z] [✅ REGISTERED] [User: anonymous] test4715@example.com
+[2025-07-28T10:02:50.675Z] [🔐 LOGIN_SUCCESS] [User: anonymous] test4715@example.com
+[2025-07-28T10:02:50.744Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: test4715@example.com
+[2025-07-28T10:02:50.810Z] [❌ LOGIN_FAIL] [User: anonymous] Invalid email: invalid@example.com
+[2025-07-28T10:02:51.011Z] [✅ REGISTERED] [User: anonymous] journal9904@test.com
+[2025-07-28T10:02:51.158Z] [JOURNAL_CREATED] [User: 68874aca4d829c13931487b4] New journal entry created
+[2025-07-28T10:02:51.309Z] [JOURNAL_CREATED] [User: 68874aca4d829c13931487b4] New journal entry created
+[2025-07-28T10:02:51.447Z] [FETCH_JOURNALS] [User: 68874aca4d829c13931487b4] Fetched 2 journal entries
+[2025-07-28T10:02:51.686Z] [✅ REGISTERED] [User: anonymous] coin674@test.com
+[2025-07-28T10:02:51.981Z] [EARN_CREDITS] [User: 68874acb4d829c13931487bf] User earned 10 credits from recycled_plastic
+[2025-07-28T10:02:53.078Z] [✅ SAMPLE_PDF_READY] [User: anonymous] Sample PDF sent successfully
+[2025-07-28T10:02:54.291Z] [✅ EXPORT_PDF_READY] [User: anonymous] User: 687905303317650ba386d5be | Entries: 4
+[2025-07-28T10:02:54.542Z] [✅ REGISTERED] [User: anonymous] period9122@test.com
+[2025-07-28T10:02:54.709Z] [PERIOD_LOG_CREATED] [User: 68874ace4d829c13931487c9] New period log added
+[2025-07-28T10:02:54.845Z] [FETCH_PERIOD_LOGS] [User: 68874ace4d829c13931487c9] Fetched 1 period logs
+[2025-07-28T10:02:55.060Z] [✅ REGISTERED] [User: anonymous] reward2015@test.com
+[2025-07-28T10:02:55.219Z] [EARN_CREDITS] [User: 68874ace4d829c13931487d1] +0 credits for challenge via eco_activity
+[2025-07-28T10:02:55.499Z] [FETCH_CREDITS] [User: 68874ace4d829c13931487d1] User credits fetched
+[2025-07-28T10:02:55.583Z] [❗WHATSAPP_MISSING_FIELDS] [User: anonymous] Phone or message not provided
+[2025-07-28T10:03:58.206Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: testuser@example3.com
+[2025-07-28T10:04:03.825Z] [🔐 LOGIN_SUCCESS] [User: anonymous] testuser@example3.com
+[2025-07-28T10:04:24.223Z] [FETCH_JOURNALS] [User: 687905303317650ba386d5be] Fetched 4 journal entries
+[2025-07-28T10:04:42.393Z] [JOURNAL_CREATED] [User: 687905303317650ba386d5be] New journal entry created
+[2025-07-28T10:06:10.905Z] [🔐 LOGIN_SUCCESS] [User: anonymous] testuser@example3.com
+[2025-07-28T10:07:28.197Z] [EARN_CREDITS] [User: 687905303317650ba386d5be] +10 credits for journal-entry via Journal Module
+[2025-07-28T10:08:07.995Z] [✅ SAMPLE_PDF_READY] [User: anonymous] Sample PDF sent successfully
+[2025-07-28T10:08:17.643Z] [PERIOD_LOG_CREATED] [User: 687905303317650ba386d5be] New period log added
+[2025-07-28T10:08:26.377Z] [FETCH_PERIOD_LOGS] [User: 687905303317650ba386d5be] Fetched 9 period logs
+[2025-07-28T10:08:36.900Z] [FETCH_CREDITS] [User: 687905303317650ba386d5be] User credits fetched
+[2025-07-28T10:08:55.152Z] [✅ EXPORT_PDF_READY] [User: anonymous] User: 687905303317650ba386d5be | Entries: 5
+[2025-07-28T10:21:06.033Z] [🔐 LOGIN_SUCCESS] [User: anonymous] testuser@example3.com
+[2025-07-28T10:22:57.016Z] [🔐 LOGIN_SUCCESS] [User: anonymous] testuser@example3.com
+[2025-07-28T10:24:10.221Z] [✅ REGISTERED] [User: anonymous] test4236@example.com
+[2025-07-28T10:24:11.260Z] [🔐 LOGIN_SUCCESS] [User: anonymous] test4236@example.com
+[2025-07-28T10:24:11.399Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: test4236@example.com
+[2025-07-28T10:24:11.547Z] [❌ LOGIN_FAIL] [User: anonymous] Invalid email: invalid@example.com
+[2025-07-28T10:24:12.059Z] [✅ REGISTERED] [User: anonymous] journal6728@test.com
+[2025-07-28T10:24:12.382Z] [JOURNAL_CREATED] [User: 68874fcb798b256ee4401a4b] New journal entry created
+[2025-07-28T10:24:12.673Z] [JOURNAL_CREATED] [User: 68874fcb798b256ee4401a4b] New journal entry created
+[2025-07-28T10:24:12.881Z] [FETCH_JOURNALS] [User: 68874fcb798b256ee4401a4b] Fetched 2 journal entries
+[2025-07-28T10:24:13.390Z] [✅ REGISTERED] [User: anonymous] coin6127@test.com
+[2025-07-28T10:24:13.884Z] [EARN_CREDITS] [User: 68874fcd798b256ee4401a56] User earned 10 credits from recycled_plastic
+[2025-07-28T10:24:15.065Z] [✅ SAMPLE_PDF_READY] [User: anonymous] Sample PDF sent successfully
+[2025-07-28T10:24:16.278Z] [✅ EXPORT_PDF_READY] [User: anonymous] User: 687905303317650ba386d5be | Entries: 5
+[2025-07-28T10:24:16.796Z] [✅ REGISTERED] [User: anonymous] period5471@test.com
+[2025-07-28T10:24:17.077Z] [PERIOD_LOG_CREATED] [User: 68874fd0798b256ee4401a60] New period log added
+[2025-07-28T10:24:17.273Z] [FETCH_PERIOD_LOGS] [User: 68874fd0798b256ee4401a60] Fetched 1 period logs
+[2025-07-28T10:24:17.563Z] [✅ REGISTERED] [User: anonymous] reward6803@test.com
+[2025-07-28T10:24:17.897Z] [EARN_CREDITS] [User: 68874fd1798b256ee4401a68] +0 credits for challenge via eco_activity
+[2025-07-28T10:24:18.074Z] [FETCH_CREDITS] [User: 68874fd1798b256ee4401a68] User credits fetched
+[2025-07-28T10:24:18.165Z] [❗WHATSAPP_MISSING_FIELDS] [User: anonymous] Phone or message not provided
+[2025-07-28T10:37:40.612Z] [🔐 LOGIN_SUCCESS] [User: anonymous] testuser@example3.com
+[2025-07-28T11:32:49.346Z] [🔐 LOGIN_SUCCESS] [User: anonymous] testuser@example3.com

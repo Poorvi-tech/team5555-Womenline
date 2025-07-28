@@ -5,10 +5,14 @@ node_modules/
 .env
 
 # File uploads (PDFs, audio, etc.)
-uploads/
+uploads/*
+!uploads/.gitkeep
+!uploads/voice/
+!uploads/voice/.gitkeep
 
-# Logs
-*.log
+# Logs - allow security.log for testing
+logs/*
+!logs/security.log
 
 # Editor & OS junk
 .vscode/
