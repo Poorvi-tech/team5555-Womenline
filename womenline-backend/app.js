@@ -13,7 +13,13 @@ if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath);
 }
 
+const voicePath = path.join(__dirname, 'uploads/voice');
+if (!fs.existsSync(voicePath)) {
+  fs.mkdirSync(voicePath, { recursive: true });
+}
 
+
+const logEvent = require('./utils/logger'); // ✅ your custom logging
 const app = express();
 
 // ✅ Allowed CORS origins
@@ -51,7 +57,9 @@ const maCoinRoutes = require("./routes/maCoinRoutes");
 const pdfRoutes = require('./routes/pdfRoutes');
 const periodRoutes = require('./routes/periodRoutes');
 const whatsappRoutes = require('./routes/whatsappRoutes');
+const voiceRoutes = require('./routes/voiceRoutes');
 
+app.use('/api/voice', voiceRoutes);
 app.use('/api/whatsapp', whatsappRoutes);
 app.use('/api/pdf', pdfRoutes);
 app.use("/api", maCoinRoutes);
@@ -60,7 +68,6 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/journals', journalRoutes);
 app.use('/api', periodRoutes); // Period Tracker routes
-app.use("/api", require("./routes/rewardRoutes"));
 
 
 // ✅ Test route
@@ -73,3 +80,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// ✅ Export app for testing
+module.exports = app;
+

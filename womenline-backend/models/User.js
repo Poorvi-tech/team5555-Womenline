@@ -19,11 +19,11 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 
-  role: {
-    type: String,
-    enum: ['user', 'admin'],
-    default: 'user',
-  },
+ role: {
+  type: String,
+  enum: ['admin', 'user', 'mother', 'caregiver'], // ✅ Add 'mother' and 'caregiver'
+  default: 'user'
+},
 
   greenCredits: {
     type: Number,
