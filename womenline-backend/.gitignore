@@ -4,19 +4,18 @@ node_modules/
 # Environment variables
 .env
 
-# File uploads (PDFs, audio, etc.)
-uploads/**
-!uploads/
-!uploads/.gitkeep
-!uploads/voice/
-!uploads/voice/.gitkeep
-uploads/voice/*
+# --- Uploads ---
+# Ignore all files inside uploads/voice but keep the folder structure
+/uploads/*
+!/uploads/.gitkeep
+!/uploads/voice/
+/uploads/voice/*
+!/uploads/voice/.gitkeep
 
-# Logs
-logs/**
-!logs/
-!logs/security.log
-logs/security.log.*
+# --- Logs ---
+# Ignore everything in logs but keep security.log only
+/logs/*
+!/logs/security.log
 
 # Editor & OS junk
 .vscode/

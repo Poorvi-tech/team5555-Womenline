@@ -54,17 +54,20 @@ TWILIO_PHONE_NUMBER=your_twilio_number
 
 📁 Folder Structure
 womenline-backend/
-├── controllers/         # Main business logic
-├── models/              # MongoDB models
-├── routes/              # API route handlers
-├── middleware/          # Auth, Role-check, Upload
-├── utils/               # Logger, PDF generator, credit calculator
-├── logs/                # 🔐 Security log file
-├── test/                # Mocha + Chai test files
-├── seeders/             # Reward seeder
-├── uploads/             # Uploaded files (images, voices)
-├── app.js               # Main server entry
-└── .env.example         # Sample env file
+├── controllers/         # Business logic
+├── models/              # Mongoose schemas
+├── routes/              # API routes
+├── middleware/          # Auth, upload, role guards
+├── utils/               # Logger, credit calc, PDF tools
+├── uploads/             # Uploaded files (voice, docs)
+│   └── voice/
+├── logs/                # Security logs
+│   └── security.log
+├── seeders/             # Seeder scripts
+├── test/                # Mocha + Chai tests
+├── test-data.js         # Dummy data for development
+├── app.js               # Main server entry point
+└── .env.example         # Sample env config
 
 🧪 Testing Status
 Module       	Test Status
