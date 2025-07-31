@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon app.js",
     "seed:rewards": "node seeders/rewardSeeder.js",
-    "test": "mocha"
+    "test": "mocha",
+    "generate:pdf": "node scripts/createDummyPDF.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
