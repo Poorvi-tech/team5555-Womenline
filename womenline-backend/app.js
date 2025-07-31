@@ -1,7 +1,7 @@
-const express = require('express');
+﻿const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const { PeriodLog, Rewards, Journal } = require('./models');
+const { PeriodLog, Rewards, Journal, AbuseReport, ForumPost, PdfExport } = require('./models');
 const connectDB = require('./config/db'); // MongoDB connection file
 
 const fs = require('fs');
@@ -54,21 +54,24 @@ const journalRoutes = require('./routes/journalRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const rewardRoutes = require("./routes/rewardRoutes");
 const maCoinRoutes = require("./routes/maCoinRoutes");
-const pdfRoutes = require('./routes/pdfRoutes');
+const exportRoutes = require('./routes/exportRoutes');
 const periodRoutes = require('./routes/periodRoutes');
 const whatsappRoutes = require('./routes/whatsappRoutes');
 const voiceRoutes = require('./routes/voiceRoutes');
+const abuseRoutes = require('./routes/abuseRoutes');
+const forumRoutes = require('./routes/forumRoutes');
 
 app.use('/api/voice', voiceRoutes);
 app.use('/api/whatsapp', whatsappRoutes);
-app.use('/api/pdf', pdfRoutes);
+app.use('/api/pdf', exportRoutes);
 app.use("/api", maCoinRoutes);
 app.use("/api/rewards", rewardRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/journals', journalRoutes);
 app.use('/api', periodRoutes); // Period Tracker routes
-
+app.use('/api/abuse', abuseRoutes);     // For report-abuse endpoints
+app.use('/api/forum', forumRoutes);     // For forum-post endpoint
 
 // ✅ Test route
 app.get('/', (req, res) => {
@@ -83,4 +86,3 @@ app.listen(PORT, () => {
 
 // ✅ Export app for testing
 module.exports = app;
-

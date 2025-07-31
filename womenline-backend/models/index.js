@@ -1,10 +1,10 @@
-// models/index.js
-const PeriodLog = require('./PeriodLog');
-const Rewards = require('./Reward');
-const Journal = require('./Journal');
-
 module.exports = {
-    PeriodLog,
-    Rewards,
-    Journal
+  User: require('./User'),
+  PeriodLog: require('./PeriodLog'),
+  Rewards: require('./Reward'),
+  Journal: require('./Journal'),
+  AbuseReport: require('./AbuseReport'),
+  ForumPost: require('./ForumPost'),
+  PdfExport: require('./PdfExport'),
+  MaCoins: require('./MaCoins')
 };
