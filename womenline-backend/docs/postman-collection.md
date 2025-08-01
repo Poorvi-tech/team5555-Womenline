@@ -136,6 +136,37 @@ Success Response:
 "filePath": "uploads/voice-xyz123.mp3"
 }
 
+🚨 Abuse Reporting (Protected Now)
+🔹 Report Abuse
+URL: /api/abuse/report-abuse
+Method: POST
+Headers:
+Authorization: Bearer <token>
+Body :json
+{
+  "type": "verbal",
+  "description": "Someone shouted in hospital",
+  "location": "Ward 3",
+  "consent": true
+}
+
+🔹 View Abuse Reports (Admin)
+URL: /api/abuse/report-abuse
+Method: GET
+Headers: Authorization: Bearer <admin-token>
+
+💬 Forum Post (Anonymous Allowed)
+🔹 Create Forum Post
+URL: /api/forum/forum-post
+Method: POST
+Body :json
+{
+  "title": "Need support",
+  "content": "I feel very alone",
+  "postedBy": "anonymous"
+}
+
+
 TOKEN REQUIRED (Protected Routes)
 These routes require Authorization header:
 Authorization: Bearer <JWT_TOKEN>

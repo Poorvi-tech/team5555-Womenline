@@ -18,7 +18,9 @@ describe("PDF API", () => {
         expect(res.header["content-type"]).to.equal("application/pdf");
 
         // ✅ Optional: Confirm file was created on disk
-        const filePath = path.join(__dirname, "..", "uploads", "sample-report.pdf");
+        // In pdf.test.js - update path
+const filePath = path.join(__dirname, "..", "sample", "health-summary.pdf");
+
         const fileExists = fs.existsSync(filePath);
         expect(fileExists).to.be.true;
 
