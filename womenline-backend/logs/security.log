@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 [2025-07-30T09:18:26.591Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: testuser@example3.com
 [2025-07-30T09:18:34.220Z] [🔐 LOGIN_SUCCESS] [User: anonymous] testuser@example3.com
 [2025-07-30T09:19:30.891Z] [FETCH_JOURNALS] [User: 687905303317650ba386d5be] Fetched 6 journal entries
@@ -5,3 +7,4 @@
 [2025-07-31T06:11:59.269Z] [🔐 LOGIN_SUCCESS] [User: anonymous] testuser@example3.com
 [2025-07-31T06:12:47.504Z] [JOURNAL_CREATED] [User: 687905303317650ba386d5be] New journal entry created
 [2025-07-31T10:08:05.459Z] [🔐 LOGIN_SUCCESS] [User: anonymous] testuser@example3.com
+>>>>>>> 2b5835cf24a7cddcc91be3c2bc64a55e1678bd26
