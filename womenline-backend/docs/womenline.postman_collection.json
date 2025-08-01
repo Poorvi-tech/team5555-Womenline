@@ -5,7 +5,7 @@
 		"description": "WomenLine – API Collection\n\nThis Postman collection contains all backend API endpoints for the WomenLine project – an AI-powered wellness and safety platform for women.\n\n✨ Key Features Covered:\n\n- User Authentication (JWT-based login/register)\n    \n- Journal logging with optional voice notes\n    \n- Period tracker (log, fetch cycle data)\n    \n- Green Credits (MaCoin) system with redeemable rewards\n    \n- File uploads (e.g., voice notes, images)\n    \n- PDF exports of user summaries\n    \n- WhatsApp integration via Twilio\n    \n- Security audit logging for critical events\n    \n\n🚀 Use the collection to:\n\n- Register & login users\n    \n- Create/view journal and period logs\n    \n- Earn & redeem credits\n    \n- Export user data as PDFs\n    \n- Send WhatsApp notifications\n    \n- Upload files (voice/image)\n    \n\n📎 All protected routes require:  \nAuthorization: Bearer",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "46164744",
-		"_collection_link": "https://poorvi-1004195.postman.co/workspace/af339e28-7482-497f-8880-9cd76efbeffa/collection/46164744-98269faf-6c18-45ac-90d8-de28a44d7cd3?action=share&source=collection_link&creator=46164744"
+		"_collection_link": "https://poorvi-1004195.postman.co/workspace/Poorvi's-Workspace~af339e28-7482-497f-8880-9cd76efbeffa/collection/46164744-98269faf-6c18-45ac-90d8-de28a44d7cd3?action=share&source=collection_link&creator=46164744"
 	},
 	"item": [
 		{
@@ -429,27 +429,6 @@
 			"response": []
 		},
 		{
-			"name": "export-summary",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/pdf/export-summary",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"pdf",
-						"export-summary"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "voice upload",
 			"request": {
 				"method": "POST",
@@ -481,6 +460,111 @@
 						"api",
 						"voice",
 						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "report-abuse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\": \"test abuse\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/abuse/report-abuse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"abuse",
+						"report-abuse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "export-summary",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/pdf/export-summary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pdf",
+						"export-summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forcum",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/forum/forum-post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"forum",
+						"forum-post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "report-abuse",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/abuse/report-abuse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"abuse",
+						"report-abuse"
 					]
 				}
 			},
