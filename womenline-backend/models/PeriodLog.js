@@ -1,37 +1,40 @@
-// models/PeriodLog.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const PeriodLogSchema = new mongoose.Schema({
+// Schema for tracking user's menstrual period logs
+const PeriodLogSchema = new mongoose.Schema(
+  {
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User' // Assuming you have a User model
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User", // Reference to User model
     },
-    startDate: {    // 1
-        type: Date,
-        required: true
+    startDate: {
+      type: Date,
+      required: true, // Period start date
     },
-    endDate: {     // 2
-        type: Date,
-        required: true
+    endDate: {
+      type: Date,
+      required: true, // Period end date
     },
-    symptoms: {    // 3
-        type: [String],
-        default: []
+    symptoms: {
+      type: [String], // List of symptoms (optional)
+      default: [],
     },
-    mood: {        // 4
-        type: String,
-        enum: ['Happy', 'Sad', 'Anxious', 'Angry', 'Neutral'], // Example moods
-        required: true
+    mood: {
+      type: String,
+      enum: ["Happy", "Sad", "Anxious", "Angry", "Neutral"], // Predefined mood options
+      required: true,
     },
-    notes: {        // 5
-        type: String,
-        default: ''
+    notes: {
+      type: String, // Additional notes (optional)
+      default: "",
     },
-    cycleLength: {    // 6
-        type: Number,
-        required: true
-    }
-}, { timestamps: true });
+    cycleLength: {
+      type: Number, // Length of the menstrual cycle in days
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('PeriodLog', PeriodLogSchema);
+module.exports = mongoose.model("PeriodLog", PeriodLogSchema);

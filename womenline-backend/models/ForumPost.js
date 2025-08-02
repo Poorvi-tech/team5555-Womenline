@@ -1,42 +1,46 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
+// Schema for Forum Posts
 const forumPostSchema = new mongoose.Schema({
-    userId: {
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: false, // Optional for anonymous posts
+  },
+  content: {
+    type: String,
+    required: true, // Main post content
+  },
+  tags: {
+    type: [String],
+    required: false, // Optional tags for categorization
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now, // Auto-set creation timestamp
+  },
+  replies: [
+    {
+      userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: false // Optional for anonymous posts
-    },
-    content: {
+        ref: "User",
+        required: false, // Optional for anonymous replie
+      },
+      content: {
         type: String,
-        required: true
-    },
-    tags: {
-        type: [String],
-        required: false
-    },
-    createdAt: {
+        required: true, // Reply content
+      },
+      createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now, // Auto-set reply timestamp
+      },
     },
-    replies: [{
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            required: false
-        },
-        content: {
-            type: String,
-            required: true
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now
-        }
-    }]
+  ],
 });
 
 // Index for querying forum posts by tags
 forumPostSchema.index({ tags: 1 });
 
-const ForumPost = mongoose.model('ForumPost', forumPostSchema);
+// Mongoose model export
+const ForumPost = mongoose.model("ForumPost", forumPostSchema);
 module.exports = ForumPost;

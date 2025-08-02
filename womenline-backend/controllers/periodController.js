@@ -1,9 +1,11 @@
-const PeriodLog = require('../models/PeriodLog');
-const logEvent = require('../utils/logger');
+const PeriodLog = require("../models/PeriodLog");
+const logEvent = require("../utils/logger");
 
+// Log a new period cycle entry
 exports.logPeriod = async (req, res) => {
   try {
-    const { userId, startDate, endDate, symptoms, mood, notes, cycleLength } = req.body; // user details
+    const { userId, startDate, endDate, symptoms, mood, notes, cycleLength } =
+      req.body;
 
     const newLog = new PeriodLog({
       userId,
@@ -12,24 +14,27 @@ exports.logPeriod = async (req, res) => {
       symptoms,
       mood,
       notes,
-      cycleLength
+      cycleLength,
     });
 
     await newLog.save();
-    // ✅ Log the event after saving
-logEvent('PERIOD_LOG_CREATED', `New period log added`, userId);
+
+    logEvent("PERIOD_LOG_CREATED", `New period log added`, userId);
     res.status(201).json({ success: true, data: newLog });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
 
+// Fetch all period logs for a given user
 exports.getPeriodLogs = async (req, res) => {
   try {
     const { userId } = req.params;
+
     const logs = await PeriodLog.find({ userId }).sort({ startDate: -1 });
-    // ✅ Log the fetch event
-logEvent('FETCH_PERIOD_LOGS', `Fetched ${logs.length} period logs`, userId);
+
+    logEvent("FETCH_PERIOD_LOGS", `Fetched ${logs.length} period logs`, userId);
+
     res.status(200).json({ success: true, data: logs });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });

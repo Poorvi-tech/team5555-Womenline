@@ -1,12 +1,12 @@
-// routes/exportRoutes.js
 const express = require('express');
 const router = express.Router();
 const exportController = require('../controllers/exportController');
+const { protect } = require('../middleware/authMiddleware'); // Middleware for protected routes
 
-// ✅ Route to download summary
-router.get('/export-summary', exportController.exportSummary);
+// Export user's journal summary as PDF (Requires Authentication)
+router.get('/export-summary', protect, exportController.exportSummary);
 
-// ✅ NEW Route to download sample
+// Download a sample health summary PDF (Public Access)
 router.get('/sample', exportController.samplePdf);
 
 module.exports = router;

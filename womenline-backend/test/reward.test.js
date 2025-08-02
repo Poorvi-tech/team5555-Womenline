@@ -10,36 +10,35 @@ let token, userId;
 
 describe("Reward API", () => {
   before((done) => {
-  const random = Math.floor(Math.random() * 10000);
-  const user = {
-    username: `rewardUser${random}`,
-    email: `reward${random}@test.com`,
-    password: "test123"
-  };
+    const random = Math.floor(Math.random() * 10000);
+    const user = {
+      username: `rewardUser${random}`,
+      email: `reward${random}@test.com`,
+      password: "test123",
+    };
 
-  chai
-    .request(app)
-    .post("/api/auth/register")
-    .send(user)
-    .end((err, res) => {
-      if (err) return done(err);
-      token = res.body.token;
-      userId = res.body.user?._id || res.body._id || null;
+    chai
+      .request(app)
+      .post("/api/auth/register")
+      .send(user)
+      .end((err, res) => {
+        if (err) return done(err);
+        token = res.body.token;
+        userId = res.body.user?._id || res.body._id || null;
 
-      if (!userId) {
-        return done(new Error("userId not returned from registration"));
-      }
+        if (!userId) {
+          return done(new Error("userId not returned from registration"));
+        }
 
-      done();
-    });
-});
-
+        done();
+      });
+  });
 
   it("should earn green credits via /api/rewards/earn-credits", (done) => {
     const data = {
       userId,
       activityType: "challenge",
-      source: "eco_activity"
+      source: "eco_activity",
     };
 
     chai

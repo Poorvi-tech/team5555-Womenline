@@ -1,31 +1,34 @@
-// models/Journal.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const JournalSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
+// Schema for user journal entries (mood, notes, period tracking, etc.)
+const JournalSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    mood: {
+      type: String,
+      required: true,
+    },
+    note: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
+    periodDay: {
+      type: String,
+    },
+    voiceNote: {
+      type: String, // File path or URL to the voice note
+      default: "",
+    },
   },
-  mood: {
-    type: String,
-    required: true
-  },
-  note: {
-    type: String,
-    required: true
-  },
-  date: {
-    type: Date,
-    required: true
-  },
-  periodDay: {
-    type: String
-  },
-  voiceNote: {
-  type: String, // store file URL or path
-  default: ''
-}
-}, { timestamps: true });
+  { timestamps: true }
+); // Automatically adds createdAt & updatedAt fields
 
-module.exports = mongoose.model('Journal', JournalSchema);
+module.exports = mongoose.model("Journal", JournalSchema);

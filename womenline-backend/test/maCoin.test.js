@@ -14,7 +14,7 @@ describe("MaCoin API", () => {
     const user = {
       username: `coinUser${random}`,
       email: `coin${random}@test.com`,
-      password: "test123"
+      password: "test123",
     };
 
     chai
@@ -31,7 +31,7 @@ describe("MaCoin API", () => {
     const creditData = {
       type: "challenge",
       source: "recycled_plastic",
-      coins: 10
+      coins: 10,
     };
 
     chai
@@ -48,16 +48,15 @@ describe("MaCoin API", () => {
   });
 
   it("should fail if required fields are missing", (done) => {
-  chai
-    .request(app)
-    .post("/api/earn-credits") // ✅ this path must be /api/earn-credits
-    .set("Authorization", `Bearer ${token}`)
-    .send({ type: "challenge" }) // missing fields
-    .end((err, res) => {
-      expect(res).to.have.status(400); // ⛔ fails here
-      expect(res.body.success).to.be.false;
-      done();
-    });
-});
-
+    chai
+      .request(app)
+      .post("/api/earn-credits") // this path must be /api/earn-credits
+      .set("Authorization", `Bearer ${token}`)
+      .send({ type: "challenge" }) // missing fields
+      .end((err, res) => {
+        expect(res).to.have.status(400); // fails here
+        expect(res.body.success).to.be.false;
+        done();
+      });
+  });
 });

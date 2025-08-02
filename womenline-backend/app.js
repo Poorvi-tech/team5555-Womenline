@@ -1,88 +1,104 @@
-﻿const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const { PeriodLog, Rewards, Journal, AbuseReport, ForumPost, PdfExport } = require('./models');
-const connectDB = require('./config/db'); // MongoDB connection file
+﻿// Core Imports
+const express = require("express");
+const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
+require("dotenv").config();
 
-const fs = require('fs');
-const path = require('path');
+// MongoDB Models (Optional Direct Import if Needed)
+const {
+  PeriodLog,
+  Rewards,
+  Journal,
+  AbuseReport,
+  ForumPost,
+  PdfExport,
+} = require("./models");
 
-// Ensure 'uploads' folder exists
-const uploadPath = path.join(__dirname, 'uploads');
+// Database Connection
+const connectDB = require("./config/db");
+
+// Logger Utility
+const logEvent = require("./utils/logger");
+
+// Initialize Express App
+const app = express();
+
+// Folder Setup: Ensure 'uploads' and 'uploads/voice' directories exist
+const uploadPath = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath);
 }
 
-const voicePath = path.join(__dirname, 'uploads/voice');
+const voicePath = path.join(__dirname, "uploads/voice");
 if (!fs.existsSync(voicePath)) {
   fs.mkdirSync(voicePath, { recursive: true });
 }
 
-
-const logEvent = require('./utils/logger'); // ✅ your custom logging
-const app = express();
-
-// ✅ Allowed CORS origins
+//  CORS Configuration (Frontend URLs Whitelisted)
 const allowedOrigins = [
-  'http://localhost:8000', // local frontend
-  'https://yourfrontend.com' // live deployed frontend 
+  "http://localhost:8000", // local frontend
+  "https://yourfrontend.com", // live deployed frontend
 ];
 
-// ✅ Secure CORS setup
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials:true
-}));
+// Secure CORS setup
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 
-// ✅ Body parser
+//  Middleware - Body Parser (JSON Requests)
 app.use(express.json());
 
-// ✅ Connect to MongoDB
+// Connect to MongoDB
 connectDB();
 
-// ✅ Routes
-const authRoutes = require('./routes/authRoutes');
-const journalRoutes = require('./routes/journalRoutes');
-const uploadRoutes = require('./routes/uploadRoutes');
+// API Routes Import
+const authRoutes = require("./routes/authRoutes");
+const journalRoutes = require("./routes/journalRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 const rewardRoutes = require("./routes/rewardRoutes");
 const maCoinRoutes = require("./routes/maCoinRoutes");
-const exportRoutes = require('./routes/exportRoutes');
-const periodRoutes = require('./routes/periodRoutes');
-const whatsappRoutes = require('./routes/whatsappRoutes');
-const voiceRoutes = require('./routes/voiceRoutes');
-const abuseRoutes = require('./routes/abuseRoutes');
-const forumRoutes = require('./routes/forumRoutes');
+const exportRoutes = require("./routes/exportRoutes");
+const periodRoutes = require("./routes/periodRoutes");
+const whatsappRoutes = require("./routes/whatsappRoutes");
+const voiceRoutes = require("./routes/voiceRoutes");
+const abuseRoutes = require("./routes/abuseRoutes");
+const forumRoutes = require("./routes/forumRoutes");
 
-app.use('/api/voice', voiceRoutes);
-app.use('/api/whatsapp', whatsappRoutes);
-app.use('/api/pdf', exportRoutes);
-app.use("/api", maCoinRoutes);
-app.use("/api/rewards", rewardRoutes);
-app.use('/api/upload', uploadRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/journals', journalRoutes);
-app.use('/api', periodRoutes); // Period Tracker routes
-app.use('/api/abuse', abuseRoutes);     // For report-abuse endpoints
-app.use('/api/forum', forumRoutes);     // For forum-post endpoint
+// Route Handlers
+app.use("/api/voice", voiceRoutes); // Voice Upload APIs
+app.use("/api/whatsapp", whatsappRoutes); // WhatsApp APIs
+app.use("/api/pdf", exportRoutes); // PDF Export APIs
+app.use("/api", maCoinRoutes); // MaCoin (Credits) APIs
+app.use("/api/rewards", rewardRoutes); // Rewards API
+app.use("/api/upload", uploadRoutes); // File Upload APIs
+app.use("/api/auth", authRoutes); // Authentication APIs
+app.use("/api/journals", journalRoutes); // Journal APIs
+app.use("/api", periodRoutes); // Period Tracker APIs
+app.use("/api/abuse", abuseRoutes); // Abuse Reporting APIs
+app.use("/api/forum", forumRoutes); // Forum APIs
 
-// ✅ Test route
-app.get('/', (req, res) => {
-  res.send('WomenLine backend is running');
+// Health Check Route
+app.get("/", (req, res) => {
+  res.send("WomenLine backend is running");
 });
 
-// ✅ Start Server
+// Start Express Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// ✅ Export app for testing
+// Export app for Testing Purposes
 module.exports = app;
