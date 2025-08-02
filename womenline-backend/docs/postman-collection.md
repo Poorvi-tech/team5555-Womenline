@@ -1,174 +1,163 @@
-# 🧪 WomenLine – API Collection (Postman Style)
+🧪 WomenLine – API Collection (Postman Ready)
+This collection outlines the WomenLine API Endpoints with structured details for testing & integration. Import into Postman or follow for manual testing.
 
-Below is the structured format of your REST APIs for WomenLine project. You can import these into Postman or test manually using the routes.
-
-## AUTH
-
-### 🔹 Register
-
-- URL: /api/auth/register
-- Method: POST
-- Body:json
-  {
+🔑 AUTHENTICATION
+➡️ Register User
+Method: POST
+Endpoint: /api/auth/register
+Body (JSON):json
+{
   "username": "Poorvi",
   "email": "poorvi@example.com",
   "password": "password123",
   "role": "user"
-  }
-
-🔹 Login
-URL: /api/auth/login
+}
+➡️ Login User
 Method: POST
-Body:json
+Endpoint: /api/auth/login
+Body (JSON):json
 {
-"email": "poorvi@example.com",
-"password": "password123"
+  "email": "poorvi@example.com",
+  "password": "password123"
 }
 
-JOURNAL
-🔹 Create Journal Entry
-URL: /api/journals
+📝 JOURNAL (Voice & Mood)
+➡️ Create Journal Entry
 Method: POST
+Endpoint: /api/journals
 Headers: Authorization: Bearer <token>
-Body:json
+Body (JSON):json
 {
-"mood": "Peaceful",
-"note": "Feeling relaxed",
-"periodDay": "3",
-"date": "2025-07-20",
-"voiceNote": "uploads/voice-abc123.mp3"
+  "mood": "Peaceful",
+  "note": "Feeling relaxed",
+  "periodDay": "3",
+  "date": "2025-07-20",
+  "voiceNote": "uploads/voice-abc123.mp3"
 }
-
-🔹 Fetch All Journals
-URL: /api/journals
+➡️ Fetch All Journals (User-specific)
 Method: GET
+Endpoint: /api/journals
 Headers: Authorization: Bearer <token>
 
-🩸 PERIOD
-🔹 Log Period
-URL: /api/period-log
+🩸 PERIOD TRACKER
+➡️ Log New Period
 Method: POST
-Body:json
+Endpoint: /api/period-log
+Body (JSON):json
 {
-"userId": "USER_ID",
-"startDate": "2025-07-15",
-"endDate": "2025-07-20",
-"symptoms": ["cramps", "bloating"],
-"mood": "Stressed",
-"notes": "Mild pain",
-"cycleLength": 28
+  "userId": "USER_ID",
+  "startDate": "2025-07-15",
+  "endDate": "2025-07-20",
+  "symptoms": ["cramps", "bloating"],
+  "mood": "Stressed",
+  "notes": "Mild pain",
+  "cycleLength": 28
 }
-
-🔹 Get Period Logs
-URL: /api/period/:userId
+➡️ Get User’s Period Logs
 Method: GET
-
-🪙 MACOINS / REWARDS
-🔹 Earn Credits (General)
-URL: /api/rewards/earn-credits
-Method: POST
-Body:json
-{
-"userId": "USER_ID",
-"activityType": "plant_tree",
-"source": "journal"
-}
-
-🔹 Get User Credits
-URL: /api/rewards/user-credits
-
-Method: GET
+Endpoint: /api/period-log/:userId
 Headers: Authorization: Bearer <token>
 
-🔹 Redeem Reward
-URL: /api/rewards/redeem
+🪙 GREEN CREDITS & REWARDS
+➡️ Earn Credits (Activity-Based)
 Method: POST
+Endpoint: /api/rewards/earn-credits
+Body (JSON):json
+{
+  "userId": "USER_ID",
+  "activityType": "journal-entry",
+  "source": "journal"
+}
+➡️ Get User’s Current Credits
+Method: GET
+Endpoint: /api/rewards/user-credits
 Headers: Authorization: Bearer <token>
-Body:json
-{
-"rewardId": "REWARD_ID",
-"cost": 10
-}
-
-🔹 Get Available Rewards
-URL: /api/rewards
-Method: GET
-
-📤 PDF EXPORT
-🔹 Download Sample PDF
-URL: /api/pdf/sample
-Method: GET
-
-🔹 Export Summary from Journal
-URL: /api/pdf/export-summary
-Method: GET
-
-# WHATSAPP
-
-🔹 Send Message
-URL: /api/whatsapp/send-whatsapp
+➡️ Redeem Reward
 Method: POST
-Body:json
-{
-"phone": "+91xxxxxxxxxx",
-"message": "Your Green credits summary"
-}
-
-FILE UPLOAD
-🔹 Upload File (PDF, Image, etc.)
-URL: /api/upload/file
-Method: POST
+Endpoint: /api/rewards/redeem
 Headers: Authorization: Bearer <token>
-Body (Form Data):file: (Choose any .jpg, .png, .pdf file)
-
-🎙️ Voice Note Upload
-🔹 Upload Voice File (MP3, WAV)
-URL: /api/voice/upload
-Method: POST
-Headers:
-Authorization: Bearer <token>
-Body: (Form-data)
-voice: (Choose your .mp3, .wav, or audio file)
-Success Response:
+Body (JSON):json
 {
-"success": true,
-"message": "Voice file uploaded successfully",
-"filePath": "uploads/voice-xyz123.mp3"
+  "rewardId": "REWARD_ID",
+  "cost": 10
 }
+➡️ Get Available Rewards
+Method: GET
+Endpoint: /api/rewards
 
-🚨 Abuse Reporting (Protected Now)
-🔹 Report Abuse
-URL: /api/abuse/report-abuse
+📄 PDF EXPORT
+➡️ Download Sample Health PDF
+Method: GET
+Endpoint: /api/pdf/sample
+➡️ Export Journal Summary PDF
+Method: GET
+Endpoint: /api/pdf/export-summary
+Headers: Authorization: Bearer <token>
+
+📞 WHATSAPP ALERTS
+➡️ Send WhatsApp Message
 Method: POST
-Headers:
-Authorization: Bearer <token>
-Body :json
+Endpoint: /api/whatsapp/send-whatsapp
+Body (JSON):json
+{
+  "phone": "+91xxxxxxxxxx",
+  "message": "Your Green credits summary"
+}
+Headers: Authorization: Bearer <token>
+
+📤 FILE UPLOADS
+➡️ Upload General File (PDF/Image)
+Method: POST
+Endpoint: /api/upload/file
+Headers: Authorization: Bearer <token>
+Body (Form-Data):
+file: (Choose any .jpg, .png, .pdf)
+➡️ Upload Voice Note
+Method: POST
+Endpoint: /api/voice/upload
+Headers: Authorization: Bearer <token>
+Body (Form-Data):
+voiceFile: (Select .mp3 / .wav)
+
+🚨 ABUSE REPORTING (Protected)
+➡️ Report Abuse
+Method: POST
+Endpoint: /api/abuse/report-abuse
+Headers: Authorization: Bearer <token>
+Body (JSON):json
 {
   "type": "verbal",
   "description": "Someone shouted in hospital",
   "location": "Ward 3",
   "consent": true
 }
-
-🔹 View Abuse Reports (Admin)
-URL: /api/abuse/report-abuse
+➡️ View All Abuse Reports (Admin Only)
 Method: GET
+Endpoint: /api/abuse/report-abuse
 Headers: Authorization: Bearer <admin-token>
 
-💬 Forum Post (Anonymous Allowed)
-🔹 Create Forum Post
-URL: /api/forum/forum-post
+💬 FORUM POSTS (Anonymous Allowed)
+➡️ Post Forum Entry
 Method: POST
-Body :json
+Endpoint: /api/forum/forum-post
+Body (JSON):json
 {
   "title": "Need support",
   "content": "I feel very alone",
   "postedBy": "anonymous"
 }
 
+🔒 Token Requirement (Protected Routes)
+All routes except register, login, sample PDF require:
+Headers:Authorization: Bearer <JWT_TOKEN>
 
-TOKEN REQUIRED (Protected Routes)
-These routes require Authorization header:
-Authorization: Bearer <JWT_TOKEN>
-Postman Export
-You can manually recreate this in Postman or export using npm install postman-to-openapi.
+📥 Postman Collection Import Instructions
+Open Postman > Workspace.
+Click Import > Raw Text.
+Paste this structure or use exported .json (Optional).
+Fill Authorization Headers with JWT Token after login.
+
+📤 Export Postman Collection as JSON
+You can also export the live collection using:
+npm install -g postman-to-openapi
+postman-to-openapi womenline.postman_collection.json --output womenline-openapi.yaml

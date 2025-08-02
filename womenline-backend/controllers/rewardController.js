@@ -3,13 +3,13 @@ const User = require("../models/User");
 const calculateCredits = require("../utils/creditCalculator");
 const Reward = require("../models/Reward");
 const { successResponse, errorResponse } = require("../utils/responseHandler");
-const logEvent = require("../utils/logger"); // ✅ add this line
+const logEvent = require("../utils/logger");
 
+// Earn green credits based on activity type & log in MaCoin history
 exports.earnCredits = async (req, res) => {
   try {
     const { userId, activityType, source } = req.body;
 
-    // ✅ Corrected validation message
     if (!userId || !activityType || !source) {
       return res
         .status(400)
@@ -18,34 +18,42 @@ exports.earnCredits = async (req, res) => {
 
     const coinsEarned = calculateCredits(activityType);
 
-    // Update user balance
-    await User.findByIdAndUpdate(userId, { $inc: { greenCredits: coinsEarned } });
+    // Update user's greenCredits balance
+    await User.findByIdAndUpdate(userId, {
+      $inc: { greenCredits: coinsEarned },
+    });
 
-    // Log activity in MaCoin model
+    // Log the activity in MaCoin collection
     const maCoinEntry = new MaCoin({
       userId,
       activityLog: {
         type: activityType,
         source,
-        coins: coinsEarned
+        coins: coinsEarned,
       },
-      amount: coinsEarned
+      amount: coinsEarned,
     });
 
     await maCoinEntry.save();
 
-    // ✅ Log success
-logEvent("EARN_CREDITS", `+${coinsEarned} credits for ${activityType} via ${source}`, userId);
+    logEvent(
+      "EARN_CREDITS",
+      `+${coinsEarned} credits for ${activityType} via ${source}`,
+      userId
+    );
 
-    return res.status(200).json(successResponse("Credits earned successfully", {
-      coinsEarned
-    }));
+    return res.status(200).json(
+      successResponse("Credits earned successfully", {
+        coinsEarned,
+      })
+    );
   } catch (error) {
     console.error("Earn Credits Error:", error);
     return res.status(500).json(errorResponse("Server error", error));
   }
 };
 
+// Fetch available rewards from Reward collection
 exports.getRewards = async (req, res) => {
   try {
     const rewards = await Reward.find();
@@ -55,49 +63,63 @@ exports.getRewards = async (req, res) => {
   }
 };
 
-// redeem rewards
+// Redeem a reward using user’s greenCredits
 exports.redeemReward = async (req, res) => {
   try {
     const userId = req.user.id;
     const { rewardId, cost } = req.body;
 
     if (!rewardId || !cost) {
-      return res.status(400).json(errorResponse("rewardId and cost are required"));
+      return res
+        .status(400)
+        .json(errorResponse("rewardId and cost are required"));
     }
 
     const user = await User.findById(userId);
     if (!user) return res.status(404).json(errorResponse("User not found"));
 
     if (user.greenCredits < cost) {
-      return res.status(400).json(errorResponse("Not enough credits to redeem this reward"));
+      return res
+        .status(400)
+        .json(errorResponse("Not enough credits to redeem this reward"));
     }
 
+    // Deduct credits after redemption
     user.greenCredits -= cost;
     await user.save();
 
-    return res.status(200).json(successResponse("Reward redeemed successfully", {
-      rewardId,
-      remainingCredits: user.greenCredits
-    }));
+    return res.status(200).json(
+      successResponse("Reward redeemed successfully", {
+        rewardId,
+        remainingCredits: user.greenCredits,
+      })
+    );
   } catch (error) {
-    return res.status(500).json(errorResponse("Failed to redeem reward", error));
+    return res
+      .status(500)
+      .json(errorResponse("Failed to redeem reward", error));
   }
 };
+
+// Get user's current greenCredits balance
 exports.getUserCredits = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const user = await User.findById(userId).select('greenCredits');
+    const user = await User.findById(userId).select("greenCredits");
     if (!user) {
       return res.status(404).json(errorResponse("User not found"));
     }
-logEvent("FETCH_CREDITS", `User credits fetched`, userId);
+    logEvent("FETCH_CREDITS", `User credits fetched`, userId);
 
-    return res.status(200).json(successResponse("User credits fetched", {
-      greenCredits: user.greenCredits
-    }));
-    
+    return res.status(200).json(
+      successResponse("User credits fetched", {
+        greenCredits: user.greenCredits,
+      })
+    );
   } catch (error) {
-    return res.status(500).json(errorResponse("Failed to fetch user credits", error));
+    return res
+      .status(500)
+      .json(errorResponse("Failed to fetch user credits", error));
   }
 };

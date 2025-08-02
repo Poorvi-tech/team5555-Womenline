@@ -14,7 +14,7 @@ describe("Period Tracker API", () => {
       username: `periodUser${random}`,
       email: `period${random}@test.com`,
       password: "test123",
-      role: "mother"
+      role: "mother",
     };
 
     chai
@@ -40,7 +40,7 @@ describe("Period Tracker API", () => {
       symptoms: ["cramps", "fatigue"],
       mood: "Sad",
       notes: "First period after delivery",
-      cycleLength: 28
+      cycleLength: 28,
     };
 
     chai
@@ -51,7 +51,12 @@ describe("Period Tracker API", () => {
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.success).to.be.true;
-        expect(res.body.data).to.include.all.keys("userId", "startDate", "endDate", "mood");
+        expect(res.body.data).to.include.all.keys(
+          "userId",
+          "startDate",
+          "endDate",
+          "mood"
+        );
         done();
       });
   });

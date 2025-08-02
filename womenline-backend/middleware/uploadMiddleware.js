@@ -1,13 +1,14 @@
 const multer = require("multer");
 const path = require("path");
 
+// Allowed file extensions and MIME types for validation
 const allowedExtensions = [".jpg", ".png", ".pdf"];
 const allowedMimeTypes = ["image/jpeg", "image/png", "application/pdf"];
 
-// Storage setup
+// Storage configuration: destination & unique filename
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "uploads/"); // Save files in 'uploads/' directory
   },
   filename: function (req, file, cb) {
     const uniqueName = Date.now() + path.extname(file.originalname);
@@ -15,7 +16,7 @@ const storage = multer.diskStorage({
   }
 });
 
-// File filter
+// File filter to validate extension, MIME type, and prevent double extensions
 const fileFilter = function (req, file, cb) {
   const ext = path.extname(file.originalname).toLowerCase();
   const mime = file.mimetype;
@@ -27,18 +28,18 @@ const fileFilter = function (req, file, cb) {
     !file.originalname.includes("..") &&
     !hasDoubleExtension
   ) {
-    cb(null, true);
+    cb(null, true); // Valid file
   } else {
-    cb(new Error("File type not allowed"));
+    cb(new Error("File type not allowed")); // Invalid file
   }
 };
 
-// Export multer instance
+// Multer instance with storage, file filter, and size limit (5MB)
 const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB
+    fileSize: 5 * 1024 * 1024 // 5MB limit
   }
 });
 

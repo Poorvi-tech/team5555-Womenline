@@ -1,24 +1,30 @@
-const jwt = require('jsonwebtoken');
-exports.refertoken =  (req, res) => {
-    const refreshToken = req.cookies.refreshToken; 
+const jwt = require("jsonwebtoken");
+const logEvent = require("../utils/logger");
 
-    if (!refreshToken) {
-        return res.status(401).json({ message: "No refresh token provided" });
+// Controller to handle access token refresh using refreshToken from cookies
+exports.refertoken = (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    logEvent("TOKEN_REFRESH_MISSING", `No refresh token provided`);
+    return res.status(401).json({ message: "No refresh token provided" });
+  }
+
+  // Verify refresh token validity
+  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
+    if (err) {
+      logEvent("TOKEN_REFRESH_FAIL", `Invalid refresh token`);
+      return res.status(403).json({ message: "Invalid refresh token" });
     }
 
-    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
-        if (err) {
-            return res.status(403).json({ message: "Invalid refresh token" });
-        }
+    // Generate new access token (expires in 1 hour)
+    const newAccessToken = jwt.sign(
+      { id: user.id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
-        // If the refresh token is valid, issue a new access token
-        const newAccessToken = jwt.sign(
-            { id: user.id, role: user.role },
-            process.env.JWT_SECRET,
-            { expiresIn: '1h' }
-        );
-
-        // Send the new access token in the response
-        res.json({ accessToken: newAccessToken });
-    });
+    logEvent("TOKEN_REFRESHED", `Access token refreshed`, user.id);
+    res.json({ accessToken: newAccessToken });
+  });
 };
