@@ -1,5 +1,6 @@
 const PeriodLog = require("../models/PeriodLog");
 const logEvent = require("../utils/logger");
+const logAuditTrail = require("../utils/logAuditTrail");
 
 // Log a new period cycle entry
 exports.logPeriod = async (req, res) => {
@@ -19,6 +20,19 @@ exports.logPeriod = async (req, res) => {
 
     await newLog.save();
 
+    // 🔒 Tamper-Proof Audit Logging with Stringified Details
+    await logAuditTrail(
+      "PERIOD_LOG_CREATED",
+      JSON.stringify({
+        startDate,
+        endDate,
+        symptoms,
+        mood,
+        cycleLength,
+      }),
+      userId
+    );
+
     logEvent("PERIOD_LOG_CREATED", `New period log added`, userId);
     res.status(201).json({ success: true, data: newLog });
   } catch (err) {
@@ -32,6 +46,15 @@ exports.getPeriodLogs = async (req, res) => {
     const { userId } = req.params;
 
     const logs = await PeriodLog.find({ userId }).sort({ startDate: -1 });
+
+    // 🔒 Audit log for fetch action with Stringified Details
+    await logAuditTrail(
+      "FETCH_PERIOD_LOGS",
+      JSON.stringify({
+        logCount: logs.length,
+      }),
+      userId
+    );
 
     logEvent("FETCH_PERIOD_LOGS", `Fetched ${logs.length} period logs`, userId);
 

@@ -1,5 +1,6 @@
 const Journal = require("../models/Journal");
 const logEvent = require("../utils/logger");
+const logAuditTrail = require("../utils/logAuditTrail");
 
 // Create a new journal entry
 exports.createJournal = async (req, res) => {
@@ -9,6 +10,11 @@ exports.createJournal = async (req, res) => {
 
   // Validate required fields
   if (!mood || !note || !userId) {
+    await logAuditTrail(
+      "Journal Creation Failed",
+      JSON.stringify({ message: "Missing mood/note/userId" }),
+      userId
+    );
     return res
       .status(400)
       .json({ success: false, message: "Mood, note, and userId are required" });
@@ -21,19 +27,29 @@ exports.createJournal = async (req, res) => {
       mood,
       note,
       periodDay,
-      date: date || new Date(), // Default to current date if not provideduse current date
+      date: date || new Date(),
       voiceNote,
     });
 
     await newJournal.save();
 
     logEvent("JOURNAL_CREATED", "New journal entry created", userId);
+    await logAuditTrail(
+      "Journal Created",
+      JSON.stringify({ mood, note, periodDay, voiceNote }),
+      userId
+    );
 
     return res
       .status(201)
       .json({ success: true, message: "Journal created", data: newJournal });
   } catch (error) {
     console.error("❌ Error creating journal:", error);
+    await logAuditTrail(
+      "Journal Creation Error",
+      JSON.stringify({ error: error.message }),
+      userId
+    );
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
@@ -50,6 +66,11 @@ exports.getJournals = async (req, res) => {
       `Fetched ${journals.length} journal entries`,
       req.user.id
     );
+    await logAuditTrail(
+      "Fetch Journals",
+      JSON.stringify({ count: journals.length }),
+      req.user.id
+    );
 
     return res.json({
       success: true,
@@ -58,6 +79,11 @@ exports.getJournals = async (req, res) => {
     });
   } catch (error) {
     console.error("❌ Error fetching journals:", error);
+    await logAuditTrail(
+      "Fetch Journals Error",
+      JSON.stringify({ error: error.message }),
+      req.user.id
+    );
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };

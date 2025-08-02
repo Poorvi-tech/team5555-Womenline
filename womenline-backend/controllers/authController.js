@@ -2,6 +2,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const logEvent = require("../utils/logger");
+const logAuditTrail = require("../utils/logAuditTrail");
 
 // Controller for user registration
 exports.registerUser = async (req, res) => {
@@ -36,6 +37,11 @@ exports.registerUser = async (req, res) => {
     await newUser.save();
 
     logEvent("✅ REGISTERED", `${newUser.email}`);
+    await logAuditTrail(
+      "User Registration",
+      JSON.stringify({ email: newUser.email, username: newUser.username }),
+      newUser._id
+    );
 
     // Generate JWT token
     const token = jwt.sign(
@@ -88,7 +94,12 @@ exports.loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    logEvent(" LOGIN_SUCCESS", `${user.email}`);
+    logEvent("✅ LOGIN_SUCCESS", `${user.email}`);
+    await logAuditTrail(
+      "User Login",
+      JSON.stringify({ email: user.email }),
+      user._id
+    );
 
     // Generate JWT token
     const token = jwt.sign(

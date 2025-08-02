@@ -2,6 +2,7 @@ const User = require("../models/User");
 const MaCoin = require("../models/MaCoins");
 const { successResponse, errorResponse } = require("../utils/responseHandler");
 const logEvent = require("../utils/logger");
+const logAuditTrail = require("../utils/logAuditTrail");
 
 // Controller to allow a user to earn green credits (MaCoins)
 exports.earnCredits = async (req, res) => {
@@ -32,6 +33,19 @@ exports.earnCredits = async (req, res) => {
     });
 
     await newLog.save();
+
+    // Tamper-Proof Audit Trail Logging
+    await logAuditTrail(
+      "EARN_CREDITS",
+      JSON.stringify({
+        type,
+        source,
+        coins,
+        updatedBalance: user.greenCredits,
+      }),
+      userId
+    );
+
     logEvent(
       "EARN_CREDITS",
       `User earned ${coins} credits from ${source}`,
