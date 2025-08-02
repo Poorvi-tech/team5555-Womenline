@@ -2,22 +2,26 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const forumController = require("../controllers/forumController");
 const jwt = require("jsonwebtoken");
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
+//  Generate Valid ObjectId for dummy user
+const validObjectId = new mongoose.Types.ObjectId();
+
 const app = express();
 app.use(bodyParser.json());
 
 // Middleware to simulate auth
 app.use((req, res, next) => {
-  req.user = { id: "dummyUserId" }; // simulate logged-in user
+  req.user = { id: validObjectId.toString() }; // Simulate valid ObjectId
   next();
 });
 
-// Forum route directly defined here (bypass missing forumRoutes.js)
+// Forum route directly defined here
 app.post("/api/forum", forumController.createForumPost);
 
 describe("💬 Forum API", () => {
@@ -25,7 +29,7 @@ describe("💬 Forum API", () => {
 
   before(() => {
     token = jwt.sign(
-      { id: "dummyUserId" },
+      { id: validObjectId.toString() },
       process.env.JWT_SECRET || "secret",
       { expiresIn: "1h" }
     );

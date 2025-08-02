@@ -9,4 +9,5 @@ module.exports = {
   ForumPost: require("./ForumPost"),
   PdfExport: require("./PdfExport"),
   MaCoins: require("./MaCoins"),
+  AuditLog: require("./AuditLog") 
 };

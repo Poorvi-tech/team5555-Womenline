@@ -4,6 +4,7 @@ const calculateCredits = require("../utils/creditCalculator");
 const Reward = require("../models/Reward");
 const { successResponse, errorResponse } = require("../utils/responseHandler");
 const logEvent = require("../utils/logger");
+const logAuditTrail = require("../utils/logAuditTrail");
 
 // Earn green credits based on activity type & log in MaCoin history
 exports.earnCredits = async (req, res) => {
@@ -42,6 +43,17 @@ exports.earnCredits = async (req, res) => {
       userId
     );
 
+    // 🔒 Audit Trail Logging with stringified details
+    await logAuditTrail(
+      "EARN_CREDITS",
+      JSON.stringify({
+        activityType,
+        source,
+        coinsEarned,
+      }),
+      userId
+    );
+
     return res.status(200).json(
       successResponse("Credits earned successfully", {
         coinsEarned,
@@ -57,6 +69,16 @@ exports.earnCredits = async (req, res) => {
 exports.getRewards = async (req, res) => {
   try {
     const rewards = await Reward.find();
+
+    // 🔒 Audit Trail for Rewards Fetch (Stringified details)
+    await logAuditTrail(
+      "FETCH_REWARDS",
+      JSON.stringify({
+        totalRewards: rewards.length,
+      }),
+      req.user?.id || null
+    );
+
     return res.status(200).json(successResponse("Rewards fetched", rewards));
   } catch (error) {
     return res.status(500).json(errorResponse("Error fetching rewards", error));
@@ -88,6 +110,23 @@ exports.redeemReward = async (req, res) => {
     user.greenCredits -= cost;
     await user.save();
 
+    logEvent(
+      "REDEEM_REWARD",
+      `Reward ${rewardId} redeemed. Cost: ${cost}`,
+      userId
+    );
+
+    // 🔒 Audit Trail Logging (Stringified details)
+    await logAuditTrail(
+      "REDEEM_REWARD",
+      JSON.stringify({
+        rewardId,
+        cost,
+        remainingCredits: user.greenCredits,
+      }),
+      userId
+    );
+
     return res.status(200).json(
       successResponse("Reward redeemed successfully", {
         rewardId,
@@ -111,6 +150,15 @@ exports.getUserCredits = async (req, res) => {
       return res.status(404).json(errorResponse("User not found"));
     }
     logEvent("FETCH_CREDITS", `User credits fetched`, userId);
+
+    // 🔒 Audit Trail Logging (Stringified details)
+    await logAuditTrail(
+      "FETCH_CREDITS",
+      JSON.stringify({
+        greenCredits: user.greenCredits,
+      }),
+      userId
+    );
 
     return res.status(200).json(
       successResponse("User credits fetched", {

@@ -3,6 +3,7 @@ const fs = require("fs");
 const Journal = require("../models/Journal");
 const generateSamplePDF = require("../utils/pdfGenerator");
 const logEvent = require("../utils/logger");
+const logAuditTrail = require("../utils/logAuditTrail");
 
 // Export dynamic Summary PDF generated from user's journal entries
 const exportSummary = async (req, res) => {
@@ -15,6 +16,11 @@ const exportSummary = async (req, res) => {
       logEvent(
         "EXPORT_SUMMARY_FAIL",
         `No journal entries found for user ${userId}`
+      );
+      await logAuditTrail(
+        "PDF Export Failed",
+        JSON.stringify({ message: "No journal entries found", userId }),
+        userId
       );
       return res
         .status(404)
@@ -43,6 +49,14 @@ const exportSummary = async (req, res) => {
       "EXPORT_SUMMARY_SUCCESS",
       `Summary PDF generated for user ${userId}`
     );
+    await logAuditTrail(
+      "PDF Export",
+      JSON.stringify({
+        message: "Summary PDF exported",
+        entryCount: entries.length,
+      }),
+      userId
+    );
 
     // Delay response slightly to ensure PDF file is written
     setTimeout(() => {
@@ -56,27 +70,40 @@ const exportSummary = async (req, res) => {
     }, 1000);
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to export summary",
-        error: error.message,
-      });
+    await logAuditTrail(
+      "PDF Export Error",
+      JSON.stringify({ error: error.message }),
+      req.user?.id || "anonymous"
+    );
+    res.status(500).json({
+      success: false,
+      message: "Failed to export summary",
+      error: error.message,
+    });
   }
 };
 
 // Export static Sample PDF from sample folder
-const samplePdf = (req, res) => {
+const samplePdf = async (req, res) => {
   const filePath = path.join(__dirname, "..", "sample", "health-summary.pdf");
 
   // Check if sample PDF exists
   if (!fs.existsSync(filePath)) {
     logEvent("EXPORT_SAMPLE_PDF_FAIL", `Sample PDF not found`);
+    await logAuditTrail(
+      "Sample PDF Download Failed",
+      JSON.stringify({ message: "Sample PDF not found" }),
+      req.user?.id || "anonymous"
+    );
     return res.status(404).json({ error: "Sample PDF not found." });
   }
 
   logEvent("EXPORT_SAMPLE_PDF", `User downloaded health-summary.pdf`);
+  await logAuditTrail(
+    "Sample PDF Download",
+    `User downloaded health-summary.pdf`,
+    req.user?.id || null
+  );
 
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader(
