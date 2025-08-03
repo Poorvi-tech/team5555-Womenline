@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# --- Uploads ---
+# Ignore all files inside uploads/voice but keep the folder structure
+/uploads/*
+!/uploads/.gitkeep
+!/uploads/voice/
+/uploads/voice/*
+!/uploads/voice/.gitkeep
+
+# --- Logs ---
+# Ignore everything in logs but keep security.log only
+/logs/*
+!/logs/security.log
+
+# Editor & OS junk
+.vscode/
+.idea/
+.DS_Store

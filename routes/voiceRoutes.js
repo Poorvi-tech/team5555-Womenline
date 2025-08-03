@@ -1,0 +1,38 @@
+const express = require("express");
+const router = express.Router();
+const multer = require("multer");
+const path = require("path");
+
+// Configure storage for uploaded voice files
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/voice"); // Save files in 'uploads/voice' directory
+  },
+  filename: function (req, file, cb) {
+    // Generate a unique filename: voice-<timestamp>.<extension>
+    const uniqueName = `voice-${Date.now()}${path.extname(file.originalname)}`;
+    cb(null, uniqueName);
+  },
+});
+
+// Initialize multer with storage config
+const upload = multer({ storage: storage });
+
+// @route   POST /upload
+// @desc    Upload a voice file
+router.post("/upload", upload.single("voiceFile"), (req, res) => {
+  if (!req.file) {
+    return res
+      .status(400)
+      .json({ success: false, message: "No voice file uploaded" });
+  }
+
+  // On successful upload, return file path
+  res.status(200).json({
+    success: true,
+    message: "Voice file uploaded successfully",
+    filePath: req.file.path,
+  });
+});
+
+module.exports = router;
