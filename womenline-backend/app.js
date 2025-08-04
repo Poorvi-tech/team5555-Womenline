@@ -24,7 +24,7 @@ const {
 const connectDB = require("./config/db");
 
 // Logger Utility
-// const logEvent = require("./utils/logger");
+const logEvent = require("./utils/logger");
 
 // Initialize Express App
 const app = express();
