@@ -1,4 +1,4 @@
-﻿// Core Imports
+// Core Imports
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
@@ -13,13 +13,18 @@ const {
   AbuseReport,
   ForumPost,
   PdfExport,
+  Appointment,
+  Forum,
+  Reply,
+  VoiceEntry,
+  WhatsAppLog
 } = require("./models");
 
 // Database Connection
 const connectDB = require("./config/db");
 
 // Logger Utility
-const logEvent = require("./utils/logger");
+// const logEvent = require("./utils/logger");
 
 // Initialize Express App
 const app = express();

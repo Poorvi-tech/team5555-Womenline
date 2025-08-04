@@ -9,5 +9,10 @@ module.exports = {
   ForumPost: require("./ForumPost"),
   PdfExport: require("./PdfExport"),
   MaCoins: require("./MaCoins"),
-  AuditLog: require("./AuditLog") 
+  AuditLog: require("./AuditLog"),
+  Appointment: require("./Appointment"),
+  Forum: require("./Forum"),
+  Reply: require("./Reply"),
+  VoiceEntry: require("./VoiceEntry"),
+  WhatsAppLog: require("./WhatsAppLog")
 };
