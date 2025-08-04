@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0, // User's earned green credits
     },
+    isAdmin: {
+      type:Boolean,
+      default: false, 
+    },
   },
   { timestamps: true }
 );
