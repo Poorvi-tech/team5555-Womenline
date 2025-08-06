@@ -80,10 +80,12 @@ const whatsappRoutes = require("./routes/whatsappRoutes");
 const voiceRoutes = require("./routes/voiceRoutes");
 const abuseRoutes = require("./routes/abuseRoutes");
 const forumRoutes = require("./routes/forumRoutes");
+const appointmentRoutes = require('./routes/appointmentRoutes');
+const checklistRoutes = require('./routes/checklistRoutes');
 
 // Route Handlers
 app.use("/api/voice", voiceRoutes); // Voice Upload APIs
-app.use("/api/whatsapp", whatsappRoutes); // WhatsApp APIs
+app.use("/api/whatsapp", whatsappRoutes); // WhatsApp with Dummy Trigger APIs
 app.use("/api/pdf", exportRoutes); // PDF Export APIs
 app.use("/api", maCoinRoutes); // MaCoin (Credits) APIs
 app.use("/api/rewards", rewardRoutes); // Rewards API
@@ -93,6 +95,8 @@ app.use("/api/journals", journalRoutes); // Journal APIs
 app.use("/api", periodRoutes); // Period Tracker APIs
 app.use("/api/abuse", abuseRoutes); // Abuse Reporting APIs
 app.use("/api/forum", forumRoutes); // Forum APIs
+app.use('/api', appointmentRoutes); // Appointment Booking APIs
+app.use('/api', checklistRoutes); //  Doctor Checklist API
 
 // Health Check Route
 app.get("/", (req, res) => {

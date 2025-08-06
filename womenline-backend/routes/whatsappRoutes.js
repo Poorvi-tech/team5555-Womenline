@@ -1,13 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const sendWhatsApp = require("../utils/sendWhatsApp");
+const sendWhatsApp = require("../utils/sendwhatsapp");
 const logEvent = require("../utils/logger");
 const logAuditTrail = require("../utils/logAuditTrail"); 
 const { protect } = require("../middleware/authMiddleware");
+const { triggerWhatsApp } = require('../controllers/whatsappController');
 
 // @route   POST /api/whatsapp/send-whatsapp
 // @desc    Send WhatsApp message to user (protected)
 // @access  Authenticated users only
+router.post('/send-whatsapp', triggerWhatsApp);
 router.post("/send-whatsapp", protect, async (req, res) => {
   const { phone, message } = req.body;
 
