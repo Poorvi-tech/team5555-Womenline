@@ -1,9 +1,14 @@
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
+const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
 
-const generatePdf = (data, outputPath) => {
-  return new Promise((resolve, reject) => {
+const width = 600;
+const height = 300;
+const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height });
+
+const generatePdf = async (data, outputPath) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const doc = new PDFDocument({ margin: 50 });
       const writeStream = fs.createWriteStream(outputPath);
@@ -70,15 +75,45 @@ const generatePdf = (data, outputPath) => {
         });
       }
 
-      // Placeholder for Mood Graph
-      doc
-        .fontSize(14)
-        .fillColor('gray')
-        .text('Mood Graph Placeholder (to be added in Week 4)', {
+      // 🟢 Mood Graph Image Insertion
+      if (Object.keys(moodSummary).length > 0) {
+        const config = {
+          type: 'bar',
+          data: {
+            labels: Object.keys(moodSummary),
+            datasets: [
+              {
+                label: 'Mood Count',
+                data: Object.values(moodSummary),
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+              },
+            ],
+          },
+          options: {
+            responsive: false,
+            plugins: {
+              legend: { display: false },
+              title: {
+                display: true,
+                text: 'Mood Graph',
+              },
+            },
+          },
+        };
+
+        const buffer = await chartJSNodeCanvas.renderToBuffer(config);
+        const tempImagePath = path.join(__dirname, 'temp-mood-graph.png');
+        fs.writeFileSync(tempImagePath, buffer);
+
+        doc.addPage();
+        doc.image(tempImagePath, {
+          fit: [500, 300],
           align: 'center',
-          italic: true,
-        })
-        .moveDown(2);
+          valign: 'center',
+        });
+
+        fs.unlinkSync(tempImagePath); // Cleanup
+      }
 
       // Footer
       doc

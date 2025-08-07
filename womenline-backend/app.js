@@ -5,21 +5,6 @@ const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
 
-// MongoDB Models (Optional Direct Import if Needed)
-const {
-  PeriodLog,
-  Rewards,
-  Journal,
-  AbuseReport,
-  ForumPost,
-  PdfExport,
-  Appointment,
-  Forum,
-  Reply,
-  VoiceEntry,
-  WhatsAppLog
-} = require("./models");
-
 // Database Connection
 const connectDB = require("./config/db");
 
