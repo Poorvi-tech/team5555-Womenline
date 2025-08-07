@@ -13,4 +13,6 @@ router.post("/register",authController.registerUser);
 router.post("/login",authController.loginUser);
 router.post("/send-otp",authController.sendOtp );
 router.post("/verify-otp",authController.verifyOtp);
+router.get("/token-check", authController.tokenCheck);
+
 module.exports = router;

@@ -5,7 +5,7 @@ const appointmentSchema = new mongoose.Schema({
     doctorName: { type: String, required: true },
     date: { type: Date, required: true },
     timeSlot: { type: String, required: true },
-    status: { type: String, enum: ['scheduled', 'completed', 'canceled'], default: 'scheduled' },
+    status: { type: String, enum: ['pending', 'confirmed', 'cancelled'], default: 'pending' },
     createdAt: { type: Date, default: Date.now }
 });
 

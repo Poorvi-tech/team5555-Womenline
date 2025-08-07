@@ -8,7 +8,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 // @route   POST /api/reward/earn-credits
 // @desc    Earn green credits based on activity
 // @access  Public
-router.post("/earn-credits", rewardController.earnCredits);
+router.post("/earn-credits", authMiddleware.protect, rewardController.earnCredits);
 
 // @route   GET /api/reward/
 // @desc    Fetch all rewards

@@ -1,6 +1,8 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../app");
+const authController = require("../controllers/authController");
+
 const expect = chai.expect;
 
 chai.use(chaiHttp);
@@ -9,7 +11,7 @@ let uniqueUser;
 
 describe("Auth API", () => {
   before(function (done) {
-    this.timeout(10000); // Increase timeout for async DB operations
+    this.timeout(10000);
 
     const random = Math.floor(Math.random() * 10000);
     uniqueUser = {
@@ -27,8 +29,6 @@ describe("Auth API", () => {
         done();
       });
   });
-
-  it("should register a user", () => {});
 
   it("should login the registered user", (done) => {
     chai
@@ -69,6 +69,44 @@ describe("Auth API", () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.message).to.include("Invalid");
+        done();
+      });
+  });
+
+  it("should send OTP to the user email", (done) => {
+    chai
+      .request(app)
+      .post("/api/auth/send-otp")
+      .send({ email: uniqueUser.email })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.include("OTP sent");
+        done();
+      });
+  });
+
+  it("should fail OTP verification with wrong OTP", (done) => {
+    chai
+      .request(app)
+      .post("/api/auth/verify-otp")
+      .send({ email: uniqueUser.email, otp: "000000" })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.include("Invalid OTP");
+        done();
+      });
+  });
+
+  it("should verify OTP successfully (using in-memory OTP)", (done) => {
+    const otpData = authController.otpStore[uniqueUser.email];
+
+    chai
+      .request(app)
+      .post("/api/auth/verify-otp")
+      .send({ email: uniqueUser.email, otp: otpData?.otp })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.include("OTP verified");
         done();
       });
   });

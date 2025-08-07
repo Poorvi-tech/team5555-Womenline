@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { getChecklist } = require('../controllers/doctorChecklistController');
+const { getChecklist, submitChecklist } = require('../controllers/doctorChecklistController');
 
-router.get('/doctor-checklist', getChecklist);
+router.get('/doctor-checklist', getChecklist);  
+router.post('/checklist', submitChecklist);    
 
 module.exports = router;
