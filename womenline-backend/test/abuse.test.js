@@ -1,12 +1,12 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../app");
-const jwt = require("jsonwebtoken");
 const expect = chai.expect;
 
 chai.use(chaiHttp);
 
 let token;
+let adminToken;
 
 describe(" Abuse Reporting API", function () {
   this.timeout(10000); // Increase timeout (DB + API latency)
@@ -29,6 +29,23 @@ describe(" Abuse Reporting API", function () {
       .send({ email: user.email, password: user.password });
 
     token = loginRes.body.token;
+
+    // Register Admin
+    const admin = {
+      username: "Admin Tester",
+      email: "admin@example.com",
+      password: "adminpass",
+      role: "admin",
+    };
+
+    await chai.request(app).post("/api/auth/register").send(admin);
+
+    const adminRes = await chai
+      .request(app)
+      .post("/api/auth/login")
+      .send({ email: admin.email, password: admin.password });
+
+    adminToken = adminRes.body.token;
   });
 
   // Test 1: Successful Abuse Report
@@ -58,12 +75,23 @@ describe(" Abuse Reporting API", function () {
     expect(res.body).to.have.property("error");
   });
 
-  // Test 3: Fetch All Abuse Reports (Admin/User)
-  it("should fetch all abuse reports (as admin or user)", async () => {
+  // Test 3: Normal User should be denied access (RBAC)
+  it("should deny normal user from fetching abuse reports", async () => {
     const res = await chai
       .request(app)
       .get("/api/abuse/report-abuse")
       .set("Authorization", `Bearer ${token}`);
+
+    expect(res).to.have.status(403);
+    expect(res.body.message).to.equal("Access Denied: role not matched");
+  });
+
+  // Test 4: Admin can fetch abuse reports
+  it("should allow admin to fetch abuse reports", async () => {
+    const res = await chai
+      .request(app)
+      .get("/api/abuse/report-abuse")
+      .set("Authorization", `Bearer ${adminToken}`);
 
     expect(res).to.have.status(200);
     expect(res.body).to.be.an("array");

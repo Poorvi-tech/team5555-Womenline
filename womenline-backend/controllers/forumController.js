@@ -1,5 +1,6 @@
 const logEvent = require("../utils/logger");
 const logAuditTrail = require("../utils/logAuditTrail");
+const mongoose = require("mongoose");
 
 // In-memory storage for forum posts
 const forumPosts = [];
@@ -8,7 +9,7 @@ const forumPosts = [];
 exports.addForumReply = async (req, res) => {
   const { reply } = req.body;
   const postId = parseInt(req.params.postId);
-  const user = req.user?.id || "anonymous";
+  const user = req.user?.id || new mongoose.Types.ObjectId("64b9e2e5f8a8e6f123456789");
 
   const post = forumPosts.find(post => post.id === postId);
 
@@ -49,10 +50,10 @@ exports.getForumReplies = async (req, res) => {
   res.status(200).json({ replies: post.replies || [] });
 };
 
-
 // Controller to create a new forum post
 exports.createForumPost = async (req, res) => {
   const { title, content, postedBy = "anonymous" } = req.body;
+  const user = req.user?.id || new mongoose.Types.ObjectId("64b9e2e5f8a8e6f123456789");
 
   // Validate required fields
   if (!title || !content) {
@@ -60,7 +61,7 @@ exports.createForumPost = async (req, res) => {
     await logAuditTrail(
       "Forum Post Failed",
       JSON.stringify({ message: "Missing title or content", postedBy }),
-      req.user?.id || "anonymous"
+      user
     );
     return res.status(400).json({ error: "Title and content are required." });
   }
@@ -80,7 +81,7 @@ exports.createForumPost = async (req, res) => {
   await logAuditTrail(
     "Forum Post Created",
     JSON.stringify({ title, postedBy, createdAt: newPost.createdAt }),
-    req.user?.id || "anonymous"
+    user
   );
 
   // Return success response with new post details

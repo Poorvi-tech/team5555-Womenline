@@ -11,7 +11,6 @@ module.exports = {
   MaCoins: require("./MaCoins"),
   AuditLog: require("./AuditLog"),
   Appointment: require("./Appointment"),
-  Forum: require("./Forum"),
   Reply: require("./Reply"),
   VoiceEntry: require("./VoiceEntry"),
   WhatsAppLog: require("./WhatsAppLog")

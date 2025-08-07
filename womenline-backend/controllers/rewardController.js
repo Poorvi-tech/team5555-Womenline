@@ -9,7 +9,8 @@ const logAuditTrail = require("../utils/logAuditTrail");
 // Earn green credits based on activity type & log in MaCoin history
 exports.earnCredits = async (req, res) => {
   try {
-    const { userId, activityType, source } = req.body;
+     const { activityType, source } = req.body;
+     const userId = req.user.id;
 
     if (!userId || !activityType || !source) {
       return res

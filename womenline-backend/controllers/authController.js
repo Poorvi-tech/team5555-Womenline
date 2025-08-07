@@ -1,10 +1,12 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const crypto = require('crypto');  
+const crypto = require('crypto');
 const logEvent = require("../utils/logger");
 const logAuditTrail = require("../utils/logAuditTrail");
-const { sendOtpEmail } = require('../utils/emailService'); 
+const { sendOtpEmail } = require('../utils/emailService');
+
+let otpStore = {};  // <== Global Scope
 
 // Controller for user registration
 exports.registerUser = async (req, res) => {
@@ -22,14 +24,13 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // Hash password before saving it
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
       username,
       email,
-      password: hashedPassword,  // Save hashed password
+      password: hashedPassword,
       role,
       greenCredits,
     });
@@ -102,42 +103,32 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-let otpStore = {}; 
-
 // Controller for sending OTP
 exports.sendOtp = async (req, res) => {
-  
   const { email } = req.body;
 
-  // Validate email
   if (!email) {
     return res.status(400).json({ message: 'Email is required' });
   }
 
-  // Generate a 6-digit OTP
   const otp = crypto.randomInt(100000, 999999).toString();
- //const otp =12345
 
-  // Set OTP expiry time (5 minutes)
   const otpExpiryTime = 5 * 60 * 1000;  // 5 minutes
   const otpCreatedAt = Date.now();
 
- 
   otpStore[email] = {
     otp: otp,
     otpCreatedAt: otpCreatedAt,
     otpExpiryTime: otpExpiryTime
   };
 
- 
   sendOtpEmail(email, otp);
 
   return res.status(200).json({ message: 'OTP sent to email' });
 };
 
-
+// Controller for verifying OTP
 exports.verifyOtp = async (req, res) => {
-
   const { email, otp } = req.body;
 
   if (!email || !otp) {
@@ -152,18 +143,31 @@ exports.verifyOtp = async (req, res) => {
 
   const { otp: storedOtp, otpCreatedAt, otpExpiryTime } = otpData;
 
-
   if (Date.now() - otpCreatedAt > otpExpiryTime) {
-    delete otpStore[email]; // Delete expired OTP from memory
+    delete otpStore[email];
     return res.status(400).json({ message: 'OTP has expired' });
   }
 
-  
   if (otp === storedOtp) {
-
     delete otpStore[email];
     return res.status(200).json({ message: 'OTP verified' });
   } else {
     return res.status(400).json({ message: 'Invalid OTP' });
   }
 };
+
+exports.tokenCheck = async (req, res) => {
+  const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
+  if (!token) {
+    return res.status(400).json({ valid: false, message: "No token provided" });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return res.status(200).json({ valid: true, userId: decoded.id, role: decoded.role });
+  } catch (error) {
+    return res.status(401).json({ valid: false, message: "Invalid token" });
+  }
+};
+
+// Export otpStore for testing
+exports.otpStore = otpStore;
