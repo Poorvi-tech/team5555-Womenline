@@ -17,10 +17,9 @@ const rewardSchema = new mongoose.Schema(
     imageURL: {
       type: String, // Image URL for the reward (optional)
     },
-
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "User ",
       required: false, // Optional: Admin/User who created the reward
     },
     category: {
@@ -37,7 +36,7 @@ const rewardSchema = new mongoose.Schema(
         userId: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
-          ref: "User", // User who redeemed the reward
+          ref: "User ", // User who redeemed the reward
         },
         rewardId: {
           type: mongoose.Schema.Types.ObjectId,
@@ -50,8 +49,41 @@ const rewardSchema = new mongoose.Schema(
         },
       },
     ],
+    // New fields for tracking abuse and security
+    maxDailyRedemptions: {
+      type: Number,
+      default: 5, // Default max redemptions per day
+    },
+    dailyRedemptionCount: {
+      type: Number,
+      default: 0, // Tracks how many times this reward has been redeemed today
+    },
+    lastRedemptionDate: {
+      type: Date,
+      default: null, // Tracks the last date this reward was redeemed
+    },
   },
   { timestamps: true }
 );
+
+// Method to reset daily redemption count
+rewardSchema.methods.resetDailyRedemptionCount = function () {
+  const now = new Date();
+  if (!this.lastRedemptionDate || this.lastRedemptionDate.toDateString() !== now.toDateString()) {
+    this.dailyRedemptionCount = 0; // Reset count if a new day
+    this.lastRedemptionDate = now; // Update last redemption date
+  }
+};
+
+// Method to check if redemption is allowed
+rewardSchema.methods.canRedeem = function () {
+  this.resetDailyRedemptionCount(); // Ensure count is reset
+  return this.dailyRedemptionCount < this.maxDailyRedemptions; // Check if under limit
+};
+
+// Method to increment redemption count
+rewardSchema.methods.incrementRedemptionCount = function () {
+  this.dailyRedemptionCount += 1; // Increment count
+};
 
 module.exports = mongoose.model("Reward", rewardSchema);
