@@ -44,5 +44,5 @@ const maCoinSchema = new Schema(
   },
   { timestamps: true }
 ); // Adds createdAt and updatedAt
-maCoinSchema.index({ userId: 1 });
+maCoinSchema.index({ userId: 1, createdAt: -1 }); 
 module.exports = mongoose.model("MaCoin", maCoinSchema);

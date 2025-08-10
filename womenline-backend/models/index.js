@@ -13,5 +13,7 @@ module.exports = {
   Appointment: require("./Appointment"),
   Reply: require("./Reply"),
   VoiceEntry: require("./VoiceEntry"),
-  WhatsAppLog: require("./WhatsAppLog")
+  WhatsAppLog: require("./WhatsAppLog"),
+  RedemptionLog: require("./RedemptionLog"),
+  Reports: require("./Report")
 };
