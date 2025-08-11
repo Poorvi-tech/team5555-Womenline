@@ -3,8 +3,8 @@ const crypto = require('crypto');
 
 const auditLogSchema = new mongoose.Schema({
   action: { type: String, required: true },
-  details: { type: mongoose.Schema.Types.Mixed }, // Object bhi save hoga
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
+  details: { type: String },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User ', required: false },
   timestamp: { type: Date, default: Date.now },
   hash: { type: String, required: true },
   prevHash: { type: String }
@@ -12,11 +12,41 @@ const auditLogSchema = new mongoose.Schema({
 
 // Function to calculate SHA256 Hash
 auditLogSchema.methods.computeHash = function () {
-  const detailsString = typeof this.details === 'object'
-    ? JSON.stringify(this.details)
-    : this.details;
-  const data = `${this.action}|${detailsString}|${this.userId}|${this.timestamp}|${this.prevHash || ''}`;
+  const data = `${this.action}|${this.details}|${this.userId}|${this.timestamp}|${this.prevHash || ''}`;
   return crypto.createHash('sha256').update(data).digest('hex');
+};
+
+// Method to log reward redemption
+auditLogSchema.statics.logRewardRedemption = async function (userId, rewardId) {
+  const logEntry = new this({
+    action: 'Reward Redemption',
+    details: `User  ${userId} redeemed reward ${rewardId}`,
+    userId: userId,
+  });
+  logEntry.hash = logEntry.computeHash();
+  await logEntry.save();
+};
+
+// Method to log forum post
+auditLogSchema.statics.logForumPost = async function (userId, postId) {
+  const logEntry = new this({
+    action: 'Forum Post',
+    details: `User  ${userId} created post ${postId}`,
+    userId: userId,
+  });
+  logEntry.hash = logEntry.computeHash();
+  await logEntry.save();
+};
+
+// Method to log forum reply
+auditLogSchema.statics.logForumReply = async function (userId, postId) {
+  const logEntry = new this({
+    action: 'Forum Reply',
+    details: `User  ${userId} replied to post ${postId}`,
+    userId: userId,
+  });
+  logEntry.hash = logEntry.computeHash();
+  await logEntry.save();
 };
 
 module.exports = mongoose.model('AuditLog', auditLogSchema);

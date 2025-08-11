@@ -25,7 +25,7 @@ if (!fs.existsSync(voicePath)) {
   fs.mkdirSync(voicePath, { recursive: true });
 }
 
-//  CORS Configuration (Frontend URLs Whitelisted)
+// CORS Configuration (Frontend URLs Whitelisted)
 const allowedOrigins = [
   "http://localhost:8000", // local frontend
   "https://yourfrontend.com", // live deployed frontend
@@ -47,7 +47,7 @@ app.use(
   })
 );
 
-//  Middleware - Body Parser (JSON Requests)
+// Middleware - Body Parser (JSON Requests)
 app.use(express.json());
 
 // Connect to MongoDB
@@ -67,10 +67,9 @@ const abuseRoutes = require("./routes/abuseRoutes");
 const forumRoutes = require("./routes/forumRoutes");
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const checklistRoutes = require('./routes/checklistRoutes');
-const leaderboardRoutes = require('./routes/leaderboard');
+const AuditLog = require('./models/AuditLog'); // Import AuditLog model
 
 // Route Handlers
-app.use('/api/leaderboard', leaderboardRoutes);
 app.use("/api/voice", voiceRoutes); // Voice Upload APIs
 app.use("/api/whatsapp", whatsappRoutes); // WhatsApp with Dummy Trigger APIs
 app.use("/api/pdf", exportRoutes); // PDF Export APIs
@@ -83,11 +82,30 @@ app.use("/api", periodRoutes); // Period Tracker APIs
 app.use("/api/abuse", abuseRoutes); // Abuse Reporting APIs
 app.use("/api/forum", forumRoutes); // Forum APIs
 app.use('/api', appointmentRoutes); // Appointment Booking APIs
-app.use('/api', checklistRoutes); //  Doctor Checklist API
+app.use('/api', checklistRoutes); // Doctor Checklist API
 
 // Health Check Route
 app.get("/", (req, res) => {
   res.send("WomenLine backend is running");
+});
+
+// Middleware to log actions (example for reward redemption)
+app.use(async (req, res, next) => {
+  res.on('finish', async () => {
+    const userId = req.user ? req.user.id : null; // Assuming user ID is available in req.user
+    if (req.path.includes('/api/rewards/redeem')) {
+      await AuditLog.logRewardRedemption(userId, req.body.rewardId);
+    } else if (req.path.includes('/api/forum')) {
+      if (req.method === 'POST') {
+        await AuditLog.logForumPost(userId, req.body.postId);
+      } else if (req.method === 'POST' && req.path.includes('/reply')) {
+        await AuditLog.logForumReply(userId, req.body.postId);
+      }
+    } else if (req.path.includes('/api/voice')) {
+      await AuditLog.logVoiceChatInteraction(userId, req.body.interactionDetails);
+    }
+  });
+  next();
 });
 
 // Start Express Server
