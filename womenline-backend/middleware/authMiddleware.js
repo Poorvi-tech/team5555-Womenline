@@ -28,12 +28,12 @@ const protect = async (req, res, next) => {
 };
 
 // Middleware to check user role (RBAC)
-const rolecheck = (roles) => {
+const rolecheck = () => {
   return (req, res, next) => {
-    if (roles.includes(req.role)) {
+    if (req.role=="admin") {
       return next(); // Role matched, proceed
     }
-    return res.status(403).json({ message: "Access Denied: role not matched" });
+    return res.status(403).json({ message: "Access Denied: only admin allowed" });
   };
 };
 

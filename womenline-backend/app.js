@@ -67,8 +67,10 @@ const abuseRoutes = require("./routes/abuseRoutes");
 const forumRoutes = require("./routes/forumRoutes");
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const checklistRoutes = require('./routes/checklistRoutes');
+const leaderboardRoutes = require('./routes/leaderboard');
 
 // Route Handlers
+app.use('/api/leaderboard', leaderboardRoutes);
 app.use("/api/voice", voiceRoutes); // Voice Upload APIs
 app.use("/api/whatsapp", whatsappRoutes); // WhatsApp with Dummy Trigger APIs
 app.use("/api/pdf", exportRoutes); // PDF Export APIs
