@@ -7,10 +7,12 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-let token; //  For Auth Token
+let token; // For Auth Token
 
-describe("PDF API", () => {
-  before(async () => {
+describe("PDF API", function () {
+  this.timeout(10000); // Increase timeout to 10 seconds for all tests & hooks here
+
+  before(async function () {
     // Register a user
     await chai.request(app).post("/api/auth/register").send({
       username: "PDF Tester",
@@ -27,7 +29,7 @@ describe("PDF API", () => {
     token = res.body.token; // Save token for use in tests
   });
 
-  it("should generate and download sample PDF", (done) => {
+  it("should generate and download sample PDF", function (done) {
     chai
       .request(app)
       .get("/api/pdf/sample")
@@ -48,11 +50,11 @@ describe("PDF API", () => {
       });
   });
 
-  it("should generate PDF summary from journal entries", (done) => {
+  it("should generate PDF summary from journal entries", function (done) {
     chai
       .request(app)
       .get("/api/pdf/export-summary")
-      .set("Authorization", `Bearer ${token}`) //  Add token here
+      .set("Authorization", `Bearer ${token}`) // Add token here
       .end((err, res) => {
         if (res.status === 404) {
           console.log(

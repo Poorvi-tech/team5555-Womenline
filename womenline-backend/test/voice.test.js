@@ -11,13 +11,31 @@ describe("🎙️ Voice Upload API", () => {
   let token;
 
   before((done) => {
+    const user = {
+      username: "testuser",
+      email: "testuser@example.com",
+      password: "Test@1234",
+    };
+
+    // Register user first
     chai
       .request(app)
-      .post("/api/auth/login")
-      .send({ email: "testuser@example.com", password: "Test@1234" })
+      .post("/api/auth/register")
+      .send(user)
       .end((err, res) => {
-        token = res.body.token;
-        done();
+        if (err) return done(err);
+
+        // Then login
+        chai
+          .request(app)
+          .post("/api/auth/login")
+          .send({ email: user.email, password: user.password })
+          .end((err, res) => {
+            if (err) return done(err);
+            if (!res.body.token) return done(new Error("Login failed, no token returned"));
+            token = res.body.token;
+            done();
+          });
       });
   });
 
@@ -30,7 +48,7 @@ describe("🎙️ Voice Upload API", () => {
       .request(app)
       .post("/api/voice/upload")
       .set("Authorization", `Bearer ${token}`)
-      .attach("voiceFile", audioFile, "test-audio.mp3") //  field name matches multer config
+      .attach("voiceFile", audioFile, "test-audio.mp3") // field name must match multer config
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property("message");

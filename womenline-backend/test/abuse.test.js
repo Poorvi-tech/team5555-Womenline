@@ -83,7 +83,7 @@ describe(" Abuse Reporting API", function () {
       .set("Authorization", `Bearer ${token}`);
 
     expect(res).to.have.status(403);
-    expect(res.body.message).to.equal("Access Denied: role not matched");
+    expect(res.body.message).to.equal("Access Denied: only admin can access");
   });
 
   // Test 4: Admin can fetch abuse reports

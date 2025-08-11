@@ -3,7 +3,7 @@ const logEvent = require("../utils/logger");
 const logAuditTrail = require("../utils/logAuditTrail");
 
 // Controller to handle access token refresh using refreshToken from cookies
-exports.refertoken = (req, res) => {
+exports.generateRefreshToken = (req, res) => {
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const { protect, rolecheck } = require("../middleware/authMiddleware");
 
 // Configure storage for uploaded voice files
 const storage = multer.diskStorage({
@@ -20,19 +21,26 @@ const upload = multer({ storage: storage });
 
 // @route   POST /upload
 // @desc    Upload a voice file
-router.post("/upload", upload.single("voiceFile"), (req, res) => {
-  if (!req.file) {
-    return res
-      .status(400)
-      .json({ success: false, message: "No voice file uploaded" });
-  }
+// @access  Protected (Roles: mother, caregiver, admin, user)
+router.post(
+  "/upload",
+  protect,
+  rolecheck(["mother", "caregiver", "admin", "user"]),
+  upload.single("voiceFile"),
+  (req, res) => {
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No voice file uploaded" });
+    }
 
-  // On successful upload, return file path
-  res.status(200).json({
-    success: true,
-    message: "Voice file uploaded successfully",
-    filePath: req.file.path,
-  });
-});
+    // On successful upload, return file path
+    res.status(200).json({
+      success: true,
+      message: "Voice file uploaded successfully",
+      filePath: req.file.path,
+    });
+  }
+);
 
 module.exports = router;

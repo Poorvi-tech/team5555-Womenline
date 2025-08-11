@@ -1,23 +1,35 @@
-// Middleware to moderate abusive comments
-const commentModeration = async (req, res, next) => {
-  const { comment } = req.body;
+// middleware/abusivecomment.js
+let profanities = require("profanities");
 
-  // Validate comment presence
-  if (!comment || comment.trim() === "") {
+// Agar yeh default property me ho
+if (profanities.default && Array.isArray(profanities.default)) {
+  profanities = profanities.default;
+}
+
+// Agar yeh profanities property me ho
+if (profanities.profanities && Array.isArray(profanities.profanities)) {
+  profanities = profanities.profanities;
+}
+
+const commentModeration = (req, res, next) => {
+  const { reply } = req.body;
+
+  if (!reply || reply.trim() === "") {
     return res.status(400).json({ message: "Comment cannot be empty" });
   }
 
-  // Dynamically import profanity filter
-  const { default: profanities } = await import("profanities");
+  // Ab safe check
+  const containsProfanity = Array.isArray(profanities) && profanities.some((word) =>
+    reply.toLowerCase().includes(word.toLowerCase())
+  );
 
-  // Check for inappropriate content
-  if (profanities(comment)) {
+  if (containsProfanity) {
     return res
       .status(400)
       .json({ message: "Your comment contains inappropriate content." });
   }
 
-  next(); // Proceed if comment is clean
+  next();
 };
 
 module.exports = { commentModeration };
