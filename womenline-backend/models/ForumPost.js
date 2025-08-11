@@ -39,7 +39,7 @@ const forumPostSchema = new mongoose.Schema({
 });
 
 // Index for querying forum posts by tags
-forumPostSchema.index({ tags: 1 });
+forumPostSchema.index({ userId: 1 });
 
 // Mongoose model export
 const ForumPost = mongoose.model("ForumPost", forumPostSchema);
