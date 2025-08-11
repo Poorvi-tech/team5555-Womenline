@@ -8,56 +8,50 @@ chai.use(chaiHttp);
 
 let token;
 
-describe("Doctor Checklist API", function () {
-  this.timeout(10000);
+before(function (done) {
+  this.timeout(10000); // login के लिए 10 सेकंड timeout
 
-  before((done) => {
-    // Register a dummy user and get token
-    const random = Math.floor(Math.random() * 10000);
-    const user = {
-      username: `checklistUser${random}`,
-      email: `checklist${random}@test.com`,
-      password: "test123",
-    };
+  chai.request(app)
+    .post('/api/auth/login')
+    .send({
+      email: "poorvisahu975@gmail.com",
+      password: "password1234"
+    })
+    .end((err, res) => {
+      if (err) return done(err);
+      if (!res.body.token) return done(new Error("Login failed - token not returned"));
+      token = res.body.token;
+      done();
+    });
+});
 
-    chai
-      .request(app)
-      .post("/api/auth/register")
-      .send(user)
-      .end((err, res) => {
-        token = res.body.token;
-        done();
-      });
-  });
 
-  it("should submit a doctor checklist successfully", (done) => {
-    const data = {
-      userId: "dummyUserId", // Or dynamically fetch from token later
-      symptoms: ["Fever", "Cough"],
-      duration: "3 days",
-    };
-
-    chai
-      .request(app)
-      .post("/api/checklist")
-      .set("Authorization", `Bearer ${token}`)
-      .send(data)
+describe('Doctor Checklist API', () => {
+  it('should submit a doctor checklist successfully', (done) => {
+    chai.request(app)
+      .post('/api/checklist')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        doctorName: "Dr. Test",
+        specialization: "General",
+        availability: "Mon-Fri",
+        contact: "1234567890"
+      })
       .end((err, res) => {
         expect(res).to.have.status(201);
-        expect(res.body.success).to.be.true;
+        expect(res.body).to.have.property("success", true);
         done();
       });
   });
 
-  it("should return error for missing required fields", (done) => {
-    chai
-      .request(app)
-      .post("/api/checklist")
-      .set("Authorization", `Bearer ${token}`)
+  it('should return error for missing required fields', (done) => {
+    chai.request(app)
+      .post('/api/checklist')
+      .set('Authorization', `Bearer ${token}`)
       .send({})
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.success).to.be.false;
+        expect(res.body).to.have.property("success", false);
         done();
       });
   });

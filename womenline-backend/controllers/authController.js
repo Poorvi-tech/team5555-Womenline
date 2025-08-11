@@ -10,7 +10,7 @@ let otpStore = {};  // <== Global Scope
 
 // Controller for user registration
 exports.registerUser = async (req, res) => {
-  const { username, email, password, role, greenCredits } = req.body;
+  const { username, email, password } = req.body;
 
   try {
     if (!username || !email || !password) {
@@ -27,12 +27,15 @@ exports.registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Fix role to "user" (or any default role)
+    const defaultRole = "user";
+
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
-      role,
-      greenCredits,
+      role: defaultRole,
+      greenCredits: 0, // optionally default
     });
 
     await newUser.save();
@@ -58,6 +61,7 @@ exports.registerUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // Controller for user login
 exports.loginUser = async (req, res) => {

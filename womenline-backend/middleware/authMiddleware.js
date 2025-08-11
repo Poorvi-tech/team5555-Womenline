@@ -14,26 +14,32 @@ const protect = async (req, res, next) => {
       req.user = await User.findById(decoded.id).select("-password");
       req.role = decoded.role;
 
+      if (!req.user) {
+        return res.status(401).json({ success: false, message: "User not found" });
+      }
+
       next(); // Proceed to next middleware/route
     } catch (error) {
-      return res
-        .status(401)
-        .json({ success: false, message: "Not authorized" });
+      return res.status(401).json({ success: false, message: "Not authorized" });
     }
   } else {
-    return res
-      .status(401)
-      .json({ success: false, message: "No token provided" });
+    return res.status(401).json({ success: false, message: "No token provided" });
   }
 };
 
-// Middleware to check user role (RBAC)
-const rolecheck = () => {
+// Middleware to check user role(s) (RBAC)
+const rolecheck = (allowedRoles = []) => {
   return (req, res, next) => {
-    if (req.role=="admin") {
-      return next(); // Role matched, proceed
+    if (!req.role) {
+      return res.status(403).json({ message: "Access Denied: no role assigned" });
     }
-    return res.status(403).json({ message: "Access Denied: only admin allowed" });
+
+    // Allow if user role is in allowedRoles array
+    if (allowedRoles.includes(req.role)) {
+      return next();
+    }
+
+    return res.status(403).json({ message: "Access Denied: only admin can access" });
   };
 };
 
