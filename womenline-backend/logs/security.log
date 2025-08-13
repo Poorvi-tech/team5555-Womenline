@@ -1,0 +1,275 @@
+[2025-08-13T13:32:46.339Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T13:32:51.068Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T13:33:49.975Z] [FORUM_POST_CREATED] [User: anonymous] Forum post created: "My first forum post"
+[2025-08-13T13:34:36.359Z] [FORUM_POST_CREATED] [User: anonymous] Forum post created: "Test post"
+[2025-08-13T13:35:00.135Z] [FORUM_POST_CREATED] [User: anonymous] Forum post created: "Test post"
+[2025-08-13T13:35:01.748Z] [FORUM_POST_CREATED] [User: anonymous] Forum post created: "Test post"
+[2025-08-13T13:35:06.717Z] [FORUM_POST_CREATED] [User: anonymous] Forum post created: "Test post"
+[2025-08-13T13:35:19.936Z] [FORUM_POST_CREATED] [User: anonymous] Forum post created: "Test post"
+[2025-08-13T13:36:20.947Z] [FORUM_POST_CREATED] [User: anonymous] Forum post created: "Test post"
+[2025-08-13T13:36:22.455Z] [FORUM_POST_CREATED] [User: anonymous] Forum post created: "Test post"
+[2025-08-13T13:38:25.626Z] [FORUM_REPLY_ADDED] [User: 688cc9083967cddca1e1ad9d] Reply added to Post ID 8
+[2025-08-13T13:39:17.020Z] [FORUM_REPLY_ADDED] [User: 688cc9083967cddca1e1ad9d] Reply added to Post ID 8
+[2025-08-13T13:39:28.468Z] [FORUM_REPLY_ADDED] [User: 688cc9083967cddca1e1ad9d] Reply added to Post ID 8
+[2025-08-13T13:40:17.282Z] [FORUM_REPLY_ADDED] [User: 688cc9083967cddca1e1ad9d] Reply added to Post ID 8
+[2025-08-13T13:40:44.064Z] [FORUM_REPLY_ADDED] [User: 688cc9083967cddca1e1ad9d] Reply added to Post ID 8
+[2025-08-13T13:40:51.607Z] [FORUM_REPLY_ADDED] [User: 688cc9083967cddca1e1ad9d] Reply added to Post ID 8
+[2025-08-13T13:40:55.229Z] [FORUM_REPLY_ADDED] [User: 688cc9083967cddca1e1ad9d] Reply added to Post ID 8
+[2025-08-13T13:47:25.967Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T13:47:32.206Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T13:57:55.611Z] [FORUM_POST_CREATED] [User: 688cc9083967cddca1e1ad9d] Forum post created
+[2025-08-13T13:58:09.352Z] [FORUM_POST_CREATED] [User: 688cc9083967cddca1e1ad9d] Forum post created
+[2025-08-13T13:58:11.016Z] [FORUM_POST_CREATED] [User: 688cc9083967cddca1e1ad9d] Forum post created
+[2025-08-13T13:59:53.121Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T14:05:10.969Z] [✅ REGISTERED] [User: anonymous] poorvi@example.com
+[2025-08-13T14:05:28.992Z] [FORUM_POST_CREATED] [User: 689c9b969d7a8cf5bb3139ff] Forum post created
+[2025-08-13T14:06:25.587Z] [FORUM_REPLY_ADDED] [User: 689c9b969d7a8cf5bb3139ff] Reply added to Post ID 689c9ba89d7a8cf5bb313a07
+[2025-08-13T14:06:55.720Z] [FORUM_POST_CREATED] [User: 689c9b969d7a8cf5bb3139ff] Forum post created
+[2025-08-13T14:08:27.908Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T14:08:45.978Z] [FORUM_POST_CREATED] [User: 689c9b969d7a8cf5bb3139ff] Forum post created
+[2025-08-13T14:28:05.508Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T14:28:31.194Z] [FORUM_POST_CREATED] [User: 689c9b969d7a8cf5bb3139ff] Forum post created
+[2025-08-13T14:47:30.008Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T14:48:00.890Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:02.785Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:05.092Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:07.060Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:09.054Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:10.946Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:12.941Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:14.810Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:16.815Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:18.616Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:21.004Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:22.846Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:24.676Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:26.658Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:28.790Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:30.405Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:32.795Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:35.121Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:36.915Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:39.204Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:41.475Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:43.370Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:44.925Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:46.445Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:47.993Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:48:49.495Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T14:49:23.743Z] [FETCH_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] User credits fetched
+[2025-08-13T15:32:57.254Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T15:34:25.969Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:32.386Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:35.951Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:38.154Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:42.672Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:44.399Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:46.850Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:49.023Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:51.090Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:52.749Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:55.459Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:56.994Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:34:58.784Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:00.249Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:01.702Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:03.082Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:04.675Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:06.891Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:09.759Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:12.322Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:13.824Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:15.476Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:16.952Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:35:34.058Z] [FETCH_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] User credits fetched
+[2025-08-13T15:42:58.426Z] [FETCH_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] User credits fetched
+[2025-08-13T15:43:07.563Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:09.152Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:10.562Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:12.027Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:13.414Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:15.054Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:16.422Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:17.872Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:19.217Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:20.672Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:22.113Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:23.452Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:24.862Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:26.145Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:27.557Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:28.998Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:30.352Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:31.680Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:33.048Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:34.518Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:35.957Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T15:43:37.713Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:22:54.928Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com
+[2025-08-13T16:23:18.190Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:19.954Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:21.629Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:24.694Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:26.270Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:27.799Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:29.469Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:31.069Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:32.807Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:35.390Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:37.179Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:43.469Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:44.828Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:46.321Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:47.713Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:49.157Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:50.669Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:52.208Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:53.629Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:23:55.076Z] [EARN_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] +5 credits for daily-login via app
+[2025-08-13T16:24:28.754Z] [FETCH_CREDITS] [User: 689c9b969d7a8cf5bb3139ff] User credits fetched
+[2025-08-13T16:26:42.744Z] [❌ LOGIN_FAIL] [User: anonymous] Invalid email: poorvisahu975@gmail.com
+[2025-08-13T16:35:08.030Z] [❌ LOGIN_FAIL] [User: anonymous] Invalid email: poorvisahu975@gmail.com
+[2025-08-13T16:35:33.679Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvisahu975@gmail.com
+[2025-08-13T16:35:34.242Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: abuse@example.com
+[2025-08-13T16:35:34.392Z] [✅ LOGIN_SUCCESS] [User: anonymous] abuse@example.com
+[2025-08-13T16:35:34.666Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: admin@example.com
+[2025-08-13T16:35:34.803Z] [✅ LOGIN_SUCCESS] [User: anonymous] admin@example.com
+[2025-08-13T16:35:35.065Z] [ABUSE_REPORTED] [User: 688d050e04d1e7f6b46fb094] Abuse reported: "This is a test abuse report"
+[2025-08-13T16:35:35.460Z] [FETCH_ABUSE_REPORTS] [User: 689385e0547e0260bc6051e1] Fetched 1 abuse reports
+[2025-08-13T16:35:35.867Z] [✅ REGISTERED] [User: anonymous] appointment129@test.com
+[2025-08-13T16:35:36.668Z] [✅ REGISTERED] [User: anonymous] test9340@example.com
+[2025-08-13T16:35:36.964Z] [✅ LOGIN_SUCCESS] [User: anonymous] test9340@example.com
+[2025-08-13T16:35:37.228Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: test9340@example.com
+[2025-08-13T16:35:37.309Z] [❌ LOGIN_FAIL] [User: anonymous] Invalid email: invalid@example.com
+[2025-08-13T16:35:37.948Z] [✅ REGISTERED] [User: anonymous] journal4988@test.com
+[2025-08-13T16:35:38.273Z] [JOURNAL_CREATED] [User: 689cbed91512fb6707a10e1e] New journal entry created
+[2025-08-13T16:35:38.587Z] [JOURNAL_CREATED] [User: 689cbed91512fb6707a10e1e] New journal entry created
+[2025-08-13T16:35:38.900Z] [FETCH_JOURNALS] [User: 689cbed91512fb6707a10e1e] Fetched 2 journal entries
+[2025-08-13T16:35:39.311Z] [✅ REGISTERED] [User: anonymous] coin8396@test.com
+[2025-08-13T16:35:39.947Z] [EARN_CREDITS] [User: 689cbedb1512fb6707a10e35] User earned 10 credits from recycled_plastic
+[2025-08-13T16:35:40.079Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: pdf@example.com
+[2025-08-13T16:35:40.245Z] [✅ LOGIN_SUCCESS] [User: anonymous] pdf@example.com
+[2025-08-13T16:35:40.362Z] [EXPORT_SAMPLE_PDF] [User: anonymous] User downloaded health-summary.pdf
+[2025-08-13T16:35:40.612Z] [EXPORT_SUMMARY_FAIL] [User: anonymous] No journal entries for user 688db9a89a43feac5ab190a4
+[2025-08-13T16:35:41.293Z] [✅ REGISTERED] [User: anonymous] period9819@test.com
+[2025-08-13T16:35:43.478Z] [PERIOD_LOG_CREATED] [User: 689cbedd1512fb6707a10e51] New period log added
+[2025-08-13T16:35:43.765Z] [FETCH_PERIOD_LOGS] [User: 689cbedd1512fb6707a10e51] Fetched 1 period logs
+[2025-08-13T16:35:43.942Z] [✅ REGISTERED] [User: anonymous] reward5787@test.com
+[2025-08-13T16:35:44.319Z] [FETCH_CREDITS] [User: 689cbedf1512fb6707a10e62] User credits fetched
+[2025-08-13T16:35:44.820Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: testuser@example.com
+[2025-08-13T16:35:44.965Z] [✅ LOGIN_SUCCESS] [User: anonymous] testuser@example.com
+[2025-08-13T16:35:45.384Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: whatsapp@example.com
+[2025-08-13T16:35:45.514Z] [✅ LOGIN_SUCCESS] [User: anonymous] whatsapp@example.com
+[2025-08-13T16:35:45.866Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:35:46.075Z] [❗WHATSAPP_MISSING_FIELDS] [User: anonymous] Phone or message not provided
+[2025-08-13T16:35:46.402Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:35:46.751Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:35:47.063Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:37:55.845Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvisahu975@gmail.com
+[2025-08-13T16:37:56.502Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: abuse@example.com
+[2025-08-13T16:37:56.639Z] [✅ LOGIN_SUCCESS] [User: anonymous] abuse@example.com
+[2025-08-13T16:37:56.883Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: admin@example.com
+[2025-08-13T16:37:57.004Z] [✅ LOGIN_SUCCESS] [User: anonymous] admin@example.com
+[2025-08-13T16:37:57.224Z] [ABUSE_REPORTED] [User: 688d050e04d1e7f6b46fb094] Abuse reported: "This is a test abuse report"
+[2025-08-13T16:37:57.623Z] [FETCH_ABUSE_REPORTS] [User: 689385e0547e0260bc6051e1] Fetched 1 abuse reports
+[2025-08-13T16:37:58.024Z] [✅ REGISTERED] [User: anonymous] appointment119@test.com
+[2025-08-13T16:37:58.784Z] [✅ REGISTERED] [User: anonymous] test2970@example.com
+[2025-08-13T16:37:59.059Z] [✅ LOGIN_SUCCESS] [User: anonymous] test2970@example.com
+[2025-08-13T16:37:59.281Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: test2970@example.com
+[2025-08-13T16:37:59.337Z] [❌ LOGIN_FAIL] [User: anonymous] Invalid email: invalid@example.com
+[2025-08-13T16:37:59.988Z] [✅ REGISTERED] [User: anonymous] journal156@test.com
+[2025-08-13T16:38:00.267Z] [JOURNAL_CREATED] [User: 689cbf673406499acceb6381] New journal entry created
+[2025-08-13T16:38:00.558Z] [JOURNAL_CREATED] [User: 689cbf673406499acceb6381] New journal entry created
+[2025-08-13T16:38:00.822Z] [FETCH_JOURNALS] [User: 689cbf673406499acceb6381] Fetched 2 journal entries
+[2025-08-13T16:38:01.182Z] [✅ REGISTERED] [User: anonymous] coin5552@test.com
+[2025-08-13T16:38:01.873Z] [EARN_CREDITS] [User: 689cbf693406499acceb6398] User earned 10 credits from recycled_plastic
+[2025-08-13T16:38:02.012Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: pdf@example.com
+[2025-08-13T16:38:02.142Z] [✅ LOGIN_SUCCESS] [User: anonymous] pdf@example.com
+[2025-08-13T16:38:02.273Z] [EXPORT_SAMPLE_PDF] [User: anonymous] User downloaded health-summary.pdf
+[2025-08-13T16:38:02.582Z] [EXPORT_SUMMARY_FAIL] [User: anonymous] No journal entries for user 688db9a89a43feac5ab190a4
+[2025-08-13T16:38:02.957Z] [✅ REGISTERED] [User: anonymous] period7314@test.com
+[2025-08-13T16:38:03.441Z] [PERIOD_LOG_CREATED] [User: 689cbf6a3406499acceb63b4] New period log added
+[2025-08-13T16:38:03.829Z] [FETCH_PERIOD_LOGS] [User: 689cbf6a3406499acceb63b4] Fetched 1 period logs
+[2025-08-13T16:38:04.058Z] [✅ REGISTERED] [User: anonymous] reward4969@test.com
+[2025-08-13T16:38:04.422Z] [FETCH_CREDITS] [User: 689cbf6b3406499acceb63c5] User credits fetched
+[2025-08-13T16:38:04.992Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: testuser@example.com
+[2025-08-13T16:38:05.122Z] [✅ LOGIN_SUCCESS] [User: anonymous] testuser@example.com
+[2025-08-13T16:38:05.547Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: whatsapp@example.com
+[2025-08-13T16:38:05.680Z] [✅ LOGIN_SUCCESS] [User: anonymous] whatsapp@example.com
+[2025-08-13T16:38:06.028Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:38:06.262Z] [❗WHATSAPP_MISSING_FIELDS] [User: anonymous] Phone or message not provided
+[2025-08-13T16:38:06.573Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:38:06.912Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:38:07.193Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:55:20.344Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvisahu975@gmail.com
+[2025-08-13T16:55:20.805Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: abuse@example.com
+[2025-08-13T16:55:20.939Z] [✅ LOGIN_SUCCESS] [User: anonymous] abuse@example.com
+[2025-08-13T16:55:21.098Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: admin@example.com
+[2025-08-13T16:55:21.213Z] [✅ LOGIN_SUCCESS] [User: anonymous] admin@example.com
+[2025-08-13T16:55:21.677Z] [ABUSE_REPORTED] [User: 688d050e04d1e7f6b46fb094] Abuse reported: "This is a test abuse report"
+[2025-08-13T16:55:21.984Z] [FETCH_ABUSE_REPORTS] [User: 689385e0547e0260bc6051e1] Fetched 1 abuse reports
+[2025-08-13T16:55:22.266Z] [✅ REGISTERED] [User: anonymous] appointment2549@test.com
+[2025-08-13T16:55:22.856Z] [✅ REGISTERED] [User: anonymous] test6813@example.com
+[2025-08-13T16:55:23.113Z] [✅ LOGIN_SUCCESS] [User: anonymous] test6813@example.com
+[2025-08-13T16:55:23.283Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: test6813@example.com
+[2025-08-13T16:55:23.343Z] [❌ LOGIN_FAIL] [User: anonymous] Invalid email: invalid@example.com
+[2025-08-13T16:55:23.846Z] [✅ REGISTERED] [User: anonymous] journal1671@test.com
+[2025-08-13T16:55:24.098Z] [JOURNAL_CREATED] [User: 689cc37b2f2201f61c95ebed] New journal entry created
+[2025-08-13T16:55:24.336Z] [JOURNAL_CREATED] [User: 689cc37b2f2201f61c95ebed] New journal entry created
+[2025-08-13T16:55:24.556Z] [FETCH_JOURNALS] [User: 689cc37b2f2201f61c95ebed] Fetched 2 journal entries
+[2025-08-13T16:55:24.847Z] [✅ REGISTERED] [User: anonymous] coin3522@test.com
+[2025-08-13T16:55:25.296Z] [EARN_CREDITS] [User: 689cc37c2f2201f61c95ec04] User earned 10 credits from recycled_plastic
+[2025-08-13T16:55:25.405Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: pdf@example.com
+[2025-08-13T16:55:25.528Z] [✅ LOGIN_SUCCESS] [User: anonymous] pdf@example.com
+[2025-08-13T16:55:25.640Z] [EXPORT_SAMPLE_PDF] [User: anonymous] User downloaded health-summary.pdf
+[2025-08-13T16:55:25.848Z] [EXPORT_SUMMARY_FAIL] [User: anonymous] No journal entries for user 688db9a89a43feac5ab190a4
+[2025-08-13T16:55:26.137Z] [✅ REGISTERED] [User: anonymous] period1208@test.com
+[2025-08-13T16:55:26.467Z] [PERIOD_LOG_CREATED] [User: 689cc37e2f2201f61c95ec20] New period log added
+[2025-08-13T16:55:26.678Z] [FETCH_PERIOD_LOGS] [User: 689cc37e2f2201f61c95ec20] Fetched 1 period logs
+[2025-08-13T16:55:26.845Z] [✅ REGISTERED] [User: anonymous] reward703@test.com
+[2025-08-13T16:55:27.104Z] [FETCH_CREDITS] [User: 689cc37e2f2201f61c95ec31] User credits fetched
+[2025-08-13T16:55:27.487Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: testuser@example.com
+[2025-08-13T16:55:27.606Z] [✅ LOGIN_SUCCESS] [User: anonymous] testuser@example.com
+[2025-08-13T16:55:27.903Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: whatsapp@example.com
+[2025-08-13T16:55:28.012Z] [✅ LOGIN_SUCCESS] [User: anonymous] whatsapp@example.com
+[2025-08-13T16:55:28.247Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:55:28.415Z] [❗WHATSAPP_MISSING_FIELDS] [User: anonymous] Phone or message not provided
+[2025-08-13T16:55:28.646Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:55:28.866Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T16:55:29.085Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T17:11:42.973Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvisahu975@gmail.com
+[2025-08-13T17:11:43.619Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: abuse@example.com
+[2025-08-13T17:11:43.737Z] [✅ LOGIN_SUCCESS] [User: anonymous] abuse@example.com
+[2025-08-13T17:11:43.994Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: admin@example.com
+[2025-08-13T17:11:44.168Z] [✅ LOGIN_SUCCESS] [User: anonymous] admin@example.com
+[2025-08-13T17:11:44.421Z] [ABUSE_REPORTED] [User: 688d050e04d1e7f6b46fb094] Abuse reported: "This is a test abuse report"
+[2025-08-13T17:11:44.825Z] [FETCH_ABUSE_REPORTS] [User: 689385e0547e0260bc6051e1] Fetched 1 abuse reports
+[2025-08-13T17:11:45.217Z] [✅ REGISTERED] [User: anonymous] appointment3914@test.com
+[2025-08-13T17:11:45.993Z] [✅ REGISTERED] [User: anonymous] test622@example.com
+[2025-08-13T17:11:46.314Z] [✅ LOGIN_SUCCESS] [User: anonymous] test622@example.com
+[2025-08-13T17:11:46.576Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: test622@example.com
+[2025-08-13T17:11:46.660Z] [❌ LOGIN_FAIL] [User: anonymous] Invalid email: invalid@example.com
+[2025-08-13T17:11:47.319Z] [✅ REGISTERED] [User: anonymous] journal9645@test.com
+[2025-08-13T17:11:47.622Z] [JOURNAL_CREATED] [User: 689cc7533e89be0670fcf708] New journal entry created
+[2025-08-13T17:11:47.943Z] [JOURNAL_CREATED] [User: 689cc7533e89be0670fcf708] New journal entry created
+[2025-08-13T17:11:48.259Z] [FETCH_JOURNALS] [User: 689cc7533e89be0670fcf708] Fetched 2 journal entries
+[2025-08-13T17:11:48.660Z] [✅ REGISTERED] [User: anonymous] coin6103@test.com
+[2025-08-13T17:11:49.305Z] [EARN_CREDITS] [User: 689cc7543e89be0670fcf71f] User earned 10 credits from recycled_plastic
+[2025-08-13T17:11:49.463Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: pdf@example.com
+[2025-08-13T17:11:49.593Z] [✅ LOGIN_SUCCESS] [User: anonymous] pdf@example.com
+[2025-08-13T17:11:49.785Z] [EXPORT_SAMPLE_PDF] [User: anonymous] User downloaded health-summary.pdf
+[2025-08-13T17:11:50.098Z] [EXPORT_SUMMARY_FAIL] [User: anonymous] No journal entries for user 688db9a89a43feac5ab190a4
+[2025-08-13T17:11:50.469Z] [✅ REGISTERED] [User: anonymous] period3420@test.com
+[2025-08-13T17:11:50.979Z] [PERIOD_LOG_CREATED] [User: 689cc7563e89be0670fcf73b] New period log added
+[2025-08-13T17:11:51.300Z] [FETCH_PERIOD_LOGS] [User: 689cc7563e89be0670fcf73b] Fetched 1 period logs
+[2025-08-13T17:11:51.549Z] [✅ REGISTERED] [User: anonymous] reward556@test.com
+[2025-08-13T17:11:51.911Z] [FETCH_CREDITS] [User: 689cc7573e89be0670fcf74c] User credits fetched
+[2025-08-13T17:11:52.419Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: testuser@example.com
+[2025-08-13T17:11:52.556Z] [✅ LOGIN_SUCCESS] [User: anonymous] testuser@example.com
+[2025-08-13T17:11:52.958Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: whatsapp@example.com
+[2025-08-13T17:11:53.107Z] [✅ LOGIN_SUCCESS] [User: anonymous] whatsapp@example.com
+[2025-08-13T17:11:53.364Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T17:11:53.619Z] [❗WHATSAPP_MISSING_FIELDS] [User: anonymous] Phone or message not provided
+[2025-08-13T17:11:53.939Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T17:11:54.259Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210
+[2025-08-13T17:11:54.579Z] [✅ WHATSAPP_SENT] [User: 688dabb77893274785c83b38] WhatsApp sent to +919876543210

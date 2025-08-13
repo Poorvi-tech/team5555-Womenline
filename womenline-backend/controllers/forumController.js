@@ -1,89 +1,90 @@
+// controllers/forumController.js
+const ForumPost = require("../models/ForumPost");
+const mongoose = require("mongoose");
 const logEvent = require("../utils/logger");
 const logAuditTrail = require("../utils/logAuditTrail");
-const mongoose = require("mongoose");
 
-// In-memory storage for forum posts
-const forumPosts = [];
-
-// Controller to add a reply to a forum post
-exports.addForumReply = async (req, res) => {
-  const { reply } = req.body;
-  const postId = parseInt(req.params.postId);
-  const user = req.user?.id || new mongoose.Types.ObjectId("64b9e2e5f8a8e6f123456789");
-
-  const post = forumPosts.find(post => post.id === postId);
-
-  if (!post) {
-    return res.status(404).json({ error: 'Forum post not found.' });
-  }
-
-  if (!reply) {
-    return res.status(400).json({ error: 'Reply content is required.' });
-  }
-
-  // Initialize replies array if not exists
-  if (!post.replies) post.replies = [];
-
-  const newReply = {
-    reply,
-    repliedBy: user,
-    repliedAt: new Date()
-  };
-
-  post.replies.push(newReply);
-
-  await logAuditTrail("Forum Reply Added", JSON.stringify({ postId, reply }), user);
-  logEvent("FORUM_REPLY_ADDED", `Reply added to Post ID ${postId}`, user);
-
-  res.status(200).json({ message: "Reply added successfully.", replies: post.replies });
-};
-
-// Controller to get all replies for a forum post
-exports.getForumReplies = async (req, res) => {
-  const postId = parseInt(req.params.postId);
-  const post = forumPosts.find(post => post.id === postId);
-
-  if (!post) {
-    return res.status(404).json({ error: 'Forum post not found.' });
-  }
-
-  res.status(200).json({ replies: post.replies || [] });
-};
-
-// Controller to create a new forum post
+// Create a new forum post
 exports.createForumPost = async (req, res) => {
-  const { title, content, postedBy = "anonymous" } = req.body;
-  const user = req.user?.id || new mongoose.Types.ObjectId("64b9e2e5f8a8e6f123456789");
+  try {
+    const { title, content } = req.body;
+    const userId = req.user?.id || new mongoose.Types.ObjectId();
 
-  // Validate required fields
-  if (!title || !content) {
-    logEvent("FORUM_POST_CREATE_FAIL", `Missing title or content`, postedBy);
+    if (!title || !content) {
+      logEvent("FORUM_POST_CREATE_FAIL", "Missing title or content", userId);
+      await logAuditTrail(
+        "Forum Post Failed",
+        JSON.stringify({ message: "Missing title or content" }),
+        userId
+      );
+      return res.status(400).json({ error: "Title and content are required." });
+    }
+
+    const newPost = await ForumPost.create({
+      userId,
+      content,
+      tags: [], // Optional: can be extended
+    });
+
+    logEvent("FORUM_POST_CREATED", `Forum post created`, userId);
     await logAuditTrail(
-      "Forum Post Failed",
-      JSON.stringify({ message: "Missing title or content", postedBy }),
-      user
+      "Forum Post Created",
+      JSON.stringify({ content, createdAt: newPost.createdAt }),
+      userId
     );
-    return res.status(400).json({ error: "Title and content are required." });
+
+    res.status(201).json({ postId: newPost._id, createdAt: newPost.createdAt });
+  } catch (err) {
+    console.error("Error creating forum post:", err);
+    res.status(500).json({ error: "Server error creating forum post" });
   }
+};
 
-  // Construct new forum post object
-  const newPost = {
-    id: forumPosts.length + 1,
-    title,
-    content,
-    postedBy,
-    createdAt: new Date(),
-  };
+// Add a reply to a forum post
+exports.addForumReply = async (req, res) => {
+  try {
+    const { reply } = req.body;
+    const postId = req.params.postId;
+    const userId = req.user?.id || new mongoose.Types.ObjectId();
 
-  forumPosts.push(newPost);
+    if (!reply) return res.status(400).json({ error: "Reply content is required." });
 
-  logEvent("FORUM_POST_CREATED", `Forum post created: "${title}"`, postedBy);
-  await logAuditTrail(
-    "Forum Post Created",
-    JSON.stringify({ title, postedBy, createdAt: newPost.createdAt }),
-    user
-  );
+    const post = await ForumPost.findById(postId);
+    if (!post) return res.status(404).json({ error: "Forum post not found." });
 
-  // Return success response with new post details
-  res.status(201).json({ postId: newPost.id, createdAt: newPost.createdAt });
+    post.replies.push({
+      userId,
+      content: reply,
+      createdAt: new Date(),
+    });
+
+    await post.save();
+
+    logEvent("FORUM_REPLY_ADDED", `Reply added to Post ID ${postId}`, userId);
+    await logAuditTrail(
+      "Forum Reply Added",
+      JSON.stringify({ postId, reply }),
+      userId
+    );
+
+    res.status(200).json({ message: "Reply added successfully.", replies: post.replies });
+  } catch (err) {
+    console.error("Error adding forum reply:", err);
+    res.status(500).json({ error: "Server error adding reply" });
+  }
+};
+
+// Get all replies for a forum post
+exports.getForumReplies = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const post = await ForumPost.findById(postId).lean();
+
+    if (!post) return res.status(404).json({ error: "Forum post not found." });
+
+    res.status(200).json({ replies: post.replies || [] });
+  } catch (err) {
+    console.error("Error fetching forum replies:", err);
+    res.status(500).json({ error: "Server error fetching replies" });
+  }
 };

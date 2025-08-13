@@ -1,6 +1,9 @@
 // Core Imports
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const xss = require("xss-clean");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
@@ -13,6 +16,15 @@ const logEvent = require("./utils/logger");
 
 // Initialize Express App
 const app = express();
+
+// ===== Middlewares =====
+app.use(express.json());
+
+// Secure HTTP headers
+app.use(helmet());
+
+// // Prevent XSS attacks
+// app.use(xss());
 
 // Folder Setup: Ensure 'uploads' and 'uploads/voice' directories exist
 const uploadPath = path.join(__dirname, "uploads");
@@ -47,8 +59,13 @@ app.use(
   })
 );
 
-//  Middleware - Body Parser (JSON Requests)
-app.use(express.json());
+// Basic rate limiting (global)
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 min
+  max: 100, // per IP
+  message: { message: "Too many requests, please try again later." },
+});
+app.use(limiter);
 
 // Connect to MongoDB
 connectDB();

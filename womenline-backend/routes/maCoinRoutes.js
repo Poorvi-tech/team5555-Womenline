@@ -2,11 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const { earnCredits } = require("../controllers/maCoinController");
-const authMiddleware = require("../middleware/authMiddleware");
+const { protect } = require("../middleware/authMiddleware");
+const abusePrevention = require("../middleware/abusePrevention"); // New middleware
 
-// @route   POST /api/maCoin/earn-credits
-// @desc    Earn Green Credits (maCoin) for user activities
-// @access  Protected
-router.post("/earn-credits", authMiddleware.protect, earnCredits);
+router.post("/earn-credits", protect, abusePrevention, earnCredits);
 
 module.exports = router;

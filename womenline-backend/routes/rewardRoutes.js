@@ -4,11 +4,18 @@ const router = express.Router();
 const rewardController = require("../controllers/rewardController");
 const { redeemReward } = require("../controllers/rewardController");
 const authMiddleware = require("../middleware/authMiddleware");
+const abusePrevention = require("../middleware/abusePrevention");
 
 // @route   POST /api/reward/earn-credits
 // @desc    Earn green credits based on activity
 // @access  Protected (authenticated users)
-router.post("/earn-credits", authMiddleware.protect, rewardController.earnCredits);
+router.post(
+  "/earn-credits",
+  authMiddleware.protect,
+  abusePrevention, 
+  rewardController.earnCredits
+);
+
 
 // @route   GET /api/reward/
 // @desc    Fetch all rewards
