@@ -16,6 +16,7 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.0",
     "multer": "^2.0.2",
@@ -24,7 +25,8 @@
     "path": "^0.12.7",
     "pdfkit": "^0.17.1",
     "profanities": "^3.0.1",
-    "twilio": "^5.8.0"
+    "twilio": "^5.8.0",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "chai": "^4.3.7",
