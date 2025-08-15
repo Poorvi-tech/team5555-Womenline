@@ -10,7 +10,6 @@ Body (JSON):
 "username": "Poorvi",
 "email": "poorvi@example.com",
 "password": "password123",
-"role": "user"
 }
 
 ➡️ Login User
@@ -108,6 +107,15 @@ Body (JSON):
 Method: GET
 Endpoint: /api/rewards
 
+➡️ Get Redemption History 
+GET /api/rewards/redemption-history
+Headers: Authorization: Bearer <token>
+
+📊 LEADERBOARD - Top 10 rank
+➡️ Get Leaderboard Rankings
+GET /api/leaderboard
+Headers: Authorization: Bearer <token>
+
 📄 PDF EXPORT
 ➡️ Download Sample Health PDF
 Method: GET
@@ -179,6 +187,23 @@ Body (JSON):
 {
 "reply": "You are not alone. Stay strong."
 }
+
+➡️ Get Forum Replies for a Post 
+GET /api/forum/forum-replies/:postId
+Headers: Authorization: Bearer <token>
+
+➡️ Report Forum Post 
+POST /api/forum/report-post
+Headers: Authorization: Bearer <token>
+
+{
+  "postId": "POST_ID",
+  "reason": "Spam content"
+}
+
+➡️ Get Forum Reports (Admin Only)
+GET /api/forum/reports
+Headers: Authorization: Bearer <admin-token>
 
 📅 APPOINTMENT BOOKING
 ➡️ Book an Appointment

@@ -990,6 +990,33 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "reports",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWVlNTc4ZDJlNTEwNDQ3YjJmMGIyOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NTI0NTAxNSwiZXhwIjoxNzU1MjQ4NjE1fQ.WSUgYiMltdKBjxzUxvkAWqAOi9a1yYRHgIqGLa0Eo08",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/forum/reports",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"forum",
+						"reports"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
