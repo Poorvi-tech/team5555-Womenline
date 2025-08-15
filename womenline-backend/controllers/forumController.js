@@ -124,3 +124,24 @@ exports.reportPost = async (req, res) => {
     res.status(500).json({ error: "Server error reporting post" });
   }
 };
+
+// 📌 Get all reported posts (Admin only)
+exports.getReports = async (req, res) => {
+  try {
+    const postsWithReports = await ForumPost.find(
+      { reports: { $exists: true, $ne: [] } }, // Sirf jisme reports ho
+      { content: 1, reports: 1, createdAt: 1 } // Sirf yeh fields return karo
+    )
+      .populate("reports.userId", "name email") // Report karne wale user ka naam/email
+      .lean();
+
+    if (!postsWithReports.length) {
+      return res.status(404).json({ message: "No reports found." });
+    }
+
+    res.status(200).json({ reports: postsWithReports });
+  } catch (err) {
+    console.error("Error fetching reports:", err);
+    res.status(500).json({ error: "Server error fetching reports" });
+  }
+};
