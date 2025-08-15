@@ -23,7 +23,7 @@ exports.createForumPost = async (req, res) => {
     const newPost = await ForumPost.create({
       userId,
       content,
-      tags: [], // Optional: can be extended
+      tags: [],
     });
 
     logEvent("FORUM_POST_CREATED", `Forum post created`, userId);
@@ -86,5 +86,41 @@ exports.getForumReplies = async (req, res) => {
   } catch (err) {
     console.error("Error fetching forum replies:", err);
     res.status(500).json({ error: "Server error fetching replies" });
+  }
+};
+
+// 📌 Report a forum post
+exports.reportPost = async (req, res) => {
+  try {
+    const { reason } = req.body;
+    const postId = req.params.postId;
+    const userId = req.user?.id || new mongoose.Types.ObjectId();
+
+    if (!reason) return res.status(400).json({ error: "Report reason is required." });
+
+    const post = await ForumPost.findById(postId);
+    if (!post) return res.status(404).json({ error: "Forum post not found." });
+
+    // Save report (embedded inside post document for now)
+    post.reports = post.reports || [];
+    post.reports.push({
+      userId,
+      reason,
+      reportedAt: new Date(),
+    });
+
+    await post.save();
+
+    logEvent("FORUM_POST_REPORTED", `Post ID ${postId} reported`, userId);
+    await logAuditTrail(
+      "Forum Post Reported",
+      JSON.stringify({ postId, reason }),
+      userId
+    );
+
+    res.status(200).json({ message: "Post reported successfully." });
+  } catch (err) {
+    console.error("Error reporting post:", err);
+    res.status(500).json({ error: "Server error reporting post" });
   }
 };

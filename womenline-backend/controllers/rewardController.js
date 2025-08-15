@@ -87,42 +87,61 @@ exports.getRewards = async (req, res) => {
 };
 
 // Redeem a reward using user’s greenCredits
+// Redeem a reward using user’s greenCredits
 exports.redeemReward = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { rewardId, cost } = req.body;
+    const { rewardId } = req.body; // cost ab body me lene ki zarurat nahi
 
-    if (!rewardId || !cost) {
-      return res
-        .status(400)
-        .json(errorResponse("rewardId and cost are required"));
+    if (!rewardId) {
+      return res.status(400).json(errorResponse("rewardId is required"));
     }
 
+    // ✅ Step 1: Reward validate karo
+    const reward = await Reward.findById(rewardId);
+    if (!reward) {
+      return res.status(404).json(errorResponse("Reward not found"));
+    }
+
+    // ✅ Step 2: User validate karo
     const user = await User.findById(userId);
     if (!user) return res.status(404).json(errorResponse("User not found"));
 
-    if (user.greenCredits < cost) {
-      return res
-        .status(400)
-        .json(errorResponse("Not enough credits to redeem this reward"));
+    // ✅ Step 3: Sufficient credits check karo
+    if (user.greenCredits < reward.cost) {
+      return res.status(400).json(errorResponse("Not enough credits to redeem this reward"));
     }
 
-    // Deduct credits after redemption
-    user.greenCredits -= cost;
+    // ✅ Step 4: Deduct credits
+    user.greenCredits -= reward.cost;
+
+    // ✅ Step 5: Correct rewardId store karo
+    user.redemptionHistory = user.redemptionHistory || [];
+    user.redemptionHistory.push({
+      rewardId: reward._id, // Reward collection ka _id
+      redeemedAt: new Date()
+    });
     await user.save();
 
-    logEvent(
-      "REDEEM_REWARD",
-      `Reward ${rewardId} redeemed. Cost: ${cost}`,
-      userId
-    );
+    // ✅ Step 6: Reward ki redemption history update karo
+    await Reward.findByIdAndUpdate(reward._id, {
+      $push: {
+        redemptionHistory: {
+          userId: userId,
+          rewardId: reward._id,
+          redeemedAt: new Date()
+        }
+      }
+    });
 
-    // 🔒 Audit Trail Logging (Stringified details)
+    // ✅ Logging
+    logEvent("REDEEM_REWARD", `Reward ${reward._id} redeemed. Cost: ${reward.cost}`, userId);
+
     await logAuditTrail(
       "REDEEM_REWARD",
       JSON.stringify({
-        rewardId,
-        cost,
+        rewardId: reward._id,
+        cost: reward.cost,
         remainingCredits: user.greenCredits,
       }),
       userId
@@ -130,14 +149,12 @@ exports.redeemReward = async (req, res) => {
 
     return res.status(200).json(
       successResponse("Reward redeemed successfully", {
-        rewardId,
+        rewardId: reward._id,
         remainingCredits: user.greenCredits,
       })
     );
   } catch (error) {
-    return res
-      .status(500)
-      .json(errorResponse("Failed to redeem reward", error));
+    return res.status(500).json(errorResponse("Failed to redeem reward", error));
   }
 };
 
@@ -170,5 +187,42 @@ exports.getUserCredits = async (req, res) => {
     return res
       .status(500)
       .json(errorResponse("Failed to fetch user credits", error));
+  }
+};
+
+// GET redemption history for logged-in user (only valid rewards)
+exports.getRedemptionHistory = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await User.findById(userId)
+      .select('redemptionHistory')
+      .populate({
+        path: 'redemptionHistory.rewardId',
+        select: 'title description cost imageURL'
+      });
+
+    if (!user) {
+      return res.status(404).json(errorResponse('User not found'));
+    }
+
+    // Filter only valid rewards (rewardId not null)
+    const formattedHistory = user.redemptionHistory
+      .filter(entry => entry.rewardId) // removes broken/null refs
+      .map(entry => ({
+        title: entry.rewardId.title,
+        description: entry.rewardId.description,
+        cost: entry.rewardId.cost,
+        imageURL: entry.rewardId.imageURL,
+        redeemedAt: entry.redeemedAt
+      }));
+
+    return res
+      .status(200)
+      .json(successResponse("Redemption history fetched", formattedHistory));
+
+  } catch (error) {
+    console.error('Error fetching redemption history:', error);
+    res.status(500).json(errorResponse('Server error', error));
   }
 };

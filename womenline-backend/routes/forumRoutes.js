@@ -8,5 +8,6 @@ const { protect } = require("../middleware/authMiddleware");
 router.post('/forum-post', protect, forumSpamFilter, forumController.createForumPost); 
 router.post('/forum-reply/:postId', protect, commentModeration, forumSpamFilter, forumController.addForumReply); 
 router.get('/forum-replies/:postId', forumController.getForumReplies);
+router.post('/report-post/:postId', protect, forumController.reportPost);
 
 module.exports = router;

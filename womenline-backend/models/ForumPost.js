@@ -19,6 +19,13 @@ const forumPostSchema = new mongoose.Schema({
     type: Date,
     default: Date.now, // Auto-set creation timestamp
   },
+  reports: [
+  {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    reason: { type: String, required: true },
+    reportedAt: { type: Date, default: Date.now }
+  }
+],
   replies: [
     {
       userId: {
