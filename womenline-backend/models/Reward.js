@@ -39,11 +39,11 @@ const rewardSchema = new mongoose.Schema(
           required: true,
           ref: "User", // User who redeemed the reward
         },
-        rewardId: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-          ref: "Reward", // Reference to the redeemed reward
-        },
+        // rewardId: {
+        //   type: mongoose.Schema.Types.ObjectId,
+        //   required: true,
+        //   ref: "Reward", // Reference to the redeemed reward
+        // },
         redeemedAt: {
           type: Date,
           default: Date.now, // Timestamp of redemption

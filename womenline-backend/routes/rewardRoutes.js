@@ -5,6 +5,8 @@ const rewardController = require("../controllers/rewardController");
 const { redeemReward } = require("../controllers/rewardController");
 const authMiddleware = require("../middleware/authMiddleware");
 const abusePrevention = require("../middleware/abusePrevention");
+const { getRedemptionHistory } = require('../controllers/rewardController');
+
 
 // @route   POST /api/reward/earn-credits
 // @desc    Earn green credits based on activity
@@ -40,5 +42,12 @@ router.get(
   authMiddleware.protect,
   rewardController.getUserCredits
 );
+
+router.get(
+  '/user/redemption-history',
+  authMiddleware.protect,
+  rewardController.getRedemptionHistory
+);
+
 
 module.exports = router;

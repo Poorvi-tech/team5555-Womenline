@@ -31,9 +31,14 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    redemptionHistory: [{
+      rewardId: { type: mongoose.Schema.Types.ObjectId, ref: "Reward" },
+      redeemedAt: { type: Date, default: Date.now }
+    }]
   },
   { timestamps: true }
 );
+
 
 // Method to compare passwords during login
 userSchema.methods.comparePassword = async function (candidatePassword) {
