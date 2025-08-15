@@ -66,34 +66,35 @@ EMAIL_PASS=mqgzregtgcrfcynm
 
 📂 Project Folder Structure
 womenline-backend/
-├── controllers/ # API Controllers (Business Logic)
-├── models/ # Mongoose Schemas
-├── routes/ # API Routes
-├── middleware/ # Auth, Role Checks, Upload Middlewares
-├── utils/ # Helpers: Logger, PDF Generator, Credit Calculator, Email Service
-├── uploads/ # Uploaded Files (voice, documents)
-│ └── voice/
-├── logs/ # Security Logs (audit events)
-│ └── security.log
-├── seeders/ # Database Seeder Scripts
-├── test/ # Mocha-Chai API Tests
-├── app.js # Main Entry Point of the Backend
-└── .env.example # Example Environment Variables
+├── controllers/       # API Controllers
+├── models/            # Mongoose Schemas
+├── routes/            # API Routes
+├── middleware/        # Auth, Role Checks, Upload Middlewares
+├── utils/             # Logger, PDF Generator, Credit Calculator, Email Service
+├── uploads/           # Uploaded Files
+│   └── voice/
+├── logs/              # Security Logs
+│   └── security.log
+├── seeders/           # Seeder Scripts
+├── test/              # API Tests
+├── app.js             # Main App Entry
+└── .env.example
+
 
 🧪 Testing Overview
-Module Test Status
-Authentication ✅ Completed
-Journals ✅ Completed
-Period Tracker ✅ Completed
-Rewards ✅ Completed
-MaCoins ✅ Completed
-WhatsApp ✅ Completed
-PDF Export ✅ Completed
-File Upload ✅ Completed
-Abuse/Forum ✅ Completed
-Appointments ✅ Completed
-Forum Replies ✅ Completed
-Doctor Checklist ✅ Completed
+All modules have 100% Mocha-Chai test coverage:
+Authentication ✅
+Journals ✅
+Period Tracker ✅
+Rewards ✅
+Leaderboard ✅
+WhatsApp ✅
+PDF Export ✅
+File Upload ✅
+Abuse Reporting ✅
+Forum Posts & Replies ✅
+Appointment Booking ✅
+Doctor Checklist ✅
 
 Run All Tests:
 npm test
@@ -112,61 +113,60 @@ WhatsApp Alerts
 
 📚 API Endpoints Summary
 Authentication
-Method Endpoint Description
-POST /api/auth/register Register a new user
-POST /api/auth/login Login & receive JWT
+POST /api/auth/register — Register a new user
+POST /api/auth/login — Login & receive JWT
+POST /api/auth/send-otp — Send OTP for verification
+POST /api/auth/verify-otp — Verify OTP for authentication
+GET /api/auth/token-check — Check valid token
 
 Journal (Voice Mood Tracking)
-Method Endpoint Description
-POST /api/journals Create journal entry
-GET /api/journals Fetch all journals
+GET /api/journals — Fetch user journals
+POST /api/journals — Create a journal entry
 
 Period Tracker
-Method Endpoint Description
-POST /api/period-log Log a new period entry
-GET /api/period-log/:userId Get user's period logs
+POST /api/period-log — Log period entry
+GET /api/period-log/:userId — Fetch period logs for a user
 
 Green Credits & Rewards
-Method Endpoint Description
-POST /api/rewards/earn-credits Earn credits
-GET /api/rewards Get available rewards
-POST /api/rewards/redeem Redeem rewards
-GET /api/rewards/user-credits Fetch user's credit balance
+POST /api/rewards/earn-credits — Earn credits (MaCoin)
+POST /api/rewards/redeem — Redeem rewards
+GET /api/rewards — Fetch available rewards
+GET /api/rewards/user-credits — Fetch user's current credits
+GET /api/rewards/user/redemption-history — Fetch user's redemption history
 
-Appointment Booking
-Method Endpoint Description
-POST /api/appointments Book an appointment slot
-GET /api/appointments Fetch all appointments for logged-in user
-DELETE /api/appointments/:id Cancel an appointment
-
-Forum Replies
-Method Endpoint Description
-POST /api/forum-reply/:postId Add a reply to a forum post
-GET /api/forum-replies/:postId Fetch replies of a forum post
-
-File Uploads
-Method Endpoint Description
-POST /api/voice/upload Upload voice note
+Leaderboard
+GET /api/leaderboard — Fetch leaderboard (MaCoin/Posts)
 
 PDF Reports
-Method Endpoint Description
-GET /api/pdf/sample Download sample PDF
-GET /api/pdf/export-summary Export health summary PDF
-
-Abuse Reporting & Forum
-Method Endpoint Description
-POST /api/abuse/report-abuse Submit abuse report
-GET /api/abuse/report-abuse Admin fetch abuse reports
-POST /api/forum/forum-post Post a public/anonymous forum post
-
-Doctor Checklist
-Method Endpoint Description
-GET /api/doctor-checklist Get doctor checklist steps
-POST /api/checklist Submit doctor checklist (userId, symptoms, duration)
+GET /api/pdf/sample — Sample PDF download
+GET /api/pdf/export-summary — Export user summary PDF
 
 WhatsApp Integration
-Method Endpoint Description
-POST /api/whatsapp/send-whatsapp Send WhatsApp Alert
+POST /api/whatsapp/send-whatsapp — Send WhatsApp message via bot
+
+File Uploads
+POST /api/upload/file — Upload files
+POST /api/voice/upload — Upload voice entry
+
+Abuse Reporting
+POST /api/abuse/report-abuse — Report abuse
+GET /api/abuse/report-abuse — Get abuse reports (Admin)
+
+Forum
+POST /api/forum/forum-post — Create forum post
+POST /api/forum/forum-reply/:postId — Reply to forum post
+GET /api/forum/forum-replies/:postId — Fetch replies for a post
+POST /api/forum/report-post/:postId — Report a forum post
+GET /api/forum/reports — See all forum reports (Admin only)
+
+Appointment Booking
+POST /api/appointments — Book an appointment
+GET /api/appointments — Get user's appointments
+DELETE /api/appointments/:id — Cancel an appointment
+
+Doctor Checklist
+GET /api/doctor-checklist — Fetch doctor checklist
+POST /api/checklist — Add new doctor/checklist (Admin Only)
 
 🔄 Seeder (Dummy Data for Rewards)
 Run the seeder script to populate initial reward data:
