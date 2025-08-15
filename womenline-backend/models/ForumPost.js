@@ -48,6 +48,17 @@ const forumPostSchema = new mongoose.Schema({
 // Index for querying forum posts by tags
 forumPostSchema.index({ userId: 1 });
 
+forumPostSchema.pre('save', async function(next) {
+  if (this.userId) {
+    const userExists = await mongoose.model('User').exists({ _id: this.userId });
+    if (!userExists) {
+      throw new Error('Invalid userId for ForumPost');
+    }
+  }
+  next();
+});
+
+
 // Mongoose model export
 const ForumPost = mongoose.model("ForumPost", forumPostSchema);
 module.exports = ForumPost;

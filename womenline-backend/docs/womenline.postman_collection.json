@@ -185,13 +185,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGNjOTA4Mzk2N2NkZGNhMWUxYWQ5ZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU0NTgwNzUyLCJleHAiOjE3NTQ1ODQzNTJ9.tAJ6jNpjA435A5e02Tdz1G-KsfKfdqnHBqgQjdM0NQ0",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGNjOTA4Mzk2N2NkZGNhMWUxYWQ5ZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU1MDU1ODk1LCJleHAiOjE3NTUwNTk0OTV9.qWy1ytdLLvkfDpX8ApAqRzwFjssXpOoRPjSVDBPLDwA",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"687905303317650ba386d5be\",\r\n  \"activityType\": \"journal-entry\",\r\n  \"source\": \"journal\"\r\n}\r\n",
+					"raw": "{\r\n  \"userId\": \"64f1a9a8c3b123456789abcd\",\r\n  \"activityType\": \"daily-login\",\r\n  \"source\": \"app\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -543,7 +543,7 @@
 			"response": []
 		},
 		{
-			"name": "forcum",
+			"name": "forumpost",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -797,7 +797,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGNjOTA4Mzk2N2NkZGNhMWUxYWQ5ZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU0NTgwNzUyLCJleHAiOjE3NTQ1ODQzNTJ9.tAJ6jNpjA435A5e02Tdz1G-KsfKfdqnHBqgQjdM0NQ0",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWUwMDcxNWIyYzdjMzkzZjIxNmRkOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU1MjM1MjU4LCJleHAiOjE3NTUyMzg4NTh9._SVHdonieTZxjbFoLI3DuMxIG7Jtnn72RUCROhQ3vGU",
 						"type": "text"
 					}
 				],
@@ -821,7 +821,13 @@
 			"name": "doctor",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWUwMDcxNWIyYzdjMzkzZjIxNmRkOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU1MjM1MjU4LCJleHAiOjE3NTUyMzg4NTh9._SVHdonieTZxjbFoLI3DuMxIG7Jtnn72RUCROhQ3vGU",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:5000/api/doctor-checklist",
 					"protocol": "http",
@@ -844,13 +850,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGNjOTA4Mzk2N2NkZGNhMWUxYWQ5ZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU0NTgwNzUyLCJleHAiOjE3NTQ1ODQzNTJ9.tAJ6jNpjA435A5e02Tdz1G-KsfKfdqnHBqgQjdM0NQ0",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWUwMDcxNWIyYzdjMzkzZjIxNmRkOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU1MjM1MjU4LCJleHAiOjE3NTUyMzg4NTh9._SVHdonieTZxjbFoLI3DuMxIG7Jtnn72RUCROhQ3vGU",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"688cc9083967cddca1e1ad9d\",\r\n  \"symptoms\": [\"Fever\", \"Fatigue\"],\r\n  \"duration\": \"3 days\"\r\n}\r\n",
+					"raw": "{\r\n  \"doctorName\": \"Dr. Example\",\r\n  \"specialization\": \"Cardiology\",\r\n  \"availability\": \"Mon-Fri\",\r\n  \"contact\": \"1234567890\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -867,6 +873,119 @@
 					"path": [
 						"api",
 						"checklist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leaderboard",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWUwMDcxNWIyYzdjMzkzZjIxNmRkOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU1MjM1MjU4LCJleHAiOjE3NTUyMzg4NTh9._SVHdonieTZxjbFoLI3DuMxIG7Jtnn72RUCROhQ3vGU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/leaderboard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"leaderboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forum-replies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/forum/forum-replies/689ec4d296a0bfef408873c2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"forum",
+						"forum-replies",
+						"689ec4d296a0bfef408873c2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "redemption-history",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWUwMDcxNWIyYzdjMzkzZjIxNmRkOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU1MjM1MjU4LCJleHAiOjE3NTUyMzg4NTh9._SVHdonieTZxjbFoLI3DuMxIG7Jtnn72RUCROhQ3vGU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/rewards/user/redemption-history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"rewards",
+						"user",
+						"redemption-history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "report-post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OWUwMDcxNWIyYzdjMzkzZjIxNmRkOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzU1MjM1MjU4LCJleHAiOjE3NTUyMzg4NTh9._SVHdonieTZxjbFoLI3DuMxIG7Jtnn72RUCROhQ3vGU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"postId\": \"689e1d2cad4d2f49981c79cd\",\r\n  \"reason\": \"Inappropriate content\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/forum/report-post/689e1d2cad4d2f49981c79cd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"forum",
+						"report-post",
+						"689e1d2cad4d2f49981c79cd"
 					]
 				}
 			},

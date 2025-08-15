@@ -45,4 +45,12 @@ const maCoinSchema = new Schema(
   { timestamps: true }
 ); // Adds createdAt and updatedAt
 maCoinSchema.index({ userId: 1, createdAt: -1 }); 
+
+maCoinSchema.pre('save', async function(next) {
+  const userExists = await mongoose.model('User').exists({ _id: this.userId });
+  if (!userExists) {
+    throw new Error('Invalid userId for MaCoin');
+  }
+  next();
+});
 module.exports = mongoose.model("MaCoin", maCoinSchema);
