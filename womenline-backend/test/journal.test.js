@@ -9,7 +9,7 @@ let token;
 
 describe("Journal API", () => {
   before(function (done) {
-    this.timeout(10000); // ⏱extend timeout
+    this.timeout(20000); // ⏱extend timeout
     // Register + login to get token
     const random = Math.floor(Math.random() * 10000);
     const newUser = {

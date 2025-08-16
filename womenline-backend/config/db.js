@@ -1,17 +1,37 @@
+/**
+ * Database Connection Utility
+ * ---------------------------------
+ * This module establishes a connection to MongoDB
+ * using Mongoose. It ensures that the application
+ * exits gracefully if the connection fails.
+ */
+
 const mongoose = require("mongoose");
 
-// Connect to MongoDB
+/**
+ * Connects to MongoDB using Mongoose.
+ *
+ * @async
+ * @function connectDB
+ * @returns {Promise<void>} Logs successful connection or exits on failure.
+ */
 const connectDB = async () => {
   try {
-    mongoose.set("strictQuery", false); // Disable strict query mode
+    // Disable strict query mode for backward compatibility
+    mongoose.set("strictQuery", false);
+
+    // Establish MongoDB connection
     const conn = await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log(`Database connected: ${conn.connection.host}`);
+
+    // Log host info on successful connection
+    console.log(`✅ Database connected: ${conn.connection.host}`);
   } catch (error) {
-    console.log("MongoDB connection error:", error);
-    process.exit(1); // Exit process on failure
+    // Log error and exit process if connection fails
+    console.error("❌ MongoDB connection error:", error);
+    process.exit(1);
   }
 };
 

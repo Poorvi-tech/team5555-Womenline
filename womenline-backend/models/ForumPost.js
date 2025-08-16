@@ -15,6 +15,15 @@ const forumPostSchema = new mongoose.Schema({
     type: [String],
     required: false, // Optional tags for categorization
   },
+  content: {
+  type: String,
+  required: true,
+  validate: {
+    validator: v => v && v.trim().length > 0,
+    message: "Reply content cannot be empty"
+  }
+},
+
   createdAt: {
     type: Date,
     default: Date.now, // Auto-set creation timestamp

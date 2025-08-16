@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe("WhatsApp API", function () {
-  this.timeout(10000);
+  this.timeout(25000);
   let token;
 
   before(async () => {

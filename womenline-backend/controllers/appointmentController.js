@@ -1,23 +1,38 @@
 const Appointment = require('../models/Appointment');
+const logEvent = require('../utils/logger');
+const logAuditTrail = require('../utils/logAuditTrail');
 
 // Book a new appointment
 exports.bookAppointment = async (req, res) => {
   try {
     const { doctorName, date, timeSlot } = req.body;
+    const userId = req.user.id;
 
     if (!doctorName || !date || !timeSlot) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
-    // Use userId from token instead of request body
     const newAppointment = new Appointment({
       doctorName,
       date,
       timeSlot,
-      userId: req.user.id,
+      userId,
     });
 
     await newAppointment.save();
+
+    // 📜 Logging
+    logEvent(
+      "BOOK_APPOINTMENT",
+      `Appointment booked with Dr. ${doctorName} on ${date} at ${timeSlot}`,
+      userId
+    );
+
+    await logAuditTrail(
+      "BOOK_APPOINTMENT",
+      JSON.stringify({ doctorName, date, timeSlot, appointmentId: newAppointment._id }),
+      userId
+    );
 
     res.status(201).json({ success: true, data: { appointmentId: newAppointment._id } });
   } catch (err) {
@@ -28,9 +43,22 @@ exports.bookAppointment = async (req, res) => {
 // Get all appointments for the logged-in user
 exports.getUserAppointments = async (req, res) => {
   try {
-    const userId = req.user.id; // Extracted from token
+    const userId = req.user.id;
 
     const appointments = await Appointment.find({ userId });
+
+    // 📜 Logging
+    logEvent(
+      "FETCH_APPOINTMENTS",
+      `Fetched ${appointments.length} appointments`,
+      userId
+    );
+
+    await logAuditTrail(
+      "FETCH_APPOINTMENTS",
+      JSON.stringify({ totalAppointments: appointments.length }),
+      userId
+    );
 
     res.status(200).json({ success: true, data: appointments });
   } catch (err) {
@@ -42,17 +70,30 @@ exports.getUserAppointments = async (req, res) => {
 exports.cancelAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.findById(req.params.id);
+    const userId = req.user.id;
 
     if (!appointment) {
       return res.status(404).json({ success: false, message: 'Appointment not found' });
     }
 
-    // Optional: check if the logged-in user owns this appointment
-    if (appointment.userId.toString() !== req.user.id && req.role !== 'admin') {
+    if (appointment.userId.toString() !== userId && req.role !== 'admin') {
       return res.status(403).json({ success: false, message: 'Not authorized to cancel this appointment' });
     }
 
     await Appointment.findByIdAndDelete(req.params.id);
+
+    // 📜 Logging
+    logEvent(
+      "CANCEL_APPOINTMENT",
+      `Appointment ${req.params.id} cancelled`,
+      userId
+    );
+
+    await logAuditTrail(
+      "CANCEL_APPOINTMENT",
+      JSON.stringify({ appointmentId: req.params.id }),
+      userId
+    );
 
     res.status(200).json({ success: true, message: 'Appointment cancelled' });
   } catch (err) {

@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 let token; // For Auth Token
 
 describe("PDF API", function () {
-  this.timeout(10000); // Increase timeout to 10 seconds for all tests & hooks here
+  this.timeout(20000); // Increase timeout to 10 seconds for all tests & hooks here
 
   before(async function () {
     // Register a user

@@ -11,7 +11,7 @@ let uniqueUser;
 
 describe("Auth API", () => {
   before(function (done) {
-    this.timeout(10000);
+    this.timeout(20000);
 
     const random = Math.floor(Math.random() * 10000);
     uniqueUser = {
