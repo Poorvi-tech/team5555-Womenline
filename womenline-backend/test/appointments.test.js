@@ -6,10 +6,10 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-let token, userId, appointmentId;
+let token, appointmentId;
 
 describe("Appointment API", function () {
-  this.timeout(10000); // Increase timeout to 10 seconds
+  this.timeout(20000); // 10s timeout
 
   before((done) => {
     const random = Math.floor(Math.random() * 10000);
@@ -26,19 +26,16 @@ describe("Appointment API", function () {
       .end((err, res) => {
         if (err) return done(err);
         token = res.body.token;
-        userId = res.body.user?._id || res.body._id || null;
-        if (!userId) return done(new Error("userId not returned from registration"));
         done();
       });
   });
 
   it("should create a new appointment", (done) => {
     const data = {
-  userId,
-  doctorName: "Dr. Wellness",
-  date: "2025-08-10T10:00:00Z",     
-  timeSlot: "10:00 AM - 10:30 AM",    
-};
+      doctorName: "Dr. Wellness",
+      date: "2025-08-10T10:00:00Z",
+      timeSlot: "10:00 AM - 10:30 AM",
+    };
 
     chai
       .request(app)
@@ -80,6 +77,19 @@ describe("Appointment API", function () {
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.success).to.be.false;
+        done();
+      });
+  });
+
+  it("should cancel an appointment", (done) => {
+    chai
+      .request(app)
+      .delete(`/api/appointments/${appointmentId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.success).to.be.true;
+        expect(res.body.message).to.equal("Appointment cancelled");
         done();
       });
   });

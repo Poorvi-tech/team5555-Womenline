@@ -1,13 +1,17 @@
-// Utility to send standardized success response
-exports.successResponse = (message, data) => ({
-  success: true,
-  message,
-  data,
-});
+function errorResponse(message, error = null) {
+  return {
+    success: false,
+    message,
+    error,
+  };
+}
 
-// Utility to send standardized error response
-exports.errorResponse = (message, error = null) => ({
-  success: false,
-  message,
-  error,
-});
+function successResponse(message, data = {}) {
+  return {
+    success: true,
+    message,
+    data,
+  };
+}
+
+module.exports = { successResponse, errorResponse };

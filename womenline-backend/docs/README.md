@@ -34,12 +34,23 @@ cp .env.example .env
 # Edit `.env` file with actual credentials (MongoDB URI, JWT Secret, Twilio creds, Email creds)
 
 # 4. Start the development server
-
 npm start
 
 # 5. Run all tests
+⚠️ Important: Running npm test directly may cause errors due to simultaneous database connections. Please run test files one by one.
+npx mocha "test/journal.test.js" --timeout 30000 --exit
+npx mocha "test/maCoin.test.js" --timeout 30000 --exit
+npx mocha "test/pdf.test.js" --timeout 30000 --exit
+npx mocha "test/period.test.js" --timeout 30000 --exit
+npx mocha "test/reward.test.js" --timeout 30000 --exit
+npx mocha "test/voice.test.js" --timeout 30000 --exit
+npx mocha "test/whatsapp.test.js" --timeout 30000 --exit
+npx mocha "test/checklist.test.js" --timeout 30000 --exit
+npx mocha "test/forum.test.js" --timeout 30000 --exit
+npx mocha "test/abuse.test.js" --timeout 30000 --exit
+npx mocha "test/auth.test.js" --timeout 30000 --exit
+npx mocha "test/appointments.test.js" --timeout 30000 --exit
 
-npm test
 
 🛠️ Environment Variables (.env)
 Key Description

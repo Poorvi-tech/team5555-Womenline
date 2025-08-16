@@ -203,6 +203,8 @@ exports.getRedemptionHistory = async (req, res) => {
       });
 
     if (!user) {
+      await logEvent("FETCH_REDEMPTION_FAILED", "User not found", userId);
+      await logAuditTrail("FETCH_REDEMPTION_FAILED", "User not found", userId);
       return res.status(404).json(errorResponse('User not found'));
     }
 
@@ -217,12 +219,21 @@ exports.getRedemptionHistory = async (req, res) => {
         redeemedAt: entry.redeemedAt
       }));
 
+      logEvent("FETCH_REDEMPTION_HISTORY", "Redemption history fetched", userId);
+    await logAuditTrail(
+      "FETCH_REDEMPTION_HISTORY",
+      JSON.stringify({ total: formattedHistory.length }),
+      userId
+    );
+
     return res
       .status(200)
       .json(successResponse("Redemption history fetched", formattedHistory));
 
   } catch (error) {
     console.error('Error fetching redemption history:', error);
+    await logEvent("FETCH_REDEMPTION_ERROR", error.message, req.user.id);
+    await logAuditTrail("FETCH_REDEMPTION_ERROR", error.message, req.user.id);
     res.status(500).json(errorResponse('Server error', error));
   }
 };
