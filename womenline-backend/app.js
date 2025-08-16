@@ -40,7 +40,7 @@ if (!fs.existsSync(voicePath)) {
 //  CORS Configuration (Frontend URLs Whitelisted)
 const allowedOrigins = [
   "http://localhost:8000", // local frontend
-  "https://yourfrontend.com", // live deployed frontend
+  "http://women-line-frontend.vercel.app", // live deployed frontend
 ];
 
 // Secure CORS setup
