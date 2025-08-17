@@ -102,9 +102,14 @@ app.use("/api/forum", forumRoutes); // Forum APIs
 app.use('/api', appointmentRoutes); // Appointment Booking APIs
 app.use('/api', checklistRoutes); //  Doctor Checklist API
 
-// Health Check Route
+// Root Route
 app.get("/", (req, res) => {
   res.send("WomenLine backend is running");
+});
+
+// Health Check Route (for Render monitoring)
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "UP" });
 });
 
 // Start Express Server
