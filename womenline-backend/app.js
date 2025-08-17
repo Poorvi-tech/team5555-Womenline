@@ -65,7 +65,7 @@ const limiter = rateLimit({
   max: 100, // per IP
   message: { message: "Too many requests, please try again later." },
 });
-app.use(limiter);
+app.use("/api",limiter);
 
 // Connect to MongoDB
 connectDB();
