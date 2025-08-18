@@ -4,9 +4,7 @@ const router = express.Router();
 const upload = require("../middleware/uploadMiddleware");
 const { protect, rolecheck } = require("../middleware/authMiddleware");
 
-// @route   POST /api/upload/file
-// @desc    Upload a file (image/pdf)
-// @access  Protected (mother, caregiver, admin, user)
+// Upload file (image/pdf) - mother, caregiver, admin, user
 router.post(
   "/file",
   protect,

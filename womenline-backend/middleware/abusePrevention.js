@@ -1,4 +1,3 @@
-// middleware/abusePrevention.js
 const calculateCredits = require("../utils/creditCalculator");
 
 const DAILY_LIMIT = 100;

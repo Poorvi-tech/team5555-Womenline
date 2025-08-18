@@ -3,9 +3,7 @@ const router = express.Router();
 const journalController = require("../controllers/journalController");
 const { protect, rolecheck } = require("../middleware/authMiddleware");
 
-// @route   GET /api/journal/
-// @desc    Fetch all journal entries of the logged-in user
-// @access  Protected (roles: mother, caregiver, admin, user)
+// Get all journal entries (mother, caregiver, admin, user)
 router.get(
   "/",
   protect,
@@ -13,9 +11,7 @@ router.get(
   journalController.getJournals
 );
 
-// @route   POST /api/journal/
-// @desc    Create a new journal entry for the logged-in user
-// @access  Protected (roles: mother, caregiver, admin, user)
+// Create a new journal entry (mother, caregiver, admin, user)
 router.post(
   "/",
   protect,

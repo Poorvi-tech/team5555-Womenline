@@ -111,7 +111,8 @@ describe("Forum API", function () {
     it("should fetch all replies for a forum post", async () => {
       const res = await chai
         .request(app)
-        .get(`/api/forum/forum-replies/${postId}`);
+        .get(`/api/forum/forum-replies/${postId}`)
+        .set("Authorization", `Bearer ${userToken}`);
       console.log("💬 getForumReplies response:", res.body);
 
       expect(res).to.have.status(200);

@@ -1,32 +1,35 @@
-// Core Imports
+// ===== Core Imports =====
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const xss = require("xss-clean");
 const fs = require("fs");
 const path = require("path");
+const morgan = require("morgan");
+const errorHandler = require("./middleware/errorHandler");
 require("dotenv").config();
 
-// Database Connection
+// ===== Database =====
 const connectDB = require("./config/db");
 
-// Logger Utility
+// ===== Logger =====
 const logEvent = require("./utils/logger");
 
-// Initialize Express App
+// ===== Express App Initialization =====
 const app = express();
-
-// ===== Middlewares =====
 app.use(express.json());
+app.use(helmet()); // Secure HTTP headers
 
-// Secure HTTP headers
-app.use(helmet());
+// ===== HTTP Logging =====
+app.use(
+  morgan("combined", {
+    stream: {
+      write: (message) => logEvent("HTTP", message.trim()),
+    },
+  })
+);
 
-// // Prevent XSS attacks
-// app.use(xss());
-
-// Folder Setup: Ensure 'uploads' and 'uploads/voice' directories exist
+// ===== Folder Setup =====
 const uploadPath = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath);
@@ -37,13 +40,11 @@ if (!fs.existsSync(voicePath)) {
   fs.mkdirSync(voicePath, { recursive: true });
 }
 
-//  CORS Configuration (Frontend URLs Whitelisted)
+// ===== CORS Setup =====
 const allowedOrigins = [
   "http://localhost:8000", // local frontend
   "https://women-line-frontend.vercel.app", // live deployed frontend
 ];
-
-// Secure CORS setup
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -59,18 +60,18 @@ app.use(
   })
 );
 
-// Basic rate limiting (global)
+// ===== Rate Limiting =====
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 min
   max: 100, // per IP
   message: { message: "Too many requests, please try again later." },
 });
-app.use("/api",limiter);
+app.use(limiter);
 
-// Connect to MongoDB
+// ===== Connect Database =====
 connectDB();
 
-// API Routes Import
+// ===== Import Routes =====
 const authRoutes = require("./routes/authRoutes");
 const journalRoutes = require("./routes/journalRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
@@ -82,41 +83,55 @@ const whatsappRoutes = require("./routes/whatsappRoutes");
 const voiceRoutes = require("./routes/voiceRoutes");
 const abuseRoutes = require("./routes/abuseRoutes");
 const forumRoutes = require("./routes/forumRoutes");
-const appointmentRoutes = require('./routes/appointmentRoutes');
-const checklistRoutes = require('./routes/checklistRoutes');
-const leaderboardRoutes = require('./routes/leaderboard');
+const appointmentRoutes = require("./routes/appointmentRoutes");
+const checklistRoutes = require("./routes/checklistRoutes");
+const leaderboardRoutes = require("./routes/leaderboard");
 
-// Route Handlers
-app.use('/api/leaderboard', leaderboardRoutes);
-app.use("/api/voice", voiceRoutes); // Voice Upload APIs
-app.use("/api/whatsapp", whatsappRoutes); // WhatsApp with Dummy Trigger APIs
-app.use("/api/pdf", exportRoutes); // PDF Export APIs
-app.use("/api", maCoinRoutes); // MaCoin (Credits) APIs
-app.use("/api/rewards", rewardRoutes); // Rewards API
-app.use("/api/upload", uploadRoutes); // File Upload APIs
-app.use("/api/auth", authRoutes); // Authentication APIs
-app.use("/api/journals", journalRoutes); // Journal APIs
-app.use("/api", periodRoutes); // Period Tracker APIs
-app.use("/api/abuse", abuseRoutes); // Abuse Reporting APIs
-app.use("/api/forum", forumRoutes); // Forum APIs
-app.use('/api', appointmentRoutes); // Appointment Booking APIs
-app.use('/api', checklistRoutes); //  Doctor Checklist API
+// ===== Mount Routes =====
+app.use("/api/leaderboard", leaderboardRoutes);
+app.use("/api/voice", voiceRoutes);
+app.use("/api/whatsapp", whatsappRoutes);
+app.use("/api/pdf", exportRoutes);
+app.use("/api", maCoinRoutes);
+app.use("/api/rewards", rewardRoutes);
+app.use("/api/upload", uploadRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/journals", journalRoutes);
+app.use("/api", periodRoutes);
+app.use("/api/abuse", abuseRoutes);
+app.use("/api/forum", forumRoutes);
+app.use("/api", appointmentRoutes);
+app.use("/api", checklistRoutes);
 
-// Root Route
+// ===== Static File Hosting =====
+app.use(
+  "/uploads/voice",
+  express.static(path.join(__dirname, "uploads/voice"))
+);
+app.use("/uploads/pdf", express.static(path.join(__dirname, "uploads")));
+
+// ===== Test / Dummy Routes =====
+app.get("/error-test", (req, res, next) => {
+  next(new Error("Test error logging"));
+});
+app.get("/test-success", (req, res) => {
+  res.json({ success: true, message: "Test route working fine " });
+});
 app.get("/", (req, res) => {
   res.send("WomenLine backend is running");
 });
-
-// Health Check Route (for Render monitoring)
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
 });
 
-// Start Express Server
+// ===== Error Handler =====
+app.use(errorHandler);
+
+// ===== Start Server =====
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// Export app for Testing Purposes
+// ===== Export for Testing =====
 module.exports = app;

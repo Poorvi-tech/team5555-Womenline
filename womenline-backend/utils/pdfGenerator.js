@@ -3,10 +3,12 @@ const fs = require('fs');
 const path = require('path');
 const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
 
+// Chart size
 const width = 600;
 const height = 300;
 const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height });
 
+// Generates a PDF report
 const generatePdf = async (data, outputPath) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -14,21 +16,21 @@ const generatePdf = async (data, outputPath) => {
       const writeStream = fs.createWriteStream(outputPath);
       doc.pipe(writeStream);
 
-      // Branding header
+        // Header
       doc
         .fontSize(24)
         .fillColor('#333')
         .text('WomenLine Health Report', { align: 'center' })
         .moveDown(1);
 
-      // Date
+      // Current date
       doc
         .fontSize(12)
         .fillColor('gray')
         .text(`Date: ${new Date().toLocaleDateString()}`, { align: 'right' })
         .moveDown();
 
-      // User Information
+      // User info
       doc
         .fontSize(14)
         .fillColor('#000')
@@ -75,7 +77,7 @@ const generatePdf = async (data, outputPath) => {
         });
       }
 
-      // 🟢 Mood Graph Image Insertion
+      // Mood graph
       if (Object.keys(moodSummary).length > 0) {
         const config = {
           type: 'bar',
@@ -101,10 +103,12 @@ const generatePdf = async (data, outputPath) => {
           },
         };
 
+        // Render chart to buffer and save as temp image
         const buffer = await chartJSNodeCanvas.renderToBuffer(config);
         const tempImagePath = path.join(__dirname, 'temp-mood-graph.png');
         fs.writeFileSync(tempImagePath, buffer);
 
+         // Add chart to PDF
         doc.addPage();
         doc.image(tempImagePath, {
           fit: [500, 300],
@@ -125,10 +129,10 @@ const generatePdf = async (data, outputPath) => {
 
       doc.end();
 
+       // Resolve when write stream finishes
       writeStream.on('finish', () => {
         resolve(outputPath);
       });
-
       writeStream.on('error', (err) => {
         reject(err);
       });

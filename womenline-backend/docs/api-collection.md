@@ -150,6 +150,14 @@ Endpoint: /api/voice/upload
 Headers: Authorization: Bearer <token>
 Body (Form-Data):voiceFile: (Select .mp3 / .wav)
 
+➡️ Test Voice Upload 
+Method: GET
+Endpoint: /uploads/voice/filename
+
+➡️ Test PDF/Image Upload 
+Method: GET
+Endpoint: /uploads/pdf/filename
+
 🚨 ABUSE REPORTING (Protected)
 ➡️ Report Abuse
 Method: POST
@@ -260,6 +268,19 @@ Response:json
 "role": "user"
 }
 }
+
+🟢 TEST ENDPOINTS
+➡️ Health Check
+Method: GET
+Endpoint: /health
+
+➡️ Error Test
+Method: GET
+Endpoint: /error-test
+
+➡️ Test Success
+Method: GET
+Endpoint: /test-success
 
 🔒 Token Requirement (Protected Routes)
 All routes except register, login, sample PDF require:

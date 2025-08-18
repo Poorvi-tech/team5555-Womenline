@@ -1,6 +1,5 @@
-// Utility function to calculate credits based on activity type
+// Calculate credits earned based on activity type
 function calculateCredits(activityType) {
-  // Mapping of activity types to corresponding credit values
   const creditMap = {
     "daily-login": 5,
     "journal-entry": 10,
@@ -9,7 +8,6 @@ function calculateCredits(activityType) {
     exercise: 25,
   };
 
-  // Return the mapped credits or 0 if activityType not found
   return creditMap[activityType] || 0;
 }
 

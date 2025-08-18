@@ -3,7 +3,7 @@ WomenLine is a comprehensive wellness platform designed to empower women by mana
 
 🌐 Deployment Links
 Service URL
-Backend (Render) https://your-render-url
+Backend (Render) [https://team5555-womenline-final.onrender.com]
 GitHub Repo [https://github.com/Poorvi-tech/team5555-Womenline.git]
 
 ⚙️ Tech Stack
@@ -157,7 +157,9 @@ POST /api/whatsapp/send-whatsapp — Send WhatsApp message via bot
 
 File Uploads
 POST /api/upload/file — Upload files
+GET /uploads/pdf/:filename — Access uploaded PDF files
 POST /api/voice/upload — Upload voice entry
+GET /uploads/voice/:filename — Access uploaded voice files
 
 Abuse Reporting
 POST /api/abuse/report-abuse — Report abuse
@@ -178,6 +180,11 @@ DELETE /api/appointments/:id — Cancel an appointment
 Doctor Checklist
 GET /api/doctor-checklist — Fetch doctor checklist
 POST /api/checklist — Add new doctor/checklist (Admin Only)
+
+Utility & Health Check
+GET /health — Check server status (Render deployment)
+GET /error-test — Test error handling (Localhost)
+GET /test-success — Test success response (Localhost)
 
 🔄 Seeder (Dummy Data for Rewards)
 Run the seeder script to populate initial reward data:
@@ -209,6 +216,8 @@ Week 1 Backend Setup, MongoDB Schemas, Auth APIs, Journal Base, Deploy to Render
 Week 2 Period Tracker, Rewards, Green Credit Logic, API Testing, Protected Routes
 Week 3 Abuse Reports, Forum Posts, PDF Export, WhatsApp Alerts, Final Test & QA
 Week 4 Appointment Booking, Forum Replies, Doctor Checklist, Final Documentation, Full API Testing, Email OTP Integration
+Week 5 Community Forum, Rewards Tracking, Security Audits, Automated Testing, Audit Trail
+Week 6 Database & Models Finalization, API Testing, Secure Deployment & Integration
 
 👥 Contributors
 Team 5555 – Backend Team

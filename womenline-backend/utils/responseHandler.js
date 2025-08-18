@@ -1,3 +1,4 @@
+// Returns a standardized error response
 function errorResponse(message, error = null) {
   return {
     success: false,
@@ -6,6 +7,7 @@ function errorResponse(message, error = null) {
   };
 }
 
+// Returns a standardized success response
 function successResponse(message, data = {}) {
   return {
     success: true,

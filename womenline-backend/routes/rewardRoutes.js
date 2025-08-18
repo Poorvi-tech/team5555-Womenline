@@ -8,9 +8,7 @@ const abusePrevention = require("../middleware/abusePrevention");
 const { getRedemptionHistory } = require('../controllers/rewardController');
 
 
-// @route   POST /api/reward/earn-credits
-// @desc    Earn green credits based on activity
-// @access  Protected (authenticated users)
+// Earn credits (protected)
 router.post(
   "/earn-credits",
   authMiddleware.protect,
@@ -18,15 +16,10 @@ router.post(
   rewardController.earnCredits
 );
 
-
-// @route   GET /api/reward/
-// @desc    Fetch all rewards
-// @access  Public
+// Get all rewards (public)
 router.get("/", rewardController.getRewards);
 
-// @route   POST /api/reward/redeem
-// @desc    Redeem a reward using credits
-// @access  Protected (mother, caregiver, admin, user)
+// Redeem a reward (mother, caregiver, admin, user)
 router.post(
   "/redeem",
   authMiddleware.protect,
@@ -34,15 +27,14 @@ router.post(
   redeemReward
 );
 
-// @route   GET /api/reward/user-credits
-// @desc    Get current user's green credits
-// @access  Protected (authenticated users)
+// Get user's green credits (protected)
 router.get(
   "/user-credits",
   authMiddleware.protect,
   rewardController.getUserCredits
 );
 
+// Get user's redemption history (protected)
 router.get(
   '/user/redemption-history',
   authMiddleware.protect,
