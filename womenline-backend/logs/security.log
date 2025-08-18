@@ -1,2 +1,0 @@
-[2025-08-16T09:51:59.368Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: poorvi@example.com
-[2025-08-16T09:52:26.627Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvi@example.com

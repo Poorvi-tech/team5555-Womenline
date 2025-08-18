@@ -6,7 +6,7 @@ const logEvent = require("../utils/logger");
 const logAuditTrail = require("../utils/logAuditTrail");
 const { sendOtpEmail } = require('../utils/emailService');
 
-let otpStore = {};  // <== Global Scope
+let otpStore = {}; 
 
 // Controller for user registration
 exports.registerUser = async (req, res) => {

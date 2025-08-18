@@ -1,18 +1,21 @@
 const express = require("express");
 const router = express.Router();
-
-//const { registerUser, loginUser ,sendOtp,verifyOtp} = require("../controllers/authController");
 const authController=require("../controllers/authController");
+const { protect } = require("../middleware/authMiddleware");
 
-// Register a new user
-// Endpoint: POST /api/auth/register
+// Register new user
 router.post("/register",authController.registerUser);
 
-// Login an existing user
-// Endpoint: POST /api/auth/login
+// Login user
 router.post("/login",authController.loginUser);
+
+// Send OTP
 router.post("/send-otp",authController.sendOtp );
+
+// Verify OTP
 router.post("/verify-otp",authController.verifyOtp);
-router.get("/token-check", authController.tokenCheck);
+
+// Token check (protected)
+router.get("/token-check", protect, authController.tokenCheck);
 
 module.exports = router;

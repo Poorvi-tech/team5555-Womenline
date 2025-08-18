@@ -4,9 +4,7 @@ const router = express.Router();
 const { logPeriod, getPeriodLogs } = require("../controllers/periodController");
 const { protect, rolecheck } = require("../middleware/authMiddleware");
 
-// @route   POST /api/period/period-log
-// @desc    Log a new period entry
-// @access  Protected (Roles: mother, caregiver, admin, user)
+// Log a new period entry (mother, caregiver, admin, user)
 router.post(
   "/period-log",
   protect,
@@ -14,9 +12,7 @@ router.post(
   logPeriod
 );
 
-// @route   GET /api/period/period-log/:userId
-// @desc    Fetch period logs for a specific user
-// @access  Protected (Roles: mother, caregiver, admin, user
+// Get period logs for a user (mother, caregiver, admin, user)
 router.get(
   "/period-log/:userId",
   protect,
