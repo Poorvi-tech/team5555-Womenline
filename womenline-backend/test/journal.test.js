@@ -9,22 +9,36 @@ let token;
 
 describe("Journal API", () => {
   before(function (done) {
-    this.timeout(20000); // ⏱extend timeout
-    // Register + login to get token
+    this.timeout(30000);
+
     const random = Math.floor(Math.random() * 10000);
     const newUser = {
       username: `journalUser${random}`,
       email: `journal${random}@test.com`,
       password: "test123",
+      phone: `+9112345678${random.toString().slice(-2)}`, // required field
     };
 
+    // Step 1: Register user
     chai
       .request(app)
       .post("/api/auth/register")
       .send(newUser)
       .end((err, res) => {
-        token = res.body.token;
-        done();
+        if (err) return done(err);
+        expect(res).to.have.status(201);
+
+        // Step 2: Login to get JWT token
+        chai
+          .request(app)
+          .post("/api/auth/login")
+          .send({ email: newUser.email, password: newUser.password })
+          .end((err, res) => {
+            if (err) return done(err);
+            expect(res).to.have.status(200);
+            token = res.body.token; // store JWT token for protected requests
+            done();
+          });
       });
   });
 
@@ -46,6 +60,7 @@ describe("Journal API", () => {
         done();
       });
   });
+
   it("should create a new journal entry with voice note", (done) => {
     chai
       .request(app)

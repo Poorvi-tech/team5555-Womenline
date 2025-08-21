@@ -17,6 +17,7 @@ describe(" Abuse Reporting API", function () {
       username: "Abuse Tester",
       email: "abuse@example.com",
       password: "password123",
+      phone: "+919876543210",
     };
 
     // Register User

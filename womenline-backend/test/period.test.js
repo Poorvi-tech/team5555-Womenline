@@ -8,13 +8,14 @@ chai.use(chaiHttp);
 let token, userId;
 
 describe("Period Tracker API", () => {
+  // Register a test user before running the tests
   before((done) => {
     const random = Math.floor(Math.random() * 10000);
     const user = {
       username: `periodUser${random}`,
       email: `period${random}@test.com`,
       password: "test123",
-      role: "mother",
+      phone: `+9112345${random}`, 
     };
 
     chai
@@ -23,8 +24,13 @@ describe("Period Tracker API", () => {
       .send(user)
       .end((err, res) => {
         if (err) return done(err);
+
+        if (res.status !== 201) {
+          return done(new Error(`Registration failed: ${res.body.message}`));
+        }
+
         token = res.body.token;
-        userId = res.body.user?._id || res.body._id || null;
+        userId = res.body.user?._id;
 
         if (!userId) return done(new Error("userId not returned"));
 
@@ -49,13 +55,16 @@ describe("Period Tracker API", () => {
       .set("Authorization", `Bearer ${token}`)
       .send(periodData)
       .end((err, res) => {
+        if (err) return done(err);
+
         expect(res).to.have.status(201);
         expect(res.body.success).to.be.true;
         expect(res.body.data).to.include.all.keys(
           "userId",
           "startDate",
           "endDate",
-          "mood"
+          "mood",
+          "cycleLength"
         );
         done();
       });
@@ -67,6 +76,8 @@ describe("Period Tracker API", () => {
       .get(`/api/period-log/${userId}`)
       .set("Authorization", `Bearer ${token}`)
       .end((err, res) => {
+        if (err) return done(err);
+
         expect(res).to.have.status(200);
         expect(res.body.success).to.be.true;
         expect(res.body.data).to.be.an("array");

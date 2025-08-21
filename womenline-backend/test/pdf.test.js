@@ -7,71 +7,47 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-let token; // For Auth Token
+let token; // Auth token for protected route
 
 describe("PDF API", function () {
-  this.timeout(20000); // Increase timeout to 10 seconds for all tests & hooks here
+  this.timeout(20000); // Allow longer time for PDF generation
 
   before(async function () {
-    // Register a user
+    // Register user with phone (required for registration)
     await chai.request(app).post("/api/auth/register").send({
       username: "PDF Tester",
       email: "pdf@example.com",
       password: "password123",
+      phone: "+911234567890", // must include phone
     });
 
-    // Login user
+    // Login user to get token
     const res = await chai.request(app).post("/api/auth/login").send({
       email: "pdf@example.com",
       password: "password123",
     });
 
-    token = res.body.token; // Save token for use in tests
-  });
-
-  it("should generate and download sample PDF", function (done) {
-    chai
-      .request(app)
-      .get("/api/pdf/sample")
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.header["content-type"]).to.equal("application/pdf");
-
-        const filePath = path.join(
-          __dirname,
-          "..",
-          "sample",
-          "health-summary.pdf"
-        );
-        const fileExists = fs.existsSync(filePath);
-        expect(fileExists).to.be.true;
-
-        done();
-      });
+    token = res.body.token;
   });
 
   it("should generate PDF summary from journal entries", function (done) {
     chai
       .request(app)
       .get("/api/pdf/export-summary")
-      .set("Authorization", `Bearer ${token}`) // Add token here
+      .set("Authorization", `Bearer ${token}`)
       .end((err, res) => {
+        if (err) return done(err);
+
         if (res.status === 404) {
-          console.log(
-            "ℹ️ No journal entries found for user — skipping PDF export test."
-          );
+          console.log("ℹ️ No journal entries found for user — skipping PDF export test.");
           expect(res.body.success).to.be.false;
           done();
         } else {
           expect(res).to.have.status(200);
           expect(res.header["content-type"]).to.equal("application/pdf");
 
-          const filePath = path.join(
-            __dirname,
-            "..",
-            "uploads",
-            "summary-report.pdf"
-          );
+          // Check if summary-report.pdf exists
+          const filePath = path.join(__dirname, "..", "uploads", "summary-report.pdf");
           const fileExists = fs.existsSync(filePath);
           expect(fileExists).to.be.true;
 

@@ -18,6 +18,7 @@ describe("Auth API", () => {
       username: `testuser${random}`,
       email: `test${random}@example.com`,
       password: "test123",
+      phone: "+919876543210",
     };
 
     chai

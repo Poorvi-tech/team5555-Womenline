@@ -17,6 +17,7 @@ describe("Appointment API", function () {
       username: `appointmentUser${random}`,
       email: `appointment${random}@test.com`,
       password: "test123",
+      phone: "+919876543210",
     };
 
     chai

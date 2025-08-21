@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const Journal = require("../models/Journal");
 const generateSamplePDF = require("../utils/pdfGenerator");
+const PdfExport = require("../models/PdfExport");
 const logEvent = require("../utils/logger");
 const logAuditTrail = require("../utils/logAuditTrail");
 
@@ -57,7 +58,12 @@ const exportSummary = async (req, res) => {
 
     const outputPath = path.join(__dirname, "..", "uploads", "summary-report.pdf");
     await generateSamplePDF(data, outputPath);
-
+    
+    await PdfExport.create({
+      userId,
+      exportType: "summary-report",
+    });
+    
     logEvent("EXPORT_SUMMARY_SUCCESS", `Summary PDF generated for user ${userId}`);
     await logAuditTrail("PDF Export", JSON.stringify({ message: "Summary PDF exported", entryCount: journalSummary.length }), userId);
 
@@ -77,6 +83,7 @@ const exportSummary = async (req, res) => {
     });
   }
 };
+
 
 module.exports = {
   exportSummary,

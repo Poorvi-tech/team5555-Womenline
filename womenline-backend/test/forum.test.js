@@ -32,6 +32,7 @@ describe("Forum API", function () {
       username: "Poorvi",
       email: "poorvi@example.com",
       password: "password123",
+      phone: "+919876543210",
     });
     console.log("🧑 Test user created:", testUser._id);
 

@@ -12,10 +12,12 @@ describe("WhatsApp API", function () {
   let token;
 
   before(async () => {
+    // ✅ Added phone for registration
     await chai.request(app).post("/api/auth/register").send({
       username: "WhatsApp Tester",
       email: "whatsapp@example.com",
       password: "password123",
+      phone: "+919876543210",
     });
 
     const res = await chai.request(app).post("/api/auth/login").send({
@@ -76,29 +78,30 @@ describe("WhatsApp API", function () {
   });
 
   it("should rate limit after 5 requests", async () => {
-  const agent = chai.request.agent(app);  // Session isolate
+    const agent = chai.request.agent(app);
 
-  for (let i = 0; i < 5; i++) {
-    await agent
+    for (let i = 0; i < 5; i++) {
+      await agent
+        .post("/api/whatsapp/send-whatsapp")
+        .set("Authorization", `Bearer ${token}`)
+        .send({
+          phone: "+919876543210",
+          message: `Test message ${i + 1}`,
+        });
+    }
+
+    // 6th Request should be rate limited
+    const res = await agent
       .post("/api/whatsapp/send-whatsapp")
       .set("Authorization", `Bearer ${token}`)
       .send({
         phone: "+919876543210",
-        message: `Test message ${i + 1}`,
+        message: "This should be rate limited",
       });
-  }
 
-  // 6th Request - Use agent here too
-  const res = await agent
-    .post("/api/whatsapp/send-whatsapp")
-    .set("Authorization", `Bearer ${token}`)
-    .send({
-      phone: "+919876543210",
-      message: "This should be rate limited",
-    });
-
-  expect(res.status).to.equal(429);
-  expect(res.body.message).to.equal("Too many requests from this IP, please try again later.");
-});
-
+    expect(res.status).to.equal(429);
+    expect(res.body.message).to.equal(
+      "Too many requests from this IP, please try again later."
+    );
+  });
 });

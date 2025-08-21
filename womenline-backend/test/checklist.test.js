@@ -24,6 +24,7 @@ before(async function() {
       username: "TestChecklist",
       email,
       password: hashedPassword,
+      phone: "+919876543210",
       role: "user",
     });
   }

@@ -15,6 +15,7 @@ describe("🎙️ Voice Upload API", () => {
       username: "testuser",
       email: "testuser@example.com",
       password: "Test@1234",
+      phone: "+911234567891", // ✅ Added phone for registration
     };
 
     // Register user first
@@ -48,12 +49,16 @@ describe("🎙️ Voice Upload API", () => {
       .request(app)
       .post("/api/voice/upload")
       .set("Authorization", `Bearer ${token}`)
-      .attach("voiceFile", audioFile, "test-audio.mp3") // field name must match multer config
+      .field("moodTag", "happy")       // required field
+      .field("duration", 60)           // required field
+      .field("tags", "test,voice")     // required field
+      .field("audiotype", "mp3")       // required field
+      .attach("voiceFile", audioFile, "test-audio.mp3")
       .end((err, res) => {
-        expect(res).to.have.status(200);
+        expect(res).to.have.status(201);
         expect(res.body).to.have.property("message");
         expect(res.body.success).to.be.true;
-        expect(res.body.filePath).to.be.a("string");
+        expect(res.body.data).to.have.property("audioURL");
         done();
       });
   });
@@ -63,6 +68,28 @@ describe("🎙️ Voice Upload API", () => {
       .request(app)
       .post("/api/voice/upload")
       .set("Authorization", `Bearer ${token}`)
+      .field("moodTag", "happy")
+      .field("duration", 60)
+      .field("tags", "test,voice")
+      .field("audiotype", "mp3")
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body).to.have.property("message");
+        expect(res.body.success).to.be.false;
+        done();
+      });
+  });
+
+  it("should return error if required fields are missing", (done) => {
+    const audioFile = fs.readFileSync(
+      path.join(__dirname, "test-files", "test-audio.mp3")
+    );
+
+    chai
+      .request(app)
+      .post("/api/voice/upload")
+      .set("Authorization", `Bearer ${token}`)
+      .attach("voiceFile", audioFile, "test-audio.mp3")
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.have.property("message");

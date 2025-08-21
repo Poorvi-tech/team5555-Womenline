@@ -10,6 +10,7 @@ Body (JSON):
 "username": "Poorvi",
 "email": "poorvi@example.com",
 "password": "password123",
+"phone": "+91xxxxxxxxxx"
 }
 
 ➡️ Login User
