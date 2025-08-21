@@ -3,40 +3,25 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const { protect, rolecheck } = require("../middleware/authMiddleware");
+const { uploadVoiceEntry } = require("../controllers/voiceController");
 
 // Storage config for voice uploads
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/voice"); 
-  },
-  filename: function (req, file, cb) {
-    // Generate a unique filename: voice-<timestamp>.<extension>
+  destination: (req, file, cb) => cb(null, "uploads/voice"),
+  filename: (req, file, cb) => {
     const uniqueName = `voice-${Date.now()}${path.extname(file.originalname)}`;
     cb(null, uniqueName);
   },
 });
+const upload = multer({ storage });
 
-const upload = multer({ storage: storage });
-
-// Upload voice file (mother, caregiver, admin, user)
+// POST /api/voice/upload
 router.post(
   "/upload",
   protect,
   rolecheck(["mother", "caregiver", "admin", "user"]),
   upload.single("voiceFile"),
-  (req, res) => {
-    if (!req.file) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No voice file uploaded" });
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "Voice file uploaded successfully",
-      filePath: req.file.path,
-    });
-  }
+  uploadVoiceEntry
 );
 
 module.exports = router;

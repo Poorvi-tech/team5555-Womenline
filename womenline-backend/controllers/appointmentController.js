@@ -1,6 +1,9 @@
 const Appointment = require('../models/Appointment');
+const User = require('../models/User');
 const logEvent = require('../utils/logger');
 const logAuditTrail = require('../utils/logAuditTrail');
+const formatWhatsAppNumber = require("../utils/formatPhone");
+const sendWhatsAppMessage = require('../utils/whatsappService');
 
 // Book a new appointment
 exports.bookAppointment = async (req, res) => {
@@ -34,11 +37,21 @@ exports.bookAppointment = async (req, res) => {
       userId
     );
 
+    // Fetch user to send WhatsApp
+    const user = await User.findById(userId);
+if (user && user.phone) {
+  const formattedPhone = formatWhatsAppNumber(user.phone);
+  const message = `Hi ${user.username}, your appointment with Dr. ${doctorName} on ${new Date(date).toDateString()} at ${timeSlot} has been booked successfully.`;
+  await sendWhatsAppMessage(formattedPhone, message);
+}
+
     res.status(201).json({ success: true, data: { appointmentId: newAppointment._id } });
+
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
 
 // Get all appointments for the logged-in user
 exports.getUserAppointments = async (req, res) => {
@@ -94,8 +107,17 @@ exports.cancelAppointment = async (req, res) => {
       JSON.stringify({ appointmentId: req.params.id }),
       userId
     );
+    
+ // Fetch user to send WhatsApp notification
+    const user = await User.findById(userId);
+if (user && user.phone) {
+  const formattedPhone = formatWhatsAppNumber(user.phone);
+  const message = `Hi ${user.username}, your appointment on ${new Date(appointment.date).toDateString()} at ${appointment.timeSlot} has been cancelled.`;
+  await sendWhatsAppMessage(formattedPhone, message);
+}
 
     res.status(200).json({ success: true, message: 'Appointment cancelled' });
+
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

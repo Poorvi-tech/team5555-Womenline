@@ -34,3 +34,46 @@ exports.getChecklist = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+// Update checklist (admin only)
+exports.updateChecklist = async (req, res) => {
+  try {
+    const checklistId = req.params.id;
+    const updates = req.body;
+
+    const checklist = await DoctorChecklist.findById(checklistId);
+    if (!checklist) {
+      return res.status(404).json({ success: false, message: "Checklist not found" });
+    }
+
+    Object.keys(updates).forEach(key => {
+      checklist[key] = updates[key];
+    });
+
+    await checklist.save();
+
+    res.status(200).json({ success: true, message: "Checklist updated", checklist });
+  } catch (error) {
+    console.error("Update checklist error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// Delete checklist (admin only)
+exports.deleteChecklist = async (req, res) => {
+  try {
+    const checklistId = req.params.id;
+
+    const checklist = await DoctorChecklist.findById(checklistId);
+    if (!checklist) {
+      return res.status(404).json({ success: false, message: "Checklist not found" });
+    }
+
+    await DoctorChecklist.findByIdAndDelete(checklistId);
+
+    res.status(200).json({ success: true, message: "Checklist deleted" });
+  } catch (error) {
+    console.error("Delete checklist error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};

@@ -80,7 +80,7 @@ Headers: Authorization: Bearer <token>
 🪙 GREEN CREDITS & REWARDS
 ➡️ Earn Credits (Activity-Based)
 Method: POST
-Endpoint: /api/rewards/earn-credits
+Endpoint: /api/earn-credits
 Body (JSON):
 {
 "userId": "USER_ID",
@@ -117,10 +117,6 @@ GET /api/leaderboard
 Headers: Authorization: Bearer <token>
 
 📄 PDF EXPORT
-➡️ Download Sample Health PDF
-Method: GET
-Endpoint: /api/pdf/sample
-
 ➡️ Export Journal Summary PDF
 Method: GET
 Endpoint: /api/pdf/export-summary
@@ -137,6 +133,23 @@ Body (JSON):
 }
 Headers: Authorization: Bearer <token>
 
+➡️ WhatsApp Inbound Reply (Webhook Test)
+Method: POST
+Endpoint: /api/whatsapp/inbound
+Headers:
+Content-Type: application/x-www-form-urlencoded
+Body (x-www-form-urlencoded):
+From=whatsapp:+919074554804
+Body=hello
+✅ Purpose:
+Simulates Twilio inbound webhook → should trigger auto-reply + logs.
+
+➡️ Weekly Checklist Test (Broadcast Simulation)
+Method: GET
+Endpoint: /api/whatsapp/test-weekly-checklist
+✅ Purpose:
+Test sending a weekly checklist broadcast to all registered users (admin/dev testing only).
+
 📤 FILE UPLOADS
 ➡️ Upload General File (PDF/Image)
 Method: POST
@@ -148,7 +161,14 @@ Body (Form-Data):file: (Choose any .jpg, .png, .pdf)
 Method: POST
 Endpoint: /api/voice/upload
 Headers: Authorization: Bearer <token>
-Body (Form-Data):voiceFile: (Select .mp3 / .wav)
+Content-Type: multipart/form-data
+Body (Form-Data):| Key | Type | Value / Notes |
+|------------|--------|----------------------------------------|
+| voiceFile| File | Select .mp3 or .wav file |
+| moodTag | Text | happy, sad, neutral, angry, or anxious |
+| duration | Text | Duration in seconds as a number only (e.g., 45) |
+| tags | Text | Any tags for the voice note (e.g., morning, journal) |
+| audiotype| Text | Type/category of audio (e.g., journal, meditation) |
 
 ➡️ Test Voice Upload 
 Method: GET
@@ -203,7 +223,6 @@ Headers: Authorization: Bearer <token>
 ➡️ Report Forum Post 
 POST /api/forum/report-post
 Headers: Authorization: Bearer <token>
-
 {
   "postId": "POST_ID",
   "reason": "Spam content"
@@ -240,20 +259,37 @@ Headers: Authorization: Bearer <token>
 Method: GET
 Endpoint: /api/doctor-checklist
 Headers: Authorization: Bearer <token>
+✅ Purpose: Fetch all available doctors & their checklist (all authenticated users)
 
 ➡️ Add Doctor Checklist Step  
 Method: POST  
-Endpoint: /api/doctor-checklist  
+Endpoint: /api/checklist  
 Headers: Authorization: Bearer <admin_token>  
 Body (JSON):
 {
-"message": "Checklist step added successfully",
-"checklist": {
-"\_id": "user_id",
-"step": "Get 8 hours of sleep",
-"description": "Supports physical and mental recovery"
+  "doctorName": "Dr. Sharma",
+  "specialization": "Gynecologist",
+  "availability": "Mon-Fri, 10AM-4PM",
+  "contact": "+91xxxxxxxxxx"
 }
+✅ Purpose: Admin can add a new doctor checklist entry
+
+➡️ Update Doctor Checklist
+Method: PUT
+Endpoint: /api/checklist/:id
+Headers: Authorization: Bearer <admin_token>
+Body (JSON):
+{
+  "availability": "Mon-Wed, 10AM-3PM",
+  "contact": "+91xxxxxxxxxx"
 }
+✅ Purpose: Admin can update existing doctor checklist entry
+
+➡️ Delete Doctor Checklist
+Method: DELETE
+Endpoint: /api/checklist/:id
+Headers: Authorization: Bearer <admin_token>
+✅ Purpose: Admin can delete a doctor checklist entry
 
 ➡️ Check Token Validity
 Method: GET

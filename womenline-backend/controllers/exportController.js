@@ -78,26 +78,6 @@ const exportSummary = async (req, res) => {
   }
 };
 
-// Export static Sample PDF from sample folder
-const samplePdf = async (req, res) => {
-  const filePath = path.join(__dirname, "..", "sample", "health-summary.pdf");
-
-  if (!fs.existsSync(filePath)) {
-    logEvent("EXPORT_SAMPLE_PDF_FAIL", `Sample PDF not found`);
-    await logAuditTrail("Sample PDF Download Failed", JSON.stringify({ message: "Sample PDF not found" }), req.user?.id || "anonymous");
-    return res.status(404).json({ error: "Sample PDF not found." });
-  }
-
-  logEvent("EXPORT_SAMPLE_PDF", `User downloaded health-summary.pdf`);
-  await logAuditTrail("Sample PDF Download", `User downloaded health-summary.pdf`, req.user?.id || null);
-
-  res.setHeader("Content-Type", "application/pdf");
-  res.setHeader("Content-Disposition", "attachment; filename=health-summary.pdf");
-  const readStream = fs.createReadStream(filePath);
-  readStream.pipe(res);
-};
-
 module.exports = {
   exportSummary,
-  samplePdf,
 };

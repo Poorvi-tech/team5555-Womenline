@@ -1,11 +1,11 @@
+// maCoinRoutes.js
 const express = require("express");
 const router = express.Router();
-
 const { earnCredits } = require("../controllers/maCoinController");
 const { protect } = require("../middleware/authMiddleware");
-const abusePrevention = require("../middleware/abusePrevention");
+const dailyCoinLimit = require("../middleware/dailyCoinLimit");
 
 // Earn credits
-router.post("/earn-credits", protect, abusePrevention, earnCredits);
+router.post("/earn-credits", protect, dailyCoinLimit, earnCredits);
 
 module.exports = router;

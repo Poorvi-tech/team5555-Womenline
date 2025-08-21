@@ -1,0 +1,47 @@
+[2025-08-20T22:37:06.662Z] [✅ LOGIN_SUCCESS] [User: anonymous] poori@example.com
+[2025-08-20T22:37:08.118Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:37:08 +0000] "POST /api/auth/login HTTP/1.1" 200 332 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:37:17.430Z] [BOOK_APPOINTMENT] [User: 68a63b7295638c60d5400b82] Appointment booked with Dr. Dr. Poorvi on 2025-08-15T10:00:00Z at 10:00 AM - 10:30 AM
+[2025-08-20T22:37:17.964Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:37:17 +0000] "POST /api/appointments HTTP/1.1" 201 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:37:30.919Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:37:30 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 200 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:37:46.898Z] [HTTP] [User: anonymous] 3.92.232.213 - - [20/Aug/2025:22:37:46 +0000] "POST /api/whatsapp/inbound HTTP/1.1" 200 23 "-" "TwilioProxy/1.1"
+[2025-08-20T22:41:26.592Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: poorvi@example.com
+[2025-08-20T22:41:26.602Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:41:26 +0000] "POST /api/auth/register HTTP/1.1" 400 33 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:41:32.359Z] [✅ LOGIN_SUCCESS] [User: anonymous] poori@example.com
+[2025-08-20T22:41:34.100Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:41:34 +0000] "POST /api/auth/login HTTP/1.1" 200 332 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:41:42.886Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:41:42 +0000] "POST /api/appointments HTTP/1.1" 401 44 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:42:09.889Z] [BOOK_APPOINTMENT] [User: 68a63b7295638c60d5400b82] Appointment booked with Dr. Dr. Poorvi on 2025-08-15T10:00:00Z at 10:00 AM - 10:30 AM
+[2025-08-20T22:42:11.208Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:42:11 +0000] "POST /api/appointments HTTP/1.1" 201 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:42:20.347Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:42:20 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 200 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:42:31.866Z] [HTTP] [User: anonymous] 54.242.160.22 - - [20/Aug/2025:22:42:31 +0000] "POST /api/whatsapp/inbound HTTP/1.1" 200 23 "-" "TwilioProxy/1.1"
+[2025-08-20T22:42:41.163Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:42:41 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 200 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:44:43.470Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:44:43 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 200 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:45:20.646Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:45:20 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 200 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:45:56.979Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:45:56 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 200 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:46:18.579Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:46:18 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 200 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-20T22:53:27.215Z] [HTTP] [User: anonymous] ::1 - - [20/Aug/2025:22:53:27 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 200 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T05:30:38.387Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:05:30:38 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 404 173 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T05:31:15.743Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:05:31:15 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 404 173 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T05:31:30.282Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:05:31:30 +0000] "POST /api/whatsapp/inbound HTTP/1.1" 200 23 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T05:51:59.155Z] [✅ LOGIN_SUCCESS] [User: anonymous] poori@example.com
+[2025-08-21T05:52:00.174Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:05:52:00 +0000] "POST /api/auth/login HTTP/1.1" 200 332 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T05:53:51.947Z] [BOOK_APPOINTMENT] [User: 68a63b7295638c60d5400b82] Appointment booked with Dr. Dr. Poorvi on 2025-08-15T10:00:00Z at 10:00 AM - 10:30 AM
+[2025-08-21T05:53:53.692Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:05:53:53 +0000] "POST /api/appointments HTTP/1.1" 201 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:07:46.816Z] [✅ REGISTERED] [User: anonymous] pari@example.com
+[2025-08-21T06:07:48.569Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:07:48 +0000] "POST /api/auth/register HTTP/1.1" 201 367 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:08:30.771Z] [✅ LOGIN_SUCCESS] [User: anonymous] pari@example.com
+[2025-08-21T06:08:32.590Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:08:32 +0000] "POST /api/auth/login HTTP/1.1" 200 330 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:09:15.496Z] [HTTP] [User: anonymous] 3.88.209.21 - - [21/Aug/2025:06:09:15 +0000] "POST /api/whatsapp/inbound HTTP/1.1" 200 23 "-" "TwilioProxy/1.1"
+[2025-08-21T06:09:48.669Z] [BOOK_APPOINTMENT] [User: 68a6b7b2b25de1e42da9be36] Appointment booked with Dr. Dr. Poorvi on 2025-08-15T10:00:00Z at 10:00 AM - 10:30 AM
+[2025-08-21T06:09:50.568Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:09:50 +0000] "POST /api/appointments HTTP/1.1" 201 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:10:07.852Z] [✅ LOGIN_SUCCESS] [User: anonymous] pari@example.com
+[2025-08-21T06:10:08.540Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:10:08 +0000] "POST /api/auth/login HTTP/1.1" 200 330 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:10:43.331Z] [BOOK_APPOINTMENT] [User: 68a6b7b2b25de1e42da9be36] Appointment booked with Dr. Dr. Poorvi on 2025-08-15T10:00:00Z at 10:00 AM - 10:30 AM
+[2025-08-21T06:10:44.685Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:10:44 +0000] "POST /api/appointments HTTP/1.1" 201 68 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:11:24.106Z] [CANCEL_APPOINTMENT] [User: 68a6b7b2b25de1e42da9be36] Appointment 68a6b863b25de1e42da9be4b cancelled
+[2025-08-21T06:11:25.338Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:11:25 +0000] "DELETE /api/appointments/68a6b863b25de1e42da9be4b HTTP/1.1" 200 50 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:11:39.514Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:11:39 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 404 173 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:11:41.675Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:11:41 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 404 173 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:12:40.093Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:12:40 +0000] "POST /api/whatsapp/inbound HTTP/1.1" 200 23 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:13:32.860Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:13:32 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 404 173 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:16:25.676Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:16:25 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 404 173 "-" "PostmanRuntime/7.45.0"
+[2025-08-21T06:29:58.745Z] [HTTP] [User: anonymous] ::1 - - [21/Aug/2025:06:29:58 +0000] "GET /api/whatsapp/test-weekly-checklist HTTP/1.1" 200 68 "-" "PostmanRuntime/7.45.0"

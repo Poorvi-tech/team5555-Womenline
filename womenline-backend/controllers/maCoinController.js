@@ -1,63 +1,66 @@
-const User = require("../models/User");
 const MaCoin = require("../models/MaCoins");
+const User = require("../models/User");
+const calculateCredits = require("../utils/creditCalculator");
 const { successResponse, errorResponse } = require("../utils/responseHandler");
 const logEvent = require("../utils/logger");
 const logAuditTrail = require("../utils/logAuditTrail");
 
-// Controller to allow a user to earn green credits (MaCoins)
+// ✅ Earn green credits based on activityType & log in MaCoin history
 exports.earnCredits = async (req, res) => {
   try {
-    const userId = req.user.id; // Authenticated user's ID from protect middleware
-    const { type, source, coins } = req.body;
+    const { activityType, source } = req.body;
+    const userId = req.user.id;
 
-    // Validate required fields
-    if (!type || !source || !coins) {
+    if (!userId || !activityType || !source) {
       return res
         .status(400)
-        .json(errorResponse("All fields (type, source, coins) are required"));
+        .json(errorResponse("userId, activityType, and source are required"));
     }
 
-    // Fetch user from DB
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json(errorResponse("User not found"));
+    const coinsEarned = calculateCredits(activityType);
 
     // Update user's greenCredits balance
-    user.greenCredits += coins;
-    await user.save();
-
-    // Log this earning in MaCoins collection
-    const newLog = new MaCoin({
-      userId,
-      amount: coins,
-      activityLog: { type, source, coins },
+    await User.findByIdAndUpdate(userId, {
+      $inc: { greenCredits: coinsEarned },
     });
 
-    await newLog.save();
+    // Log the activity in MaCoin collection
+    const maCoinEntry = new MaCoin({
+      userId,
+      activityLog: {
+        type: activityType,
+        source,
+        coins: coinsEarned,
+      },
+      amount: coinsEarned,
+    });
 
-    // Tamper-Proof Audit Trail Logging
+    await maCoinEntry.save();
+
+    logEvent(
+      "EARN_CREDITS",
+      `+${coinsEarned} credits for ${activityType} via ${source}`,
+      userId
+    );
+
+    // 🔒 Audit Trail Logging with stringified details
     await logAuditTrail(
       "EARN_CREDITS",
       JSON.stringify({
-        type,
+        activityType,
         source,
-        coins,
-        updatedBalance: user.greenCredits,
+        coinsEarned,
       }),
       userId
     );
 
-    logEvent(
-      "EARN_CREDITS",
-      `User earned ${coins} credits from ${source}`,
-      userId
+    return res.status(200).json(
+      successResponse("Credits earned successfully", {
+        coinsEarned,
+      })
     );
-
-    return res
-      .status(200)
-      .json(
-        successResponse("Credits earned", { greenCredits: user.greenCredits })
-      );
   } catch (error) {
-    return res.status(500).json(errorResponse("Failed to earn credits", error));
+    console.error("Earn Credits Error:", error);
+    return res.status(500).json(errorResponse("Server error", error));
   }
 };

@@ -277,34 +277,6 @@
 			"response": []
 		},
 		{
-			"name": "pdf sample",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "",
-						"value": "",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "http://localhost:5000/api/pdf/sample",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"pdf",
-						"sample"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "period-log",
 			"request": {
 				"method": "POST",
@@ -1115,6 +1087,104 @@
 						"1755450842359.jpg"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "whatsapp-reply",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "From",
+							"value": "whatsapp:+919074554804",
+							"type": "text"
+						},
+						{
+							"key": "Body",
+							"value": "hello",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/whatsapp/inbound",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"whatsapp",
+						"inbound"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "whatsapp-weekly-test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/whatsapp/test-weekly-checklist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"whatsapp",
+						"test-weekly-checklist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-checklist",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTVkMjJmMGJiODcxZjc5NjNiNjVhYSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NTcyMDg4NCwiZXhwIjoxNzU1NzI0NDg0fQ.gB0Js2MsVNBsRI5Zt8k3nATQbyyjazkPeTaxyASNU4Q",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/checklist/<checklist_id>",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"checklist",
+						"<checklist_id>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-checklist",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}

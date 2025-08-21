@@ -5,15 +5,17 @@ const crypto = require('crypto');
 const logEvent = require("../utils/logger");
 const logAuditTrail = require("../utils/logAuditTrail");
 const { sendOtpEmail } = require('../utils/emailService');
+const formatWhatsAppNumber = require("../utils/formatPhone");
+const sendWhatsAppMessage = require("../utils/whatsappService");
 
 let otpStore = {}; 
 
 // Controller for user registration
 exports.registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, phone } = req.body;
 
   try {
-    if (!username || !email || !password) {
+    if (!username || !email || !password || !phone) {
       logEvent("❌ REGISTER_FAIL", `Missing fields during registration`);
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -34,6 +36,7 @@ exports.registerUser = async (req, res) => {
       username,
       email,
       password: hashedPassword,
+       phone,
       role: defaultRole,
       greenCredits: 0, // optionally default
     });
@@ -45,6 +48,15 @@ exports.registerUser = async (req, res) => {
 
     const token = jwt.sign({ id: newUser._id, role: newUser.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
+// ✅ Send WhatsApp notification after registration
+if (newUser.phone) {
+  const formattedPhone = formatWhatsAppNumber(newUser.phone);
+  await sendWhatsAppMessage(
+    formattedPhone,
+    `Hello ${newUser.username}, 🎉 welcome to WomenLine! Your registration was successful.`
+  );
+}
+
     res.status(201).json({
       message: "User registered successfully",
       token,
@@ -52,6 +64,7 @@ exports.registerUser = async (req, res) => {
         _id: newUser._id,
         username: newUser.username,
         email: newUser.email,
+        phone: newUser.phone,
         role: newUser.role,
       },
     });
@@ -89,6 +102,15 @@ exports.loginUser = async (req, res) => {
     await logAuditTrail("User Login", JSON.stringify({ email: user.email }), user._id);
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+  // ✅ Send WhatsApp notification after login
+if (user.phone) {
+  const formattedPhone = formatWhatsAppNumber(user.phone);
+  await sendWhatsAppMessage(
+    formattedPhone,
+    `Hello ${user.username}, you have successfully logged in ✅`
+  );
+}
 
     res.status(200).json({
       message: "Login successful",

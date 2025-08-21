@@ -1,0 +1,23 @@
+[
+  {
+    "userId": "68a5d22f0bb871f7963b65aa",
+    "mood": "Happy",
+    "note": "Feeling great today!",
+    "periodDay": "normal",
+    "date": "2025-07-01"
+  },
+  {
+    "userId": "68a5d22f0bb871f7963b65aa",
+    "mood": "Stressed",
+    "note": "A bit overwhelmed",
+    "periodDay": "light",
+    "date": "2025-07-02"
+  },
+  {
+    "userId": "68a5d22f0bb871f7963b65aa",
+    "mood": "Peaceful",
+    "note": "Calm and relaxed",
+    "periodDay": "normal",
+    "date": "2025-07-03"
+  }
+]

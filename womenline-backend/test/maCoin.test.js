@@ -8,15 +8,13 @@ chai.use(chaiHttp);
 
 let token;
 
-// Permanent dummy user email
 const DUMMY_EMAIL = "maCoin_dummy@test.com";
 const DUMMY_PASSWORD = "test123";
 
 describe("MaCoin API", () => {
   before(async function () {
-    this.timeout(20000); // extend timeout
+    this.timeout(20000);
 
-    // Check if dummy user exists, else create
     let user = await User.findOne({ email: DUMMY_EMAIL });
     if (!user) {
       const res = await chai
@@ -29,7 +27,6 @@ describe("MaCoin API", () => {
         });
       token = res.body.token;
     } else {
-      // Login existing dummy user
       const res = await chai
         .request(app)
         .post("/api/auth/login")
@@ -43,9 +40,8 @@ describe("MaCoin API", () => {
 
   it("should allow a user to earn green credits", (done) => {
     const creditData = {
-      type: "challenge",
-      source: "recycled_plastic",
-      coins: 10,
+      activityType: "challenge",
+      source: "recycled_plastic"
     };
 
     chai
@@ -56,7 +52,7 @@ describe("MaCoin API", () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.success).to.be.true;
-        expect(res.body.data.greenCredits).to.be.a("number");
+        expect(res.body.data.coinsEarned).to.be.a("number");
         done();
       });
   });
@@ -66,7 +62,7 @@ describe("MaCoin API", () => {
       .request(app)
       .post("/api/earn-credits")
       .set("Authorization", `Bearer ${token}`)
-      .send({ type: "challenge" }) // missing coins & source
+      .send({ activityType: "challenge" }) // missing source
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.success).to.be.false;

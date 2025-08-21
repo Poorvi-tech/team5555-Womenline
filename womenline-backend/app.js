@@ -17,7 +17,12 @@ const logEvent = require("./utils/logger");
 
 // ===== Express App Initialization =====
 const app = express();
+
+// Trust first proxy (needed for rate-limit behind proxies or localhost with X-Forwarded-For)
+app.set("trust proxy", 1);
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(helmet()); // Secure HTTP headers
 
 // ===== HTTP Logging =====
@@ -86,8 +91,10 @@ const forumRoutes = require("./routes/forumRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const checklistRoutes = require("./routes/checklistRoutes");
 const leaderboardRoutes = require("./routes/leaderboard");
+const whatsappTestRoute = require("./routes/whatsappTestRoute");
 
 // ===== Mount Routes =====
+app.use("/api/whatsapp", whatsappTestRoute);
 app.use("/api/leaderboard", leaderboardRoutes);
 app.use("/api/voice", voiceRoutes);
 app.use("/api/whatsapp", whatsappRoutes);
@@ -126,6 +133,10 @@ app.get("/health", (req, res) => {
 
 // ===== Error Handler =====
 app.use(errorHandler);
+
+// app.js ke last part me
+const startWeeklyChecklistJob = require("./jobs/weeklyChecklistJob");
+startWeeklyChecklistJob();
 
 // ===== Start Server =====
 const PORT = process.env.PORT || 5000;

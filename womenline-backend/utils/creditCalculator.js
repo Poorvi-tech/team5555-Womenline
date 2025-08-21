@@ -1,13 +1,6 @@
-// Calculate credits earned based on activity type
-function calculateCredits(activityType) {
-  const creditMap = {
-    "daily-login": 5,
-    "journal-entry": 10,
-    "period-log": 15,
-    meditation: 20,
-    exercise: 25,
-  };
+const creditMap = require("../data/credits.json");
 
+function calculateCredits(activityType) {
   return creditMap[activityType] || 0;
 }
 

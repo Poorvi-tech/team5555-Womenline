@@ -12,9 +12,10 @@ Backend Node.js, Express.js
 Database MongoDB (Atlas)
 Testing Mocha, Chai, Chai-HTTP
 Uploads Multer
-Logging Custom File Logger
+Logging Custom File Logger (Winston)
 Messaging Twilio WhatsApp API, Nodemailer
 Reports PDFKit
+Background Jobs Node Cron (Weekly Checklist Job)
 
 📦 Installation Guide
 
@@ -33,10 +34,12 @@ cp .env.example .env
 
 # Edit `.env` file with actual credentials (MongoDB URI, JWT Secret, Twilio creds, Email creds)
 
-# 4. Start the development server
+# 4. Start development server
+
 npm start
 
-# 5. Run all tests
+# 5. Run tests individually
+
 ⚠️ Important: Running npm test directly may cause errors due to simultaneous database connections. Please run test files one by one.
 npx mocha "test/journal.test.js" --timeout 30000 --exit
 npx mocha "test/maCoin.test.js" --timeout 30000 --exit
@@ -51,46 +54,38 @@ npx mocha "test/abuse.test.js" --timeout 30000 --exit
 npx mocha "test/auth.test.js" --timeout 30000 --exit
 npx mocha "test/appointments.test.js" --timeout 30000 --exit
 
-
 🛠️ Environment Variables (.env)
 Key Description
-MONGODB_URI MongoDB Connection String (MongoDB Atlas)
+MONGODB_URI MongoDB Atlas Connection String
 JWT_SECRET JWT Secret Key
-SESSION_SECRET Session Secret Key (For secure cookies/sessions)
+SESSION_SECRET Session Secret Key
 PORT Backend Port (default: 5000)
 TWILIO_ACCOUNT_SID Twilio Account SID
 TWILIO_AUTH_TOKEN Twilio Auth Token
 TWILIO_WHATSAPP_FROM Twilio WhatsApp Sender Number
-EMAIL_USER Sender Gmail ID (Nodemailer SMTP)
-EMAIL_PASS App Password for Gmail SMTP (Nodemailer)
-
-Example .env:
-MONGODB_URI=mongodb+srv://Vaishali:Vaishali%409@cluster0.senlk0l.mongodb.net/womenline?retryWrites=true&w=majority
-JWT_SECRET=yourSuperSecretKey
-SESSION_SECRET=yourSuperSecretKey
-PORT=5000
-TWILIO_ACCOUNT_SID=ACc97c55b3218dd77b8fe477b281cb0c2e
-TWILIO_AUTH_TOKEN=be59292335d2fc58637905164aa2ba92
-TWILIO_WHATSAPP_FROM=+14155238886
-EMAIL_USER=womenlinetime5555@gmail.com
-EMAIL_PASS=mqgzregtgcrfcynm
+EMAIL_USER Gmail ID for SMTP
+EMAIL_PASS Gmail App Password for SMTP
+NODE_ENV=development  /  NODE_ENV=production
 
 📂 Project Folder Structure
 womenline-backend/
-├── controllers/       # API Controllers
-├── models/            # Mongoose Schemas
-├── routes/            # API Routes
-├── middleware/        # Auth, Role Checks, Upload Middlewares
-├── utils/             # Logger, PDF Generator, Credit Calculator, Email Service
-├── uploads/           # Uploaded Files
-│   └── voice/
-├── logs/              # Security Logs
+├── controllers/        # API Controllers
+├── models/             # MongoDB Schemas
+├── routes/             # API Routes
+├── middleware/         # Auth, Role checks, Error handler
+├── utils/              # Logger, PDF Generator, WhatsApp Service, Credits Calculator
+├── jobs/               # Background Jobs
+│   └── weeklyChecklistJob.js
+├── data/               # Static Data
+│   └── reward.json
+├── logs/               # Logs
+│   ├── app.log
+│   ├── error.log
 │   └── security.log
-├── seeders/           # Seeder Scripts
-├── test/              # API Tests
-├── app.js             # Main App Entry
+├── uploads/            # Uploaded Files (voice, pdf)
+├── test/               # Mocha-Chai Test Cases
+├── app.js              # Main App Entry
 └── .env.example
-
 
 🧪 Testing Overview
 All modules have 100% Mocha-Chai test coverage:
@@ -139,7 +134,7 @@ POST /api/period-log — Log period entry
 GET /api/period-log/:userId — Fetch period logs for a user
 
 Green Credits & Rewards
-POST /api/rewards/earn-credits — Earn credits (MaCoin)
+POST /api/earn-credits — Earn credits (MaCoin)
 POST /api/rewards/redeem — Redeem rewards
 GET /api/rewards — Fetch available rewards
 GET /api/rewards/user-credits — Fetch user's current credits
@@ -149,11 +144,12 @@ Leaderboard
 GET /api/leaderboard — Fetch leaderboard (MaCoin/Posts)
 
 PDF Reports
-GET /api/pdf/sample — Sample PDF download
 GET /api/pdf/export-summary — Export user summary PDF
 
 WhatsApp Integration
-POST /api/whatsapp/send-whatsapp — Send WhatsApp message via bot
+POST /api/whatsapp/send-whatsapp – Send message via bot
+POST /api/whatsapp/inbound – Twilio inbound webhook (auto replies)
+GET /api/whatsapp/test-weekly-checklist – Test weekly broadcast
 
 File Uploads
 POST /api/upload/file — Upload files
@@ -180,35 +176,41 @@ DELETE /api/appointments/:id — Cancel an appointment
 Doctor Checklist
 GET /api/doctor-checklist — Fetch doctor checklist
 POST /api/checklist — Add new doctor/checklist (Admin Only)
+PUT /api/checklist/:id — Update doctor/checklist (Admin Only)
+DELETE /api/checklist/:id — Delete doctor/checklist (Admin Only)
 
 Utility & Health Check
 GET /health — Check server status (Render deployment)
 GET /error-test — Test error handling (Localhost)
 GET /test-success — Test success response (Localhost)
 
-🔄 Seeder (Dummy Data for Rewards)
-Run the seeder script to populate initial reward data:
+📊 Logging
+app.log – General logs
+error.log – Error logs
+security.log – Audit trail (login, rewards, abuse reports, etc.)
+
+### Seeding Rewards
+To initialize rewards collection (run only once in production if empty):
+```bash
 npm run seed:rewards
+
 
 📤 Postman Collection
 Download and import the API collection into Postman for quick testing:
 Download womenline.postman_collection.json
 
 ✅ Completed Features
-Voice-enabled Journals with file upload
-Role-based API Protection (Auth + Rolecheck)
-Green Credit System & Reward Redemption Flow
+Role-based Auth + JWT
+Voice Journals (with uploads)
 Period & Mood Tracking
-PDF Health Summaries (PDFKit)
-WhatsApp Alerts Integration (Twilio)
-Abuse Reporting & Forum Posting Modules
-Appointment Booking API (CRUD)
-Forum Replies API
-Doctor Checklist API (Static)
-Email OTP Service (Nodemailer SMTP)
-Full Mocha-Chai API Test Coverage
-Secure Audit Logging Mechanism
-Render Deployment + GitHub Workflow CI/CD
+Rewards & Green Credit System
+WhatsApp Alerts + Weekly Checklist
+Abuse Reporting & Forum Module
+Appointment Booking System
+PDF Export (health summary)
+Audit Logging (security.log, app.log, error.log)
+Full Test Coverage (Mocha + Chai)
+Render Deployment + GitHub CI/CD
 
 📅 Backend Milestones
 Week Deliverables

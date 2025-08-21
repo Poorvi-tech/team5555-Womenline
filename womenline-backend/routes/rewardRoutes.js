@@ -4,17 +4,7 @@ const router = express.Router();
 const rewardController = require("../controllers/rewardController");
 const { redeemReward } = require("../controllers/rewardController");
 const authMiddleware = require("../middleware/authMiddleware");
-const abusePrevention = require("../middleware/abusePrevention");
 const { getRedemptionHistory } = require('../controllers/rewardController');
-
-
-// Earn credits (protected)
-router.post(
-  "/earn-credits",
-  authMiddleware.protect,
-  abusePrevention, 
-  rewardController.earnCredits
-);
 
 // Get all rewards (public)
 router.get("/", rewardController.getRewards);
@@ -36,10 +26,9 @@ router.get(
 
 // Get user's redemption history (protected)
 router.get(
-  '/user/redemption-history',
+  "/user/redemption-history",
   authMiddleware.protect,
   rewardController.getRedemptionHistory
 );
-
 
 module.exports = router;
