@@ -6,6 +6,8 @@
 | ----------------------- | ------ | ------------------------- | ------------------- |
 | `/api/auth/register`    | POST   | Register new user         | Public              |
 | `/api/auth/login`       | POST   | User login                | Public              |
+| `/forgot-password`      | POST   | forgot password           | Public              |
+| `/reset-password`       | POST   | reset password            | Public              |
 | `/api/auth/send-otp`    | POST   | Send OTP for verification | Public              |
 | `/api/auth/verify-otp`  | POST   | Verify OTP                | Public              |
 | `/api/auth/token-check` | GET    | Check valid token         | Authenticated Users |
@@ -30,7 +32,7 @@
 
 | Endpoint                          | Method | Purpose / Description           | Access Role         |
 | --------------------------------- | ------ | ------------------------------- | ------------------- |
-| `/api/earn-credits`       | POST   | Earn credits (MaCoin)           | Authenticated Users |
+| `/api/earn-credits`               | POST   | Earn credits (MaCoin)           | Authenticated Users |
 | `/api/rewards/redeem`             | POST   | Redeem rewards                  | Authenticated Users |
 | `/api/rewards`                    | GET    | Fetch available rewards         | Authenticated Users |
 | `/api/rewards/user-credits`       | GET    | Fetch user's current credits    | Authenticated Users |
@@ -87,13 +89,12 @@
 
 ## 11. Checklist / Doctor
 
-| Endpoint                | Method | Purpose / Description    | Access Role         |
-| ----------------------- | ------ | ------------------------ | ------------------- |
-| `/api/doctor-checklist` | GET    | Fetch doctor checklist   | Authenticated Users |
-| `/api/checklist`        | POST   | Add new doctor/checklist | Admin Only          |
-| `/api/checklist/:id`    | PUT    | Update existing checklist| Admin Only          |
-| `/api/checklist/:id`    | DELETE | Delete a checklist entry | Admin Only          |
-
+| Endpoint                | Method | Purpose / Description     | Access Role         |
+| ----------------------- | ------ | ------------------------- | ------------------- |
+| `/api/doctor-checklist` | GET    | Fetch doctor checklist    | Authenticated Users |
+| `/api/checklist`        | POST   | Add new doctor/checklist  | Admin Only          |
+| `/api/checklist/:id`    | PUT    | Update existing checklist | Admin Only          |
+| `/api/checklist/:id`    | DELETE | Delete a checklist entry  | Admin Only          |
 
 ## 12. Leaderboard
 

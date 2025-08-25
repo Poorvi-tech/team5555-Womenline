@@ -9,6 +9,8 @@ Think of it as a quick index + reference guide 🗂️
 
 ➡️POST /api/auth/register → Register a new user (Public)
 ➡️POST /api/auth/login → User login & get JWT token (Public)
+➡️POST /forgot-password → forgot password (Public)
+➡️POST /reset-password → reset password (Public) 
 ➡️POST /api/auth/send-otp → Send OTP to email/phone (Public)
 ➡️POST /api/auth/verify-otp → Verify user OTP (Public)
 ➡️GET /api/auth/token-check → Validate JWT token (Authenticated Users)

@@ -21,6 +21,23 @@ Body (JSON):
 "email": "poorvi@example.com",
 "password": "password123"
 }
+➡️ Forgot password
+Method: POST
+Endpoint: /forgot-password
+Body (JSON):
+{
+"email": "poorvi@example.com"
+}
+
+➡️ Reset Password
+Method: POST
+Endpoint: /reset-password
+Body (JSON):
+{
+"email": "poorvi@example.com",
+  "otp": "529973",
+"password": "password123"
+}
 
 ➡️ Send OTP (Forgot Password)
 Method: POST

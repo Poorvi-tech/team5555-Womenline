@@ -3,7 +3,7 @@ Models Documentation
 User
 Description: Stores user account info, roles, green credits, and redemption history.
 Fields:
-username (String, required, unique)
+username (String, required)
 email (String, required, unique)
 password (String, required)
 phone (String, required)
@@ -14,6 +14,7 @@ redemptionHistory (Array of Objects)
 rewardId (ObjectId, ref: Reward)
 redeemedAt (Date, default: now)
 createdAt, updatedAt (Date, auto)
+ isVerified (Boolean, default: false)
 Relationships: redemptionHistory.rewardId → Reward
 Example Entry:
 {

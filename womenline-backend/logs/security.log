@@ -1,4 +1,0 @@
-[2025-08-25T13:26:29.997Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: poorvisahu.8103@gmail.com
-[2025-08-25T13:26:30.009Z] [HTTP] [User: anonymous] ::1 - - [25/Aug/2025:13:26:30 +0000] "POST /api/auth/register HTTP/1.1" 400 33 "-" "PostmanRuntime/7.45.0"
-[2025-08-25T13:26:51.486Z] [HTTP] [User: anonymous] ::1 - - [25/Aug/2025:13:26:51 +0000] "POST /api/auth/forgot-password HTTP/1.1" 200 31 "-" "PostmanRuntime/7.45.0"
-[2025-08-25T13:27:05.775Z] [HTTP] [User: anonymous] ::1 - - [25/Aug/2025:13:27:05 +0000] "POST /api/auth/reset-password HTTP/1.1" 400 25 "-" "PostmanRuntime/7.45.0"
