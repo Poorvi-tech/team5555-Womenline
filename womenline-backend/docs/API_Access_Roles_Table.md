@@ -2,15 +2,15 @@
 
 ## 1. Authentication
 
-| Endpoint                | Method | Purpose / Description     | Access Role         |
-| ----------------------- | ------ | ------------------------- | ------------------- |
-| `/api/auth/register`    | POST   | Register new user         | Public              |
-| `/api/auth/login`       | POST   | User login                | Public              |
-| `/forgot-password`      | POST   | forgot password           | Public              |
-| `/reset-password`       | POST   | reset password            | Public              |
-| `/api/auth/send-otp`    | POST   | Send OTP for verification | Public              |
-| `/api/auth/verify-otp`  | POST   | Verify OTP                | Public              |
-| `/api/auth/token-check` | GET    | Check valid token         | Authenticated Users |
+| Endpoint                    | Method | Purpose / Description     | Access Role         |
+| --------------------------- | ------ | ------------------------- | ------------------- |
+| `/api/auth/register`        | POST   | Register new user         | Public              |
+| `/api/auth/login`           | POST   | User login                | Public              |
+| `/api/auth/forgot-password` | POST   | forgot password           | Public              |
+| `/api/auth/reset-password`  | POST   | reset password            | Public              |
+| `/api/auth/send-otp`        | POST   | Send OTP for verification | Public              |
+| `/api/auth/verify-otp`      | POST   | Verify OTP                | Public              |
+| `/api/auth/token-check`     | GET    | Check valid token         | Authenticated Users |
 
 ## 2. Journals
 

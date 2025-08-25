@@ -121,8 +121,8 @@ WhatsApp Alerts
 Authentication
 POST /api/auth/register — Register a new user
 POST /api/auth/login — Login & receive JWT
-POST /forgot-password - forgot password
-POST /reset-password - reset password 
+POST /api/auth/forgot-password - forgot password
+POST /api/auth/reset-password - reset password 
 POST /api/auth/send-otp — Send OTP for verification
 POST /api/auth/verify-otp — Verify OTP for authentication
 GET /api/auth/token-check — Check valid token

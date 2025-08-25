@@ -23,7 +23,7 @@ Body (JSON):
 }
 ➡️ Forgot password
 Method: POST
-Endpoint: /forgot-password
+Endpoint: /api/auth/forgot-password
 Body (JSON):
 {
 "email": "poorvi@example.com"
@@ -31,7 +31,7 @@ Body (JSON):
 
 ➡️ Reset Password
 Method: POST
-Endpoint: /reset-password
+Endpoint: /api/auth/reset-password
 Body (JSON):
 {
 "email": "poorvi@example.com",
