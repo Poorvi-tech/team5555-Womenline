@@ -18,4 +18,8 @@ router.post("/verify-otp",authController.verifyOtp);
 // Token check (protected)
 router.get("/token-check", protect, authController.tokenCheck);
 
+// Forgot & Reset Password
+router.post("/forgot-password", authController.forgotPassword);
+router.post("/reset-password", authController.resetPassword);
+
 module.exports = router;

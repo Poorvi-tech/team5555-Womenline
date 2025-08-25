@@ -7,7 +7,6 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
-      unique: true,
     },
     email: {
       type: String,
@@ -35,6 +34,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isVerified: {
+  type: Boolean,
+  default: false
+},
     redemptionHistory: [{
       rewardId: { type: mongoose.Schema.Types.ObjectId, ref: "Reward" },
       redeemedAt: { type: Date, default: Date.now }
