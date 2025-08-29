@@ -1,4 +1,3 @@
-// middleware/forumSpamFilter.js
 const ForumPost = require("../models/ForumPost");
 const mongoose = require("mongoose");
 let profanities = require("profanities");
@@ -6,7 +5,7 @@ let profanities = require("profanities");
 if (profanities.default && Array.isArray(profanities.default)) profanities = profanities.default;
 if (profanities.profanities && Array.isArray(profanities.profanities)) profanities = profanities.profanities;
 
-const POST_LIMIT =3;
+const POST_LIMIT = 3;
 const REPLY_LIMIT = 3;
 const HOUR_MS = 60 * 60 * 1000;
 
@@ -18,13 +17,16 @@ const forumSpamFilter = async (req, res, next) => {
 
     if (!message) return res.status(400).json({ message: "Message content is required." });
 
-    // Offensive check
-    const containsProfanity = Array.isArray(profanities) && profanities.some(word => message.includes(word.toLowerCase()));
+    // ✅ Improved Offensive check (word boundary)
+    const containsProfanity = Array.isArray(profanities) && profanities.some(word => {
+      const regex = new RegExp(`\\b${word}\\b`, "i");
+      return regex.test(message);
+    });
     if (containsProfanity) return res.status(400).json({ message: "Message contains inappropriate content." });
 
     const userObjectId = new mongoose.Types.ObjectId(userId);
 
-    // Check if it's a post request
+    // Post request spam check
     if (req.originalUrl.includes("/forum-post")) {
       const posts = await ForumPost.find({
         userId: userObjectId,
@@ -35,14 +37,13 @@ const forumSpamFilter = async (req, res, next) => {
         return res.status(429).json({ message: `Post limit reached. Maximum ${POST_LIMIT} per hour.` });
       }
 
-      // Repeated message check in posts only
       const lastMessages = posts.map(p => p.content.toLowerCase());
       if (lastMessages.includes(message)) {
         return res.status(400).json({ message: "Repeated message detected." });
       }
     }
 
-    // Check if it's a reply request
+    // Reply request spam check
     if (req.originalUrl.includes("/forum-reply")) {
       const recentReplies = await ForumPost.aggregate([
         { $match: { "replies.userId": userObjectId } },
@@ -55,7 +56,6 @@ const forumSpamFilter = async (req, res, next) => {
         return res.status(429).json({ message: `Reply limit reached. Maximum ${REPLY_LIMIT} per hour.` });
       }
 
-      // Repeated message check in replies only
       const lastMessages = recentReplies.map(r => r.content.toLowerCase());
       if (lastMessages.includes(message)) {
         return res.status(400).json({ message: "Repeated message detected." });

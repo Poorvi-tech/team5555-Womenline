@@ -9,65 +9,59 @@ const forumPostSchema = new mongoose.Schema({
   },
   content: {
     type: String,
-    required: true, // Main post content
+    required: true,
+    validate: {
+      validator: v => v && v.trim().length > 0,
+      message: "Post content cannot be empty"
+    }
   },
   tags: {
     type: [String],
     required: false, // Optional tags for categorization
   },
-  content: {
-  type: String,
-  required: true,
-  validate: {
-    validator: v => v && v.trim().length > 0,
-    message: "Reply content cannot be empty"
-  }
-},
-
   createdAt: {
     type: Date,
     default: Date.now, // Auto-set creation timestamp
   },
   reports: [
-  {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    reason: { type: String, required: true },
-    reportedAt: { type: Date, default: Date.now }
-  }
-],
+    {
+      userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      reason: { type: String, required: true },
+      reportedAt: { type: Date, default: Date.now }
+    }
+  ],
   replies: [
     {
       userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: false, // Optional for anonymous replie
+        required: false, // Optional for anonymous replies
       },
       content: {
         type: String,
-        required: true, // Reply content
+        required: true,
       },
       createdAt: {
         type: Date,
-        default: Date.now, // Auto-set reply timestamp
+        default: Date.now,
       },
     },
   ],
 });
 
-// Index for querying forum posts by tags
+// Index for querying forum posts by user
 forumPostSchema.index({ userId: 1 });
+forumPostSchema.index({ createdAt: -1 });
 
-forumPostSchema.pre('save', async function(next) {
+// Validate UserId existence before save
+forumPostSchema.pre("save", async function (next) {
   if (this.userId) {
-    const userExists = await mongoose.model('User').exists({ _id: this.userId });
+    const userExists = await mongoose.model("User").exists({ _id: this.userId });
     if (!userExists) {
-      throw new Error('Invalid userId for ForumPost');
+      throw new Error("Invalid userId for ForumPost");
     }
   }
   next();
 });
 
-
-// Mongoose model export
-const ForumPost = mongoose.model("ForumPost", forumPostSchema);
-module.exports = ForumPost;
+module.exports = mongoose.model("ForumPost", forumPostSchema);

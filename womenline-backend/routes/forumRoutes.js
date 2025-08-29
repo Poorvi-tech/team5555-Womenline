@@ -17,7 +17,6 @@ router.post(
 router.post(
   "/forum-reply/:postId",
   protect,
-  commentModeration,
   forumSpamFilter,
   forumController.addForumReply
 );

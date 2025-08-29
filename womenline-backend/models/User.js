@@ -17,9 +17,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    phone: {
-    type: String,
-    required: true
+    phone: { 
+  type: String, 
+  required: true,
+  validate: {
+    validator: function(v) {
+      // E.164 format check e.g. +919876543210
+      return /^\+[1-9]\d{1,14}$/.test(v);
+    },
+    message: props => `${props.value} is not a valid phone number!`
+  }
 },
     role: {
       type: String,
@@ -46,6 +53,12 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Hash password before save
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
 
 // Method to compare passwords during login
 userSchema.methods.comparePassword = async function (candidatePassword) {
