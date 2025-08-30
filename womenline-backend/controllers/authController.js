@@ -35,7 +35,7 @@ exports.registerUser = async (req, res) => {
     const newUser = new User({
       username,
       email,
-      password: hashedPassword,
+      password,
        phone,
       role: defaultRole,
       greenCredits: 0,

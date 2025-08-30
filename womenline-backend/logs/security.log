@@ -1,0 +1,14 @@
+[2025-08-30T10:40:16.006Z] [❌ LOGIN_FAIL] [User: anonymous] Wrong password for: poorvisahu.8103@gmail.com
+[2025-08-30T10:40:16.015Z] [HTTP] [User: anonymous] ::1 - - [30/Aug/2025:10:40:16 +0000] "POST /api/auth/login HTTP/1.1" 400 33 "-" "PostmanRuntime/7.45.0"
+[2025-08-30T10:40:22.722Z] [❌ REGISTER_FAIL] [User: anonymous] Attempted registration with existing email: poorvisahu.8103@gmail.com
+[2025-08-30T10:40:22.725Z] [HTTP] [User: anonymous] ::1 - - [30/Aug/2025:10:40:22 +0000] "POST /api/auth/register HTTP/1.1" 400 33 "-" "PostmanRuntime/7.45.0"
+[2025-08-30T10:40:30.759Z] [❌ LOGIN_FAIL] [User: anonymous] Wrong password for: poorvisahu.8103@gmail.com
+[2025-08-30T10:40:30.763Z] [HTTP] [User: anonymous] ::1 - - [30/Aug/2025:10:40:30 +0000] "POST /api/auth/login HTTP/1.1" 400 33 "-" "PostmanRuntime/7.45.0"
+[2025-08-30T10:40:56.399Z] [📧 REGISTER_OTP_SENT] [User: anonymous] OTP sent to poorvisahu9074@gmail.com
+[2025-08-30T10:40:56.533Z] [HTTP] [User: anonymous] ::1 - - [30/Aug/2025:10:40:56 +0000] "POST /api/auth/register HTTP/1.1" 201 98 "-" "PostmanRuntime/7.45.0"
+[2025-08-30T10:41:57.750Z] [📧 REGISTER_OTP_SENT] [User: anonymous] OTP sent to poorvisahu975@gmail.com
+[2025-08-30T10:41:57.899Z] [HTTP] [User: anonymous] ::1 - - [30/Aug/2025:10:41:57 +0000] "POST /api/auth/register HTTP/1.1" 201 97 "-" "PostmanRuntime/7.45.0"
+[2025-08-30T10:42:35.507Z] [HTTP] [User: anonymous] ::1 - - [30/Aug/2025:10:42:35 +0000] "POST /api/auth/verify-otp HTTP/1.1" 200 26 "-" "PostmanRuntime/7.45.0"
+[2025-08-30T10:42:40.415Z] [HTTP] [User: anonymous] ::1 - - [30/Aug/2025:10:42:40 +0000] "POST /api/auth/verify-otp HTTP/1.1" 400 37 "-" "PostmanRuntime/7.45.0"
+[2025-08-30T10:43:07.431Z] [✅ LOGIN_SUCCESS] [User: anonymous] poorvisahu975@gmail.com
+[2025-08-30T10:43:09.136Z] [HTTP] [User: anonymous] ::1 - - [30/Aug/2025:10:43:09 +0000] "POST /api/auth/login HTTP/1.1" 200 339 "-" "PostmanRuntime/7.45.0"
