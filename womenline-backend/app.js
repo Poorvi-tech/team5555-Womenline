@@ -48,7 +48,7 @@ if (!fs.existsSync(voicePath)) {
 // ===== CORS Setup =====
 const allowedOrigins = [
   "http://localhost:8000", // local frontend
-  "https://women-line-frontend.vercel.app", // live deployed frontend
+  "https://womenlineteam5555.onrender.com", // live deployed frontend
 ];
 app.use(
   cors({
